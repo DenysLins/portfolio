@@ -5,11 +5,12 @@
     "main": "index.js",
     "scripts": {
         "client": "cd client && npm start",
-        "server": "node server.js",
+        "server": "nodemon server.js",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
     },
     "dependencies": {
-        "express": "latest"
+        "express": "latest",
+        "nodemon": "^1.18.10"
     },
     "devDependencies": {
         "concurrently": "latest"
