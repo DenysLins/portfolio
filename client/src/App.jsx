@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
+
 import Home from "./components/home/Home";
-import SecondSection from "./components/SecondSection";
+import SecondSection from "./components/SectionOne/SectionOne";
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/second" component={SecondSection} />
+          <Route path="/home" component={Home} />
+          <Route path="/section_one" component={SecondSection} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

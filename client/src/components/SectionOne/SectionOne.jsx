@@ -2,18 +2,15 @@ import * as React from "react";
 import { Button, Form, FormControl, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-class SecondSection extends React.Component {
+class SectionOne extends React.Component {
   render() {
     return (
-      <>
+      <div id="section_one">
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Link to="/" className="m-1">
+            <Link to="/#home" className="m-1">
               Home
-            </Link>
-            <Link to="/second" className="m-1">
-              Second
             </Link>
           </Nav>
           <Form inline>
@@ -21,9 +18,9 @@ class SecondSection extends React.Component {
             <Button variant="outline-info">Search</Button>
           </Form>
         </Navbar>
-      </>
+      </div>
     );
   }
 }
 
-export default SecondSection;
+export default SectionOne;
