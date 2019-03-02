@@ -1,41 +1,20 @@
-import React, {Component} from "react";
-import logo from "./logo.svg";
+import React, { Component } from "react";
 import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./components/home/Home";
+import SecondSection from "./components/SecondSection";
 
 class App extends Component {
-    state = {
-        response: ""
-    };
-
-    componentDidMount() {
-        this.callApi()
-            .then(res => this.setState({response: res.express}))
-            .catch(err => console.log(err));
-    }
-
-    callApi = async () => {
-        const response = await fetch("/api/mensagem");
-        const body = await response.json();
-        if (response.status !== 200) throw Error(body.message);
-
-        return body;
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <p>
-                        Edit <code>src/App.js</code> and save to reload.
-                    </p>
-                    <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                        Learn React
-                    </a>
-                </header>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/second" component={SecondSection} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
