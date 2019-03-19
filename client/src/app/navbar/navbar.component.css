@@ -1,0 +1,12 @@
+.navbar-custom {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.nav-item {
+  text-transform: uppercase;
+  margin: 0 1rem;
+}
+
+.navbar-nav a:hover {
+  color: darkorange;
+}
