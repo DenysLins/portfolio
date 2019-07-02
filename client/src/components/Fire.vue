@@ -21,6 +21,7 @@ export default {
       pixelIndex: 0,
       decay: 1,
       componentKey: 0,
+      fireTime: 300,
       fireColorsPalette: [
         { r: 7, g: 7, b: 7 },
         { r: 31, g: 7, b: 7 },
@@ -65,13 +66,16 @@ export default {
   created() {
     this.createFireDataStructure();
     this.createFireSource();
-    this.calculateFirePropagation();
+  },
+  mounted() {
+    setInterval(() => {
+      this.calculateFirePropagation();
+    }, this.fireTime);
   },
   methods: {
     createFireDataStructure() {
       const numberOfPixels = this.fireWidth * this.fireHeight;
       this.firePixelsArray = new Array(numberOfPixels).fill(0);
-      console.log("createFireDataStructure");
     },
     createFireSource() {
       for (let column = 0; column <= this.fireWidth; column++) {
@@ -79,7 +83,6 @@ export default {
         const pixelIndex = overflowPixelIndex - this.fireWidth + column;
         this.firePixelsArray[pixelIndex] = 36;
       }
-      console.log("createFireSource");
     },
     calculateFirePropagation() {
       for (let column = 0; column < this.fireWidth; column++) {
@@ -99,7 +102,8 @@ export default {
         belowPixelFireIntensity - this.decay >= 0
           ? belowPixelFireIntensity - this.decay
           : 0;
-      this.firePixelsArray[currentPixelIndex] = newFireIntensity;
+      // this.firePixelsArray[currentPixelIndex] = newFireIntensity;
+      this.$set(this.firePixelsArray, currentPixelIndex, newFireIntensity);
     }
   }
 };
