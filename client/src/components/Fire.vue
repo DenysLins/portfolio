@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="flex-item">
+    <div>
+      <label for="range-1">Direção do vento</label>
+      <b-form-input id="range-1" v-model="value" type="range" min="0" max="1"></b-form-input>
+    </div>
     <table cellpadding="0" cellspacing="0">
       <tr v-for="row in fireHeight" :key="row">
         <td
@@ -20,13 +24,14 @@
 export default {
   data() {
     return {
+      value: "1",
       firePixelsArray: [],
-      fireWidth: 120,
+      fireWidth: 180,
       fireHeight: 30,
       pixelIndex: 0,
       decay: 3,
       wind: 3,
-      fireTime: 100,
+      fireTime: 1,
       colors: 18,
       fireColorsPalette: [
         { r: 7, g: 7, b: 7 },
@@ -135,6 +140,11 @@ export default {
 </script>
 
 <style scoped>
+.flex-item {
+  flex-direction: column;
+  text-align: center;
+}
+
 table {
   /* border-collapse: collapse; */
   /* border: 1px solid #000; */
