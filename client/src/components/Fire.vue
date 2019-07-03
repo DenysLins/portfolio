@@ -26,7 +26,7 @@ export default {
       pixelIndex: 0,
       decay: 3,
       wind: 3,
-      fireTime: 10,
+      fireTime: 100,
       colors: 18,
       fireColorsPalette: [
         { r: 7, g: 7, b: 7 },
@@ -136,7 +136,7 @@ export default {
 
 <style scoped>
 table {
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   /* border: 1px solid #000; */
 }
 
@@ -144,19 +144,19 @@ td {
   width: 10px;
   height: 10px;
   /* border: 1px solid #000; */
-  text-align: center;
-  font-family: monospace;
-  vertical-align: center;
-  font-size: 18px;
-  position: relative;
+  /* text-align: center; */
+  /* font-family: monospace; */
+  /* vertical-align: center; */
+  /* font-size: 18px; */
+  /* position: relative; */
 }
 
-.pixel-index {
+/* .pixel-index {
   font-size: 10px;
   display: inline-block;
   position: absolute;
   top: 2px;
   right: 2px;
   color: #fff;
-}
+} */
 </style>
