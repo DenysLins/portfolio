@@ -1,10 +1,15 @@
 <template>
-  <div :key="componentKey">
+  <div>
     <table cellpadding="0" cellspacing="0">
       <tr v-for="row in fireHeight" :key="row">
-        <td v-for="column in fireWidth" :key="column">
-          <div class="pixel-index">{{ column - 1 + (row - 1) * fireWidth }}</div>
-          {{ firePixelsArray[column - 1 + (row - 1) * fireWidth] }}
+        <td
+          v-for="column in fireWidth"
+          :key="column"
+          :style="{ backgroundColor: getStyle(row, column)}"
+          class="pixel"
+        >
+          <!-- <div class="pixel-index">{{ column - 1 + (row - 1) * fireWidth }}</div> -->
+          <!-- {{ firePixelsArray[column - 1 + (row - 1) * fireWidth] }} -->
         </td>
       </tr>
     </table>
@@ -16,51 +21,54 @@ export default {
   data() {
     return {
       firePixelsArray: [],
-      fireWidth: 20,
-      fireHeight: 10,
+      fireWidth: 120,
+      fireHeight: 30,
       pixelIndex: 0,
-      decay: 1,
-      componentKey: 0,
-      fireTime: 300,
+      decay: 3,
+      wind: 3,
+      fireTime: 10,
+      colors: 18,
       fireColorsPalette: [
         { r: 7, g: 7, b: 7 },
-        { r: 31, g: 7, b: 7 },
+        // { r: 31, g: 7, b: 7 },
         { r: 47, g: 15, b: 7 },
-        { r: 71, g: 15, b: 7 },
+        // { r: 71, g: 15, b: 7 },
         { r: 87, g: 23, b: 7 },
-        { r: 103, g: 31, b: 7 },
+        // { r: 103, g: 31, b: 7 },
         { r: 119, g: 31, b: 7 },
-        { r: 143, g: 39, b: 7 },
+        // { r: 143, g: 39, b: 7 },
         { r: 159, g: 47, b: 7 },
-        { r: 175, g: 63, b: 7 },
+        // { r: 175, g: 63, b: 7 },
         { r: 191, g: 71, b: 7 },
-        { r: 199, g: 71, b: 7 },
+        // { r: 199, g: 71, b: 7 },
         { r: 223, g: 79, b: 7 },
+        // { r: 223, g: 87, b: 7 },
         { r: 223, g: 87, b: 7 },
-        { r: 223, g: 87, b: 7 },
+        // { r: 215, g: 95, b: 7 },
         { r: 215, g: 95, b: 7 },
-        { r: 215, g: 95, b: 7 },
-        { r: 215, g: 103, b: 15 },
+        // { r: 215, g: 103, b: 15 },
         { r: 207, g: 111, b: 15 },
-        { r: 207, g: 119, b: 15 },
+        // { r: 207, g: 119, b: 15 },
         { r: 207, g: 127, b: 15 },
-        { r: 207, g: 135, b: 23 },
+        // { r: 207, g: 135, b: 23 },
         { r: 199, g: 135, b: 23 },
-        { r: 199, g: 143, b: 23 },
+        // { r: 199, g: 143, b: 23 },
         { r: 199, g: 151, b: 31 },
+        // { r: 191, g: 159, b: 31 },
         { r: 191, g: 159, b: 31 },
-        { r: 191, g: 159, b: 31 },
+        // { r: 191, g: 167, b: 39 },
         { r: 191, g: 167, b: 39 },
-        { r: 191, g: 167, b: 39 },
-        { r: 191, g: 175, b: 47 },
+        // { r: 191, g: 175, b: 47 },
         { r: 183, g: 175, b: 47 },
-        { r: 183, g: 183, b: 47 },
+        // { r: 183, g: 183, b: 47 },
         { r: 183, g: 183, b: 55 },
-        { r: 207, g: 207, b: 111 },
+        // { r: 207, g: 207, b: 111 },
         { r: 223, g: 223, b: 159 },
-        { r: 239, g: 239, b: 199 },
+        // { r: 239, g: 239, b: 199 },
         { r: 255, g: 255, b: 255 }
-      ]
+      ],
+      bgColor: "",
+      debug: false
     };
   },
   created() {
@@ -81,7 +89,7 @@ export default {
       for (let column = 0; column <= this.fireWidth; column++) {
         const overflowPixelIndex = this.fireWidth * this.fireHeight;
         const pixelIndex = overflowPixelIndex - this.fireWidth + column;
-        this.firePixelsArray[pixelIndex] = 36;
+        this.firePixelsArray[pixelIndex] = this.colors;
       }
     },
     calculateFirePropagation() {
@@ -97,13 +105,30 @@ export default {
       if (belowPixelIndex >= this.fireWidth * this.fireHeight) {
         return;
       }
+
+      const tempDecay = Math.floor(Math.random() * this.decay);
+      const tempWind = Math.floor(Math.random() * this.wind);
       const belowPixelFireIntensity = this.firePixelsArray[belowPixelIndex];
       const newFireIntensity =
-        belowPixelFireIntensity - this.decay >= 0
-          ? belowPixelFireIntensity - this.decay
+        belowPixelFireIntensity - tempDecay >= 0
+          ? belowPixelFireIntensity - tempDecay
           : 0;
-      // this.firePixelsArray[currentPixelIndex] = newFireIntensity;
-      this.$set(this.firePixelsArray, currentPixelIndex, newFireIntensity);
+      this.$set(
+        this.firePixelsArray,
+        currentPixelIndex + tempDecay,
+        newFireIntensity
+      );
+    },
+    getStyle(row, column) {
+      if (!this.debug && this.firePixelsArray && this.fireColorsPalette) {
+        const pixelIndex = column - 1 + this.fireWidth * (row - 1);
+        const fireIntensity = this.firePixelsArray[pixelIndex];
+        const color = this.fireColorsPalette[fireIntensity];
+        const colorString = `rgb(${color.r},${color.g},${color.b})`;
+        return colorString;
+      } else {
+        return "";
+      }
     }
   }
 };
@@ -112,20 +137,22 @@ export default {
 <style scoped>
 table {
   border-collapse: collapse;
-  border: 1px solid #fff;
+  /* border: 1px solid #000; */
 }
 
 td {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #fff;
+  width: 10px;
+  height: 10px;
+  /* border: 1px solid #000; */
   text-align: center;
-  font-size: 12px;
+  font-family: monospace;
+  vertical-align: center;
+  font-size: 18px;
   position: relative;
 }
 
 .pixel-index {
-  font-size: 6px;
+  font-size: 10px;
   display: inline-block;
   position: absolute;
   top: 2px;
