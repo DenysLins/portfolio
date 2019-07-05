@@ -2,7 +2,7 @@
   <div class="flex-item">
     <div>
       <label for="range-1">Direção do vento</label>
-      <b-form-input id="range-1" v-model="value" type="range" min="0" max="1"></b-form-input>
+      <b-form-input id="range-1" v-model="value" type="range" min="0" max="4"></b-form-input>
     </div>
     <table cellpadding="0" cellspacing="0">
       <tr v-for="row in fireHeight" :key="row">
@@ -24,14 +24,14 @@
 export default {
   data() {
     return {
-      value: "1",
+      value: "2",
       firePixelsArray: [],
-      fireWidth: 180,
+      fireWidth: 90,
       fireHeight: 30,
       pixelIndex: 0,
       decay: 3,
-      wind: 3,
-      fireTime: 1,
+      wind: 0,
+      fireTime: 5,
       colors: 18,
       fireColorsPalette: [
         { r: 7, g: 7, b: 7 },
@@ -72,7 +72,6 @@ export default {
         // { r: 239, g: 239, b: 199 },
         { r: 255, g: 255, b: 255 }
       ],
-      bgColor: "",
       debug: false
     };
   },
@@ -104,6 +103,8 @@ export default {
           this.updateFireIntensityPerPixel(pixelIndex);
         }
       }
+      console.log("wind " + this.wind);
+      console.log("value " + this.value);
     },
     updateFireIntensityPerPixel(currentPixelIndex) {
       const belowPixelIndex = currentPixelIndex + this.fireWidth;
@@ -111,18 +112,52 @@ export default {
         return;
       }
 
+      switch (this.value) {
+        case "0":
+          this.wind = -2;
+          break;
+        case "1":
+          this.wind = -1;
+          break;
+        case "2":
+          this.wind = 0;
+          break;
+        case "3":
+          this.wind = 1;
+          break;
+        case "4":
+          this.wind = 2;
+          break;
+        default:
+          this.wind = 0;
+          break;
+      }
+
       const tempDecay = Math.floor(Math.random() * this.decay);
-      const tempWind = Math.floor(Math.random() * this.wind);
       const belowPixelFireIntensity = this.firePixelsArray[belowPixelIndex];
       const newFireIntensity =
         belowPixelFireIntensity - tempDecay >= 0
           ? belowPixelFireIntensity - tempDecay
           : 0;
-      this.$set(
-        this.firePixelsArray,
-        currentPixelIndex + tempDecay,
-        newFireIntensity
-      );
+
+      const tempWind =
+        this.wind == 0
+          ? this.wind
+          : Math.floor(Math.random() * (Math.abs(this.wind) + 1));
+
+      if (this.wind < 0) {
+        this.$set(
+          this.firePixelsArray,
+          currentPixelIndex - tempWind,
+          newFireIntensity
+        );
+      } else {
+        this.$set(
+          this.firePixelsArray,
+          currentPixelIndex + tempWind,
+          newFireIntensity
+        );
+      }
     },
     getStyle(row, column) {
       if (!this.debug && this.firePixelsArray && this.fireColorsPalette) {
