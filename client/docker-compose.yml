@@ -9,7 +9,7 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
-    tty: true
+    stdin_open: true
   tests:
     build:
       context: .
@@ -17,6 +17,7 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
+    stdin_open: true
     command: ["npm", "run", "test"]
   prod:
     build:
