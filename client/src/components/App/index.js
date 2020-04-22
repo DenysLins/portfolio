@@ -1,12 +1,14 @@
 import React from 'react'
 import './style.css'
-import Fire from '../Fire'
+import FireList from '../FireList'
 
-function App () {
+const App = () => {
+  console.log('App')
+
   return (
     <div className="App">
       <h1>Denys</h1>
-      <Fire />
+      <FireList />
     </div>
   )
 }
