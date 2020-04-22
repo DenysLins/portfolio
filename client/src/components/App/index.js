@@ -6,7 +6,7 @@ function App () {
   return (
     <div className="App">
       <h1>Denys</h1>
-      <Fire/>
+      <Fire />
     </div>
   )
 }
