@@ -1,9 +1,9 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import App from './App'
+import Fire from './index'
 
-test('renders H1', () => {
-  const { getByText } = render(<App />)
+test('renders Fire', () => {
+  const { getByText } = render(<Fire />)
   const linkElement = getByText(/Denys/i)
   expect(linkElement).toBeInTheDocument()
 })
