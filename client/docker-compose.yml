@@ -9,6 +9,7 @@ services:
     volumes:
       - /app/node_modules
       - .:/app
+    tty: true
   tests:
     build:
       context: .
