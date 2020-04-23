@@ -45,10 +45,10 @@ const fireColorsPalette = [
 
 const FireList = (props) => {
   const [firePixelArray, setFirePixelArray] = useState([])
-  const [fireWidth, setfireWidth] = useState(10)
-  const [fireHeight, setfireHeight] = useState(10)
+  const [fireWidth, setfireWidth] = useState(50)
+  const [fireHeight, setfireHeight] = useState(36)
   const [decay, setDecay] = useState(3)
-  const [time, setTime] = useState(1000)
+  const [time, setTime] = useState(1)
   const [debug, setDebug] = useState(false)
 
   const calculateFirePropagation = () => {
@@ -59,7 +59,8 @@ const FireList = (props) => {
         const belowPixelIndex = currentPixelIndex + fireWidth
         if (belowPixelIndex < fireHeight * fireWidth) {
           const belowPixelFireIntensity = firePixelArray[belowPixelIndex]
-          const calculatedFireIntensity = belowPixelFireIntensity - decay
+          const randomDecay = Math.floor(Math.random() * decay)
+          const calculatedFireIntensity = belowPixelFireIntensity - randomDecay
           const newFireIntensity =
             calculatedFireIntensity > 0 ? calculatedFireIntensity : 0
           newArr[currentPixelIndex] = newFireIntensity
