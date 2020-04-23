@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './style.css'
 import FireList from '../FireList'
 
 const App = () => {
-  console.log('App')
-
+  const [started, setStarted] = useState(false)
   return (
     <div className="App">
       <h1>Denys</h1>
-      <FireList />
+      <FireList started={started} setStarted={setStarted} />
     </div>
   )
 }
