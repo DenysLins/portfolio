@@ -4,10 +4,10 @@ import './style.css'
 
 const Fire = (props) => {
   return (
-    <div className="Fire">
+    <>
       <div className="pixel-index">{props.debug && props.pixelIndex}</div>
       {props.debug && props.fireIntensity}
-    </div>
+    </>
   )
 }
 
