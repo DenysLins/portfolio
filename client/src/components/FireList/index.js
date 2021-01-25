@@ -49,12 +49,12 @@ const fireColorsPalette = [
 ]
 
 const FireList = (props) => {
+  const fireWidth = 30
+  const fireHeight = 15
+  const vdecay = 10
+  const hdecay = 3
+  const time = 100
   const [firePixelArray, setFirePixelArray] = useState([])
-  const [fireWidth, setfireWidth] = useState(40)
-  const [fireHeight, setfireHeight] = useState(20)
-  const [vdecay, setVDecay] = useState(6)
-  const [hdecay, setHDecay] = useState(4)
-  const [time, setTime] = useState(200)
   const [debug, setDebug] = useState(false)
   const [checked, setChecked] = useState(false)
 
@@ -84,7 +84,13 @@ const FireList = (props) => {
     const newArr = new Array(numberOfPixels).fill(0)
     for (let column = 0; column < fireWidth; column++) {
       const pixelIndex = numberOfPixels - fireWidth + column
-      newArr[pixelIndex] = fireColorsPalette.length - 1
+      const fireColor = Math.floor(
+        Math.random() *
+          (fireColorsPalette.length - 1 - (fireColorsPalette.length - 4)) +
+          fireColorsPalette.length -
+          4
+      )
+      newArr[pixelIndex] = fireColor
     }
     setFirePixelArray(newArr)
   }
@@ -96,7 +102,7 @@ const FireList = (props) => {
     }
     const interval = setInterval(() => calculateFirePropagation(), time)
     return () => clearInterval(interval)
-  }, [calculateFirePropagation])
+  })
 
   const CustomSwitch = withStyles({
     switchBase: {
@@ -119,7 +125,13 @@ const FireList = (props) => {
 
   return (
     <>
-      <span className="name">Denys Lins</span>
+      <FormGroup className="debug">
+        <FormControlLabel
+          control={<CustomSwitch checked={checked} onChange={toggleChecked} />}
+          label="Debug"
+          labelPlacement="start"
+        />
+      </FormGroup>
       <table cellPadding={0} cellSpacing={0}>
         <tbody>
           {new Array(fireHeight).fill(0).map((row, i) => (
@@ -127,10 +139,9 @@ const FireList = (props) => {
               {new Array(fireWidth).fill(0).map((column, j) => {
                 const pixelIndex = j + fireWidth * i
                 const fireIntensity = firePixelArray[pixelIndex]
-                let color = null
-                if (fireIntensity) {
-                  color = fireColorsPalette[fireIntensity]
-                }
+                const color = fireIntensity
+                  ? fireColorsPalette[fireIntensity]
+                  : null
                 return (
                   <td
                     key={`${i}${j}`}
@@ -158,13 +169,6 @@ const FireList = (props) => {
           ))}
         </tbody>
       </table>
-      <FormGroup className="debug">
-        <FormControlLabel
-          control={<CustomSwitch checked={checked} onChange={toggleChecked} />}
-          label="Debug"
-          labelPlacement="start"
-        />
-      </FormGroup>
     </>
   )
 }
