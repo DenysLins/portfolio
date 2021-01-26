@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import Switch from '@material-ui/core/Switch'
-import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { withStyles } from '@material-ui/core/styles'
+import FormGroup from '@material-ui/core/FormGroup'
 import { orange } from '@material-ui/core/colors'
-import './style.css'
+import Switch from '@material-ui/core/Switch'
+
 import Fire from '../Fire/index'
+import './style.css'
 
 const fireColorsPalette = [
   { r: 7, g: 7, b: 7 },
@@ -49,14 +51,16 @@ const fireColorsPalette = [
 ]
 
 const FireList = (props) => {
-  const fireWidth = 30
+  const [firePixelArray, setFirePixelArray] = useState([])
+  const [checked, setChecked] = useState(false)
+  const [debug, setDebug] = useState(false)
+  const { t } = useTranslation()
+
   const fireHeight = 15
+  const fireWidth = 30
   const vDecay = 10
   const hDecay = 3
   const time = 100
-  const [firePixelArray, setFirePixelArray] = useState([])
-  const [debug, setDebug] = useState(false)
-  const [checked, setChecked] = useState(false)
 
   const calculateFirePropagation = () => {
     const newArr = [...firePixelArray]
@@ -128,7 +132,7 @@ const FireList = (props) => {
       <FormGroup className="debug">
         <FormControlLabel
           control={<CustomSwitch checked={checked} onChange={toggleChecked} />}
-          label="Debug"
+          label={t('debug')}
           labelPlacement="start"
         />
       </FormGroup>
