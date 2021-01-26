@@ -1,0 +1,22 @@
+.common {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 100%;
+  z-index: 2;
+  position: absolute;
+  font-size: 15vh;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px black, 0 0 0.2em black;
+}
+
+.name {
+  height: 100%;
+  font-size: 15vh;
+}
+
+.title {
+  height: 130%;
+  font-size: 5vh;
+}
