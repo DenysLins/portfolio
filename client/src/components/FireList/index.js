@@ -150,7 +150,7 @@ const FireList = (props) => {
                       height: window.innerHeight / fireHeight,
                       backgroundColor: color
                         ? !debug
-                          ? `rgba(${color.r},${color.g},${color.b}, 0.7)`
+                          ? `rgba(${color.r},${color.g},${color.b}, 0.5)`
                           : 'rgb(255,255,255)'
                         : !debug
                           ? 'rgb(0,0,0)'
