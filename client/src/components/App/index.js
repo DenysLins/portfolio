@@ -5,10 +5,11 @@ import FireList from '../FireList'
 const App = () => {
   const [started, setStarted] = useState(false)
   return (
-    <div className="App">
-      <span className="name">Denys Lins</span>
+    <>
+      <span className="common name">Denys Lins</span>
+      <span className="common title">Software Developer</span>
       <FireList started={started} setStarted={setStarted} />
-    </div>
+    </>
   )
 }
 
