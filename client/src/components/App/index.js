@@ -2,6 +2,8 @@ import React, { useState, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import FireList from '../FireList'
+import Footer from '../Footer'
+
 import './style.css'
 
 const MyApp = () => {
@@ -18,17 +20,20 @@ const MyApp = () => {
       <span className="common title">{t('title')}</span>
       <div className="flags">
         <img
+          className="flag"
           src="img/brazil-flag-waving-xs.png"
           alt="brazil-flag"
           onClick={() => changeLanguage('pt')}
         />
         <img
+          className="flag"
           src="img/united-states-of-america-flag-waving-xs.png"
           alt="united-states-of-america-flag"
           onClick={() => changeLanguage('en')}
         />
       </div>
       <FireList started={started} setStarted={setStarted} />
+      <Footer />
     </>
   )
 }
