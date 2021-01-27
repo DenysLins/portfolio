@@ -1,5 +1,13 @@
 {
   "name": "Denys Lins",
   "title": "Desenvolvedor de software",
-  "debug": "Debugar"
+  "debug": "Debugar",
+  "react": {
+    "1": "Feito com ",
+    "2": " React. "
+  },
+  "netlify": {
+    "1": " Hospedado por ",
+    "2": " netlify."
+  }
 }
