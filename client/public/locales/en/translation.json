@@ -1,5 +1,13 @@
 {
   "name": "Denys Lins",
   "title": "Software Developer",
-  "debug": "Debug"
+  "debug": "Debug",
+  "react": {
+    "1": "Made with ",
+    "2": " React. "
+  },
+  "netlify": {
+    "1": " Hosted by ",
+    "2": " netlify."
+  }
 }
