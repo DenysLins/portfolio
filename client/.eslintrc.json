@@ -5,12 +5,7 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:jest/recommended",
-    "standard"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "standard"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -22,11 +17,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "jest"
-  ],
+  "plugins": ["react", "react-hooks"],
   "rules": {},
   "settings": {
     "react": {
