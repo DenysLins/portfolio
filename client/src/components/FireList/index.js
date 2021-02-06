@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { withStyles } from '@material-ui/core/styles'
-import FormGroup from '@material-ui/core/FormGroup'
-import { orange } from '@material-ui/core/colors'
 import Switch from '@material-ui/core/Switch'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 import Fire from '../Fire/index'
 import './style.css'
@@ -108,20 +106,6 @@ const FireList = (props) => {
     return () => clearInterval(interval)
   })
 
-  const CustomSwitch = withStyles({
-    switchBase: {
-      color: orange[100],
-      '&$checked': {
-        color: orange[700]
-      },
-      '&$checked + $track': {
-        backgroundColor: orange[700]
-      }
-    },
-    checked: {},
-    track: {}
-  })(Switch)
-
   const toggleChecked = () => {
     setDebug((prev) => !prev)
     setChecked((prev) => !prev)
@@ -129,13 +113,27 @@ const FireList = (props) => {
 
   return (
     <>
-      <FormGroup className="debug">
-        <FormControlLabel
-          control={<CustomSwitch checked={checked} onChange={toggleChecked} />}
-          label={t('debug')}
-          labelPlacement="start"
-        />
-      </FormGroup>
+      <div
+        className="debug"
+        style={{
+          color: checked ? 'rgb(215, 103, 15)' : 'white'
+        }}
+      >
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                color="default"
+                checked={checked}
+                onChange={toggleChecked}
+              />
+            }
+            label={t('debug')}
+            labelPlacement="start"
+          />
+        </FormGroup>
+      </div>
+
       <table cellPadding={0} cellSpacing={0}>
         <tbody>
           {new Array(fireHeight).fill(0).map((row, i) => (
