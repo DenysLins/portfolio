@@ -148,8 +148,8 @@ const FireList = (props) => {
                   <td
                     key={`${i}${j}`}
                     style={{
-                      width: window.innerWidth / fireWidth,
-                      height: window.innerHeight / fireHeight,
+                      width: props.dimensions.width / fireWidth,
+                      height: props.dimensions.width / fireWidth,
                       backgroundColor: color
                         ? !debug
                           ? `rgba(${color.r},${color.g},${color.b}, 0.5)`
@@ -177,7 +177,8 @@ const FireList = (props) => {
 
 FireList.propTypes = {
   started: PropTypes.bool,
-  setStarted: PropTypes.func
+  setStarted: PropTypes.func,
+  dimensions: PropTypes.object
 }
 
 export default FireList
