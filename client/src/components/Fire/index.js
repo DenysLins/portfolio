@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './style.css'
 
-const Fire = (props) => {
-  return (
-    <>
-      <div className="pixel-index">{props.debug && props.pixelIndex}</div>
-      {props.debug && props.fireIntensity}
-    </>
-  )
-}
+const Fire = (props) => (
+  <>
+    <div className="pixel-index">{props.debug && props.pixelIndex}</div>
+    {props.debug && props.fireIntensity}
+  </>
+)
 
 Fire.propTypes = {
   pixelIndex: PropTypes.number,
