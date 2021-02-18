@@ -1,9 +1,5 @@
 .common {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: white;
-  width: 100%;
   z-index: 2;
   position: absolute;
   font-weight: 400;
@@ -19,16 +15,16 @@
 }
 
 .flag {
-  width: 2vw;
+  width: 4vh;
   height: auto;
 }
 
 .name {
-  height: 90%;
-  font-size: 10vw;
+  font-size: 12vw;
+  padding-bottom: 10%;
 }
 
 .title {
-  height: 130%;
-  font-size: 3vw;
+  font-size: 4vw;
+  padding-top: 10%;
 }

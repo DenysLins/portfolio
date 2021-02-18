@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import FireList from '../FireList'
@@ -8,11 +8,30 @@ import './style.css'
 
 const MyApp = () => {
   const [started, setStarted] = useState(false)
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
   const { t, i18n } = useTranslation()
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng)
   }
+
+  useEffect(() => {
+    function handleResize () {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return (_) => {
+      window.removeEventListener('resize', handleResize)
+    }
+  })
 
   return (
     <>
@@ -32,7 +51,11 @@ const MyApp = () => {
           onClick={() => changeLanguage('en')}
         />
       </div>
-      <FireList started={started} setStarted={setStarted} />
+      <FireList
+        started={started}
+        setStarted={setStarted}
+        dimensions={dimensions}
+      />
       <Footer />
     </>
   )
