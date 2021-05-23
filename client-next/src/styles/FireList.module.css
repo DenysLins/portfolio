@@ -1,0 +1,20 @@
+.table {
+  border-collapse: collapse;
+  height: 100%;
+}
+
+.td {
+  text-align: center;
+  font-family: monospace;
+  position: relative;
+}
+
+.debug {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  font-size: 1rem;
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 0.2em black;
+}
