@@ -3,5 +3,5 @@
   "title": "Software Developer",
   "debug": "Debug",
   "next": "Made with NextJS.",
-  "netlify": " Hosted by Netlify."
+  "vercel": " Hosted by Vercel."
 }
