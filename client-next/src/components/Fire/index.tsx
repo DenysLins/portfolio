@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import style from "../../styles/FireList.module.css";
+import style from "../../styles/Fire.module.css";
 
 const Fire = (props) => {
   return (
@@ -9,7 +9,9 @@ const Fire = (props) => {
       <div className={style.pixel_index}>{
         props.debug && props.pixelIndex}
       </div>
-      {props.debug && props.fireIntensity}
+      <div className={style.fire_intensity}>
+        {props.debug && props.fireIntensity}
+      </div>
     </>
   )
 
