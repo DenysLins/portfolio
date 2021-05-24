@@ -19,11 +19,11 @@ const Footer = () => {
             {t("next")}
           </a>
           <a className={style.a}
-            href="https://app.netlify.com/"
+            href="https://vercel.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t("netlify")}
+            {t("vercel")}
           </a>
         </div>
       </footer>
