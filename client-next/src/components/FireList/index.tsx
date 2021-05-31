@@ -6,7 +6,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import Fire from "../Fire/index";
-import style from "../../styles/FireList.module.css";
+import style from "../../styles/FireList.module.scss";
 
 
 const fireColorsPalette = [

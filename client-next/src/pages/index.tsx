@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -6,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import FireList from "../components/FireList";
 import Footer from "../components/Footer";
 
-import style from "../styles/Home.module.css";
+import style from "../styles/Home.module.scss";
 
 const Home = () => {
   const [started, setStarted] = useState(false);
