@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import FireList from "../components/FireList";
-import Footer from "../components/Footer";
 
 import style from "../styles/Home.module.scss";
 
@@ -58,7 +57,6 @@ const Home = () => {
         setStarted={setStarted}
         dimensions={dimensions}
       />
-      <Footer />
     </div>
   );
 };
