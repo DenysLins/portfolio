@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'next-i18next'
 
-import style from "../../styles/Navigation.module.scss";
+import style from "@/styles/Navigation.module.scss";
 
 
 const Navigation = () => {
