@@ -53,7 +53,7 @@ const FireList = (props) => {
   const [firePixelArray, setFirePixelArray] = useState([]);
   const [checked, setChecked] = useState(false);
   const [debug, setDebug] = useState(false);
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('fire-list');
 
   const fireHeight = 15;
   const fireWidth = 30;

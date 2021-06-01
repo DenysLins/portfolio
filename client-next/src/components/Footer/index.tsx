@@ -5,7 +5,7 @@ import style from "@/styles/Footer.module.scss";
 
 
 const Footer = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('footer');
 
   return (
     <>
