@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'next-i18next'
 
-import style from "../../styles/Footer.module.scss";
+import style from "@/styles/Footer.module.scss";
 
 
 const Footer = () => {

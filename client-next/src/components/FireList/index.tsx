@@ -5,8 +5,8 @@ import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import Fire from "../Fire/index";
-import style from "../../styles/FireList.module.scss";
+import Fire from "@/components/Fire/index";
+import style from "@/styles/FireList.module.scss";
 
 
 const fireColorsPalette = [
