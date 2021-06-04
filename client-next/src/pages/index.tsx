@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from "next/router";
+import Link from "next/link";
+
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import FireList from "@/components/FireList";
-
 import style from "@/styles/Home.module.scss";
 
 const Home = () => {
@@ -12,14 +14,15 @@ const Home = () => {
     height: 1080,
     width: 1920,
   });
-  const { t, i18n } = useTranslation('common');
+  const { t, i18n } = useTranslation("common");
+  const router = useRouter();
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+  // const changeLanguage = (lng: string) => {
+  //   i18n.changeLanguage(lng);
+  //   router.locale === "en" ? "pt" : "en";
+  // };
 
   useEffect(() => {
-
     function handleResize() {
       setDimensions({
         height: window.innerHeight,
@@ -39,18 +42,20 @@ const Home = () => {
       <span className={style.name}>{t("name")}</span>
       <span className={style.title}>{t("title")}</span>
       <div className={style.flags}>
-        <img
-          className={style.flag}
-          src="img/brazil-flag-waving-xs.png"
-          alt="brazil-flag"
-          onClick={() => changeLanguage("pt")}
-        />
-        <img
-          className={style.flag}
-          src="img/united-states-of-america-flag-waving-xs.png"
-          alt="united-states-of-america-flag"
-          onClick={() => changeLanguage("en")}
-        />
+        <Link href="/" locale={(router.locale = "pt")}>
+          <img
+            className={style.flag}
+            src="img/brazil-flag-waving-xs.png"
+            alt="brazil-flag"
+          />
+        </Link>
+        <Link href="/" locale={(router.locale = "en")}>
+          <img
+            className={style.flag}
+            src="img/united-states-of-america-flag-waving-xs.png"
+            alt="united-states-of-america-flag"
+          />
+        </Link>
       </div>
       <FireList
         started={started}
@@ -61,13 +66,17 @@ const Home = () => {
   );
 };
 
-
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common', 'fire-list', 'footer', 'navigation'])),
-    }
-  }
+      ...(await serverSideTranslations(locale, [
+        "common",
+        "fire-list",
+        "footer",
+        "navigation"
+      ])),
+    },
+  };
 }
 
 export default Home;
