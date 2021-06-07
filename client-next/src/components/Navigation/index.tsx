@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 import style from "@/styles/Navigation.module.scss";
 
@@ -16,7 +17,11 @@ const Navigation = () => {
       <div className={style.navigation__background}>&nbsp;</div>
       <nav className={style.navigation__nav}>
         <ul className={style.navigation__list}>
-          <li className={style.navigation__item}><a href="#" className={style.navigation__link}><span>01</span>{t("1")}</a></li>
+          <li className={style.navigation__item}>
+            <Link href="/about">
+              <a className={style.navigation__link}><span>01</span>{t("1")}</a>
+            </Link>
+          </li>
           <li className={style.navigation__item}><a href="#" className={style.navigation__link}><span>02</span>{t("2")}</a></li>
           <li className={style.navigation__item}><a href="#" className={style.navigation__link}><span>03</span>{t("3")}</a></li>
           <li className={style.navigation__item}><a href="#" className={style.navigation__link}><span>04</span>{t("4")}</a></li>
@@ -24,7 +29,7 @@ const Navigation = () => {
 
         </ul>
       </nav>
-    </div>
+    </div >
   );
 };
 
