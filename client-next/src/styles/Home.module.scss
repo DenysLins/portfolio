@@ -13,7 +13,7 @@
   z-index: 2;
   position: absolute;
   font-weight: 400;
-  text-shadow: 1px 1px 2px black, 0 0 0.2em black;
+  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
 }
 
 .flags {
@@ -26,7 +26,7 @@
 
 .flag {
   transition: all 0.3s;
-  width: 4rem;
+  width: 3rem;
   height: auto;
 
   &:hover {
@@ -43,8 +43,8 @@
   z-index: 2;
   position: absolute;
   font-weight: 400;
-  text-shadow: 1px 1px 2px black, 0 0 0.2em black;
-  font-size: 12vw;
+  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
+  font-size: 12rem;
   padding-bottom: 10%;
 }
 
@@ -53,7 +53,7 @@
   z-index: 2;
   position: absolute;
   font-weight: 400;
-  text-shadow: 1px 1px 2px black, 0 0 0.2em black;
-  font-size: 4vw;
+  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
+  font-size: 3rem;
   padding-top: 10%;
 }

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Switch from "@material-ui/core/Switch";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 import Fire from "@/components/Fire/index";
 import style from "@/styles/FireList.module.scss";
