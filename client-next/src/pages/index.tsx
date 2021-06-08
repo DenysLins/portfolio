@@ -17,10 +17,6 @@ const Home = () => {
   const { t, i18n } = useTranslation("common");
   const router = useRouter();
 
-  // const changeLanguage = (lng: string) => {
-  //   i18n.changeLanguage(lng);
-  //   router.locale === "en" ? "pt" : "en";
-  // };
 
   useEffect(() => {
     function handleResize() {
