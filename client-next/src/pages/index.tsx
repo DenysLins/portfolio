@@ -1,43 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import FireList from "@/components/FireList";
 import style from "@/styles/Home.module.scss";
+import { Box, Container } from "@mui/material";
+import Link from "next/link";
 
 const Home = () => {
-  const [started, setStarted] = useState(false);
-  const [dimensions, setDimensions] = useState({
-    height: 1080,
-    width: 1920,
-  });
-  const { t, i18n } = useTranslation("common");
+  const { t } = useTranslation("common");
   const router = useRouter();
 
-
-  useEffect(() => {
-    function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
-
   return (
-    <div className={style.container}>
-      <span className={style.name}>{t("name")}</span>
-      <span className={style.title}>{t("title")}</span>
-      <div className={style.flags}>
+    <Container maxWidth="xl" disableGutters>
+      <Box className={style.box} sx={{ display: { xs: "flex", md: "none" } }}>
+        <span className={style.name}>{t("name")}</span>
+        <span className={style.title}>{t("title")}</span>
+      </Box>
+      <Box
+        className={style.box}
+        sx={{ display: { xs: "none", md: "flex" }, fontSize: "8px" }}
+      >
+        <span className={style.name__md}>{t("name")}</span>
+        <span className={style.title__md}>{t("title")}</span>
+      </Box>
+      <Box className={style.flags}>
         <Link href="/" locale={(router.locale = "pt")}>
           <img
             className={style.flag}
@@ -52,13 +40,8 @@ const Home = () => {
             alt="united-states-of-america-flag"
           />
         </Link>
-      </div>
-      <FireList
-        started={started}
-        setStarted={setStarted}
-        dimensions={dimensions}
-      />
-    </div>
+      </Box>
+    </Container>
   );
 };
 
@@ -67,9 +50,8 @@ export async function getStaticProps({ locale }) {
     props: {
       ...(await serverSideTranslations(locale, [
         "common",
-        "fire-list",
         "footer",
-        "navigation"
+        "navigation",
       ])),
     },
   };

@@ -1,27 +1,17 @@
-.container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+.box {
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: black;
-}
-
-.common {
+  justify-content: center;
+  height: 100vh;
   color: white;
-  z-index: 2;
-  position: absolute;
-  font-weight: 400;
-  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
 }
 
 .flags {
   cursor: pointer;
   position: absolute;
-  top: 2rem;
-  right: 4rem;
-  z-index: 2;
+  top: 1.2rem;
+  right: 2rem;
+  z-index: 2000;
 }
 
 .flag {
@@ -44,8 +34,8 @@
   position: absolute;
   font-weight: 400;
   text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
-  font-size: 12rem;
-  padding-bottom: 10%;
+  font-size: 3.5rem;
+  padding-bottom: 4rem;
 }
 
 .title {
@@ -54,6 +44,26 @@
   position: absolute;
   font-weight: 400;
   text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
+  font-size: 1.5rem;
+  padding-top: 4rem;
+}
+
+.name__md {
+  color: white;
+  z-index: 2;
+  position: absolute;
+  font-weight: 400;
+  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
+  font-size: 12rem;
+  padding-bottom: 10rem;
+}
+
+.title__md {
+  color: white;
+  z-index: 2;
+  position: absolute;
+  font-weight: 400;
+  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
   font-size: 3rem;
-  padding-top: 10%;
+  padding-top: 10rem;
 }
