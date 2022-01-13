@@ -4,13 +4,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import style from '@/styles/About.module.scss';
 
-const About = () => {
-  const { t } = useTranslation('about');
+const Contact = () => {
+  const { t } = useTranslation('contact');
 
   return (
     <div className={style.container}>
-      <h1>{t('title')}</h1>
-      <h2>About</h2>
+      <h1>{t('email')}</h1>
     </div>
   );
 };
@@ -19,7 +18,7 @@ export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        'about',
+        'contact',
         'footer',
         'navigation',
       ])),
@@ -27,4 +26,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default About;
+export default Contact;

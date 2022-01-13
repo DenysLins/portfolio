@@ -1,10 +1,10 @@
-import React from "react";
-import { useTranslation } from "next-i18next";
+import React from 'react';
+import { useTranslation } from 'next-i18next';
 
-import style from "@/styles/Footer.module.scss";
+import style from '@/styles/Footer.module.scss';
 
 const Footer = () => {
-  const { t } = useTranslation("footer");
+  const { t } = useTranslation('footer');
 
   return (
     <>
@@ -16,7 +16,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t("next")}
+            {t('next')}
           </a>
           <a
             className={style.a}
@@ -24,7 +24,7 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {t("vercel")}
+            {t('vercel')}
           </a>
         </div>
       </footer>
