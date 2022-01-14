@@ -6,28 +6,6 @@
   color: white;
 }
 
-.flags {
-  cursor: pointer;
-  position: absolute;
-  top: 1.2rem;
-  right: 2rem;
-  z-index: 2000;
-}
-
-.flag {
-  transition: all 0.3s;
-  width: 3rem;
-  height: auto;
-
-  &:hover {
-    transform: translateY(-0.3rem);
-  }
-
-  &:active {
-    transform: translateY(-0.1rem);
-  }
-}
-
 .name {
   color: white;
   z-index: 2;

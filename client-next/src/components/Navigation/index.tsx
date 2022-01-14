@@ -10,13 +10,16 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+
 import style from "@/styles/Navigation.module.scss";
 
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { t } = useTranslation("navigation");
+  const router = useRouter();
 
   const pages = [
     { link: "/", label: t("1") },
@@ -37,7 +40,7 @@ const Navigation = () => {
 
   return (
     <AppBar color="transparent">
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" disableGutters>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -96,9 +99,50 @@ const Navigation = () => {
               </Link>
             ))}
           </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <Link href="/" locale={(router.locale = "pt")} passHref>
+              <a>
+                <img
+                  src="/img/br-flag.png"
+                  alt="Portuguese"
+                  className={style.flag}
+                />
+              </a>
+            </Link>
+            <Link href="/" locale={(router.locale = "en")} passHref>
+              <a>
+                <img
+                  src="/img/usa-flag.png"
+                  alt="English"
+                  className={style.flag}
+                />
+              </a>
+            </Link>
+          </Box>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Link href="/" locale={(router.locale = "pt")} passHref>
+              <a>
+                <img
+                  src="/img/br-flag.png"
+                  alt="Portuguese"
+                  className={style.flag__xl}
+                />
+              </a>
+            </Link>
+            <Link href="/" locale={(router.locale = "en")} passHref>
+              <a>
+                <img
+                  src="/img/usa-flag.png"
+                  alt="English"
+                  className={style.flag__xl}
+                />
+              </a>
+            </Link>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 };
+
 export default Navigation;
