@@ -20,6 +20,7 @@ const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { t } = useTranslation("navigation");
   const router = useRouter();
+  const [pageLink, setPageLink] = React.useState(router.pathname);
 
   const pages = [
     { link: "/", label: t("1") },
@@ -34,7 +35,8 @@ const Navigation = () => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (currentPageLink) => {
+    if (currentPageLink) setPageLink(currentPageLink);
     setAnchorElNav(null);
   };
 
@@ -66,14 +68,14 @@ const Navigation = () => {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={() => handleCloseNavMenu(null)}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
                 <Link key={page.link} href={page.link} passHref>
-                  <MenuItem onClick={handleCloseNavMenu}>
+                  <MenuItem onClick={() => handleCloseNavMenu(page.link)}>
                     <Typography textAlign="center">{page.label}</Typography>
                   </MenuItem>
                 </Link>
@@ -90,7 +92,7 @@ const Navigation = () => {
             {pages.map((page) => (
               <Link key={page.link} href={page.link} passHref>
                 <Button
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleCloseNavMenu(page.link)}
                   className={style.button}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
@@ -100,7 +102,7 @@ const Navigation = () => {
             ))}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <Link href="/" locale={(router.locale = "pt")} passHref>
+            <Link href={pageLink} locale={(router.locale = "pt")} passHref>
               <a>
                 <img
                   src="/img/br-flag.png"
@@ -109,7 +111,7 @@ const Navigation = () => {
                 />
               </a>
             </Link>
-            <Link href="/" locale={(router.locale = "en")} passHref>
+            <Link href={pageLink} locale={(router.locale = "en")} passHref>
               <a>
                 <img
                   src="/img/usa-flag.png"
@@ -120,7 +122,7 @@ const Navigation = () => {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href="/" locale={(router.locale = "pt")} passHref>
+            <Link href={pageLink} locale={(router.locale = "pt")} passHref>
               <a>
                 <img
                   src="/img/br-flag.png"
@@ -129,7 +131,7 @@ const Navigation = () => {
                 />
               </a>
             </Link>
-            <Link href="/" locale={(router.locale = "en")} passHref>
+            <Link href={pageLink} locale={(router.locale = "en")} passHref>
               <a>
                 <img
                   src="/img/usa-flag.png"
