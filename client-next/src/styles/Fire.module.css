@@ -1,0 +1,13 @@
+.pixel_index {
+  display: inline-block;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 1vh;
+  color: black;
+}
+
+.fire_intensity {
+  font-size: 1vh;
+  color: black;
+}
