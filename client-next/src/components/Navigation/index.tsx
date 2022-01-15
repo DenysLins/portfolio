@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import style from "@/styles/Navigation.module.scss";
+import style from "@/styles/navigation.module.scss";
 
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
