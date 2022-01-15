@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Box, Container } from "@mui/material";
@@ -8,7 +7,6 @@ import style from "@/styles/Home.module.scss";
 
 const Home = () => {
   const { t } = useTranslation("common");
-  const router = useRouter();
 
   return (
     <Container maxWidth="xl" disableGutters>

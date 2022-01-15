@@ -11,7 +11,6 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 import style from "@/styles/Navigation.module.scss";
