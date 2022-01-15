@@ -27,8 +27,9 @@
       ],
       "@/styles/*": [
         "src/styles/*"
-      ],
-    }
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",

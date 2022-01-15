@@ -1,41 +1,9 @@
-.container {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+.box {
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: black;
-}
-
-.common {
+  justify-content: center;
+  height: 100vh;
   color: white;
-  z-index: 2;
-  position: absolute;
-  font-weight: 400;
-  text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
-}
-
-.flags {
-  cursor: pointer;
-  position: absolute;
-  top: 2rem;
-  right: 4rem;
-  z-index: 2;
-}
-
-.flag {
-  transition: all 0.3s;
-  width: 3rem;
-  height: auto;
-
-  &:hover {
-    transform: translateY(-0.3rem);
-  }
-
-  &:active {
-    transform: translateY(-0.1rem);
-  }
 }
 
 .name {
@@ -44,8 +12,14 @@
   position: absolute;
   font-weight: 400;
   text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
-  font-size: 12rem;
-  padding-bottom: 10%;
+  font-size: 3.5rem;
+  padding-bottom: 4rem;
+
+  &__xl {
+    @extend .name;
+    font-size: 12rem;
+    padding-bottom: 10rem;
+  }
 }
 
 .title {
@@ -54,6 +28,12 @@
   position: absolute;
   font-weight: 400;
   text-shadow: 0.1rem 0.1rem 0.2rem black, 0 0 0.2rem black;
-  font-size: 3rem;
-  padding-top: 10%;
+  font-size: 1.5rem;
+  padding-top: 4rem;
+
+  &__xl {
+    @extend .title;
+    font-size: 3rem;
+    padding-top: 10rem;
+  }
 }
