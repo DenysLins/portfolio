@@ -45,7 +45,7 @@ const Navigation = () => {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
-              className={style.menu}
+              sx={{ color: "white" }}
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -92,8 +92,7 @@ const Navigation = () => {
               <Link key={page.link} href={page.link} passHref>
                 <Button
                   onClick={() => handleCloseNavMenu(page.link)}
-                  className={style.button}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, mx: "auto", color: "white", display: "block" }}
                 >
                   {page.label}
                 </Button>
