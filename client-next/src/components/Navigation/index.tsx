@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import style from "@/styles/navigation.module.scss";
+import style from "@/styles/components/navigation.module.scss";
 
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,7 +40,12 @@ const Navigation = () => {
   };
 
   return (
-    <AppBar color="transparent">
+    <AppBar
+      color="transparent"
+      sx={{
+        boxShadow: "0px 1px 10px 2px rgb(255 255 255 / 25%)",
+      }}
+    >
       <Container maxWidth="xl" disableGutters>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

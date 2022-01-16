@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { appWithTranslation } from "next-i18next";
 
-import "@/styles/globals.scss";
+import "@/styles/pages/globals.scss";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 

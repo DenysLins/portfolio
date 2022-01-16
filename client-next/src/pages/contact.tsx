@@ -5,7 +5,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
-import style from "@/styles/contact.module.scss";
+import style from "@/styles/pages/contact.module.scss";
 
 const Contact = () => {
   const { t } = useTranslation("contact");

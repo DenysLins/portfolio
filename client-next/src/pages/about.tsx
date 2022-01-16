@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ConstructionIcon from "@mui/icons-material/Construction";
 
-import style from "@/styles/about.module.scss";
+import style from "@/styles/pages/about.module.scss";
 
 const About = () => {
   const { t } = useTranslation("about");

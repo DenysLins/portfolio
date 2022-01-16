@@ -1,18 +1,14 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Link from "next/link";
 
-import style from "@/styles/pages/projects.module.scss";
+import style from "@/styles/pages/projects/salary.module.scss";
 const Projects = () => {
-  const { t } = useTranslation("projects");
+  const { t } = useTranslation("salary");
 
   return (
-    <div className={style.projects}>
-      <div className={style.project}>
-        1.
-        <Link href={"/projects/salary"}>{t("1")}</Link>
-      </div>
+    <div className={style.container}>
+      <div className={style.salary}>{t("1")}</div>
     </div>
   );
 };
@@ -21,7 +17,7 @@ export async function getStaticProps({ locale }) {
   return {
     props: {
       ...(await serverSideTranslations(locale, [
-        "projects",
+        "salary",
         "footer",
         "navigation",
       ])),
