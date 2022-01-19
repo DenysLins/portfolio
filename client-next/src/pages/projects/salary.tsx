@@ -1,14 +1,12 @@
 import React from "react";
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import style from "@/styles/pages/projects/salary.module.scss";
-const Projects = () => {
-  const { t } = useTranslation("salary");
-
+import Salary from "@/components/Salary";
+const ProjectSalary = () => {
   return (
     <div className={style.container}>
-      <div className={style.salary}>{t("1")}</div>
+      <Salary />
     </div>
   );
 };
@@ -25,4 +23,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default Projects;
+export default ProjectSalary;

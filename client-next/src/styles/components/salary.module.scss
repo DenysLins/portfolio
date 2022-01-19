@@ -1,0 +1,24 @@
+.TextField {
+  width: 100%;
+}
+
+.form {
+  margin: 1rem;
+}
+
+.Button {
+  margin-top: 1rem;
+}
+
+@media only screen and (min-width: 900px) {
+  .TextField {
+    width: 49%;
+    &:first-child {
+      margin-right: 2%;
+    }
+  }
+
+  .form {
+    width: 60%;
+  }
+}

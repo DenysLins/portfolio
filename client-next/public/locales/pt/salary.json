@@ -1,3 +1,11 @@
 {
-  "1": "Salário"
+  "time": "Tempo total",
+  "value": "Valor por hora",
+  "from": "Moeda original",
+  "to": "Moeda final",
+  "value_placeholder": "40,00",
+  "total_time": "Tempo total é necessário",
+  "value_per_hour": "Valor por hora é necessário",
+  "original_currency": "Moeda original é necessária",
+  "final_currency": "Moeda final é necessária"
 }

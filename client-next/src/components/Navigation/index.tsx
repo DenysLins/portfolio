@@ -19,7 +19,6 @@ const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { t } = useTranslation("navigation");
   const router = useRouter();
-  const [pageLink, setPageLink] = React.useState(router.pathname);
 
   const pages = [
     { link: "/", label: t("1") },
@@ -34,8 +33,7 @@ const Navigation = () => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (currentPageLink) => {
-    if (currentPageLink) setPageLink(currentPageLink);
+  const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
@@ -50,9 +48,8 @@ const Navigation = () => {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
-              sx={{ color: "white" }}
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -72,14 +69,14 @@ const Navigation = () => {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={() => handleCloseNavMenu(null)}
+              onClose={() => handleCloseNavMenu()}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
                 <Link key={page.link} href={page.link} passHref>
-                  <MenuItem onClick={() => handleCloseNavMenu(page.link)}>
+                  <MenuItem onClick={() => handleCloseNavMenu()}>
                     <Typography textAlign="center">{page.label}</Typography>
                   </MenuItem>
                 </Link>
@@ -96,7 +93,7 @@ const Navigation = () => {
             {pages.map((page) => (
               <Link key={page.link} href={page.link} passHref>
                 <Button
-                  onClick={() => handleCloseNavMenu(page.link)}
+                  onClick={() => handleCloseNavMenu()}
                   sx={{ my: 2, mx: "auto", color: "white", display: "block" }}
                 >
                   {page.label}
@@ -105,7 +102,11 @@ const Navigation = () => {
             ))}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <Link href={pageLink} locale={(router.locale = "pt")} passHref>
+            <Link
+              href={router.pathname}
+              locale={(router.locale = "pt")}
+              passHref
+            >
               <a>
                 <img
                   src="/img/br-flag.png"
@@ -114,7 +115,11 @@ const Navigation = () => {
                 />
               </a>
             </Link>
-            <Link href={pageLink} locale={(router.locale = "en")} passHref>
+            <Link
+              href={router.pathname}
+              locale={(router.locale = "en")}
+              passHref
+            >
               <a>
                 <img
                   src="/img/usa-flag.png"
@@ -125,7 +130,11 @@ const Navigation = () => {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href={pageLink} locale={(router.locale = "pt")} passHref>
+            <Link
+              href={router.pathname}
+              locale={(router.locale = "pt")}
+              passHref
+            >
               <a>
                 <img
                   src="/img/br-flag.png"
@@ -134,7 +143,11 @@ const Navigation = () => {
                 />
               </a>
             </Link>
-            <Link href={pageLink} locale={(router.locale = "en")} passHref>
+            <Link
+              href={router.pathname}
+              locale={(router.locale = "en")}
+              passHref
+            >
               <a>
                 <img
                   src="/img/usa-flag.png"
