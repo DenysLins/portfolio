@@ -3,11 +3,10 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  color: white;
+  width: 100vw;
 }
 
 .name {
-  color: white;
   z-index: 2;
   position: absolute;
   font-weight: 400;
@@ -23,7 +22,6 @@
 }
 
 .title {
-  color: white;
   z-index: 2;
   position: absolute;
   font-weight: 400;

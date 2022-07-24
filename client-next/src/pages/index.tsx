@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { Box, Container } from "@mui/material";
 
-import style from "@/styles/Home.module.scss";
+import style from "@/styles/pages/index.module.scss";
 
 const Home = () => {
   const { t } = useTranslation("common");
