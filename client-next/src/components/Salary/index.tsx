@@ -22,11 +22,6 @@ const Salary = () => {
   const [totalSalaryInOriginalCurrency, setTotalSalaryInOriginalCurrency] =
     React.useState("");
 
-  useEffect(() => {
-    formik.setFieldValue("originalCurrency", "USD");
-    formik.setFieldValue("finalCurrency", "BRL");
-  }, []);
-
   const validationSchema = yup.object({
     totalTime: yup
       .string()
@@ -50,8 +45,8 @@ const Salary = () => {
     initialValues: {
       totalTime: "",
       valuePerHour: "",
-      originalCurrency: "",
-      finalCurrency: "",
+      originalCurrency: "USD",
+      finalCurrency: "BRL",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
