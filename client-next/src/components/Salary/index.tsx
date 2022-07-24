@@ -10,24 +10,40 @@ import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
 
+const currencies = [
+  { value: "USD", id: 1 },
+  { value: "BRL", id: 2 },
+];
+
 const Salary = () => {
-  const { t } = useTranslation("salary");
-  const [currencies, setCurrencies] = React.useState([]);
-  const [totalSalary, setTotalSalary] = React.useState("");
+  const { t, i18n } = useTranslation("salary");
+  const [totalSalaryInFinalCurrency, setTotalSalaryInFinalCurrency] =
+    React.useState("");
+  const [totalSalaryInOriginalCurrency, setTotalSalaryInOriginalCurrency] =
+    React.useState("");
 
   useEffect(() => {
-    axios.get("/api/salary/currencies").then((res) => {
-      setCurrencies(res.data);
-      formik.setFieldValue("originalCurrency", "USD");
-      formik.setFieldValue("finalCurrency", "BRL");
-    });
+    formik.setFieldValue("originalCurrency", "USD");
+    formik.setFieldValue("finalCurrency", "BRL");
   }, []);
 
   const validationSchema = yup.object({
-    totalTime: yup.string().required(t("total_time")).nullable(),
-    valuePerHour: yup.string().required(t("value_per_hour")).nullable(),
-    originalCurrency: yup.string().required(t("original_currency")).nullable(),
-    finalCurrency: yup.string().required(t("final_currency")).nullable(),
+    totalTime: yup
+      .string()
+      .required(t("total_time"))
+      .matches(
+        /^(([0-9]{1,3}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$))/,
+        t("time_validation")
+      ),
+    valuePerHour: yup
+      .string()
+      .required(t("value_per_hour"))
+      .matches(new RegExp(t("regex")), t("value_validation")),
+    originalCurrency: yup.string().required(t("original_currency")),
+    finalCurrency: yup
+      .string()
+      .notOneOf([yup.ref("originalCurrency"), null], t("diff_currency"))
+      .required(t("final_currency")),
   });
 
   const formik = useFormik({
@@ -39,8 +55,31 @@ const Salary = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      axios.post("/api/salary/currencies", values).then((res) => {
-        setTotalSalary(res.data.totalValue);
+      const newValues = {
+        ...values,
+        valuePerHour: values.valuePerHour.replace(",", "."),
+      };
+
+      axios.post("/api/salary/currencies", newValues).then((res) => {
+        const totalFinalCurrency =
+          i18n.language === "pt"
+            ? Intl.NumberFormat("pt-BR").format(
+                res.data.totalValueInFinalCurrency
+              )
+            : Intl.NumberFormat("en-US").format(
+                res.data.totalValueInFinalCurrency
+              );
+        setTotalSalaryInFinalCurrency(totalFinalCurrency);
+
+        const totalOriginalCurrency =
+          i18n.language === "pt"
+            ? Intl.NumberFormat("en-US").format(
+                res.data.totalValueInOriginalCurrency
+              )
+            : Intl.NumberFormat("pt-BR").format(
+                res.data.totalValueInOriginalCurrency
+              );
+        setTotalSalaryInOriginalCurrency(totalOriginalCurrency);
       });
     },
   });
@@ -96,7 +135,7 @@ const Salary = () => {
             }
           >
             {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem key={option.id} value={option.value}>
                 {option.value}
               </MenuItem>
             ))}
@@ -119,7 +158,7 @@ const Salary = () => {
             }
           >
             {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem key={option.id} value={option.value}>
                 {option.value}
               </MenuItem>
             ))}
@@ -131,14 +170,20 @@ const Salary = () => {
           fullWidth
           type="submit"
         >
-          Submit
+          {t("submit")}
         </Button>
-        <div>
-          {totalSalary && (
-            <div className={style.totalSalary}>{totalSalary}</div>
-          )}
-        </div>
       </form>
+      <div className={style.result}>
+        {totalSalaryInFinalCurrency && (
+          <div className={style.totalSalary}>
+            {formik.values.finalCurrency === "BRL" ? "$ " : "R$ "}
+            {totalSalaryInOriginalCurrency}
+            {" > "}
+            {formik.values.finalCurrency === "BRL" ? "R$ " : "$ "}
+            {totalSalaryInFinalCurrency}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
