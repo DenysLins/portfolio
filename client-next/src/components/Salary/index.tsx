@@ -5,7 +5,6 @@ import * as yup from "yup";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { useEffect } from "react";
 import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
@@ -78,6 +77,7 @@ const Salary = () => {
       });
     },
   });
+
   return (
     <div className={style.form}>
       <form onSubmit={formik.handleSubmit}>
