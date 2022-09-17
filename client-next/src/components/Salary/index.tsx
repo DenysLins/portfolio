@@ -3,9 +3,9 @@ import { useTranslation } from "next-i18next";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import TextField from "@mui/material/TextField";
+import InputMask from "react-input-mask";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { useEffect } from "react";
 import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
@@ -26,10 +26,7 @@ const Salary = () => {
     totalTime: yup
       .string()
       .required(t("total_time"))
-      .matches(
-        /^(([0-9]{1,3}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$))/,
-        t("time_validation")
-      ),
+      .matches(/^(([0-9]{1,3}:[0-9]{2}:[0-9]{2}$))/, t("time_validation")),
     valuePerHour: yup
       .string()
       .required(t("value_per_hour"))
@@ -78,22 +75,31 @@ const Salary = () => {
       });
     },
   });
+
   return (
     <div className={style.form}>
       <form onSubmit={formik.handleSubmit}>
         <div>
-          <TextField
-            className={style.TextField}
-            margin="dense"
-            id="totalTime"
-            name="totalTime"
-            label={t("time")}
-            placeholder="hh:mm:ss"
+          <InputMask
+            mask="999:99:99"
             value={formik.values.totalTime}
             onChange={formik.handleChange}
-            error={formik.touched.totalTime && Boolean(formik.errors.totalTime)}
-            helperText={formik.touched.totalTime && formik.errors.totalTime}
-          />
+          >
+            {() => (
+              <TextField
+                className={style.TextField}
+                margin="dense"
+                id="totalTime"
+                name="totalTime"
+                label={t("time")}
+                placeholder="hh:mm:ss"
+                error={
+                  formik.touched.totalTime && Boolean(formik.errors.totalTime)
+                }
+                helperText={formik.touched.totalTime && formik.errors.totalTime}
+              />
+            )}
+          </InputMask>
           <TextField
             className={style.TextField}
             margin="dense"
@@ -173,7 +179,7 @@ const Salary = () => {
           <div className={style.totalSalary}>
             {formik.values.finalCurrency === "BRL" ? "$ " : "R$ "}
             {totalSalaryInOriginalCurrency}
-            {" > "}
+            {" = "}
             {formik.values.finalCurrency === "BRL" ? "R$ " : "$ "}
             {totalSalaryInFinalCurrency}
           </div>
