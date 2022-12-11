@@ -107,26 +107,22 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <a>
-                <img
-                  src="/img/br-flag.png"
-                  alt="Portuguese"
-                  className={style.flag}
-                />
-              </a>
+              <img
+                src="/img/br-flag.png"
+                alt="Portuguese"
+                className={style.flag}
+              />
             </Link>
             <Link
               href={router.pathname}
               locale={(router.locale = "en")}
               passHref
             >
-              <a>
-                <img
-                  src="/img/usa-flag.png"
-                  alt="English"
-                  className={style.flag}
-                />
-              </a>
+              <img
+                src="/img/usa-flag.png"
+                alt="English"
+                className={style.flag}
+              />
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -135,26 +131,22 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <a>
-                <img
-                  src="/img/br-flag.png"
-                  alt="Portuguese"
-                  className={style.flag__xl}
-                />
-              </a>
+              <img
+                src="/img/br-flag.png"
+                alt="Portuguese"
+                className={style.flag__xl}
+              />
             </Link>
             <Link
               href={router.pathname}
               locale={(router.locale = "en")}
               passHref
             >
-              <a>
-                <img
-                  src="/img/usa-flag.png"
-                  alt="English"
-                  className={style.flag__xl}
-                />
-              </a>
+              <img
+                src="/img/usa-flag.png"
+                alt="English"
+                className={style.flag__xl}
+              />
             </Link>
           </Box>
         </Toolbar>

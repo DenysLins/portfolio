@@ -11,9 +11,7 @@ const Projects = () => {
     <div className={style.projects}>
       <div className={style.project}>
         <h2>
-          <Link href={"/projects/salary"}>
-            <a>1. {t("1")}</a>
-          </Link>
+          <Link href={"/projects/salary"}>1. {t("1")}</Link>
         </h2>
       </div>
     </div>
