@@ -11,6 +11,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 import style from "@/styles/components/navigation.module.scss";
@@ -107,10 +108,12 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <img
+              <Image
                 src="/img/br-flag.png"
-                alt="Portuguese"
+                alt="Brazil flag"
                 className={style.flag}
+                width={48}
+                height={32}
               />
             </Link>
             <Link
@@ -118,10 +121,12 @@ const Navigation = () => {
               locale={(router.locale = "en")}
               passHref
             >
-              <img
+              <Image
                 src="/img/usa-flag.png"
-                alt="English"
+                alt="USA flag"
                 className={style.flag}
+                width={48}
+                height={32}
               />
             </Link>
           </Box>
@@ -131,10 +136,12 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <img
+              <Image
                 src="/img/br-flag.png"
-                alt="Portuguese"
+                alt="Brazil flag"
                 className={style.flag__xl}
+                width={48}
+                height={32}
               />
             </Link>
             <Link
@@ -142,10 +149,12 @@ const Navigation = () => {
               locale={(router.locale = "en")}
               passHref
             >
-              <img
+              <Image
                 src="/img/usa-flag.png"
-                alt="English"
+                alt="USA flag"
                 className={style.flag__xl}
+                width={48}
+                height={32}
               />
             </Link>
           </Box>
