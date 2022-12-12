@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { appWithTranslation } from "next-i18next";
+import { Roboto } from "@next/font/google";
 
 import "@/styles/pages/globals.scss";
 import Navigation from "@/components/Navigation";
@@ -12,9 +13,19 @@ const theme = createTheme({
   },
 });
 
+const roboto = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+});
+
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <>
+      <style jsx global>{`
+        html {
+          font-family: ${roboto.style.fontFamily};
+        }
+      `}</style>
       <Head>
         <title>Denys Lins - Software Engineer | Developer </title>
       </Head>
@@ -23,7 +34,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <Footer />
       </ThemeProvider>
-    </div>
+    </>
   );
 }
 
