@@ -2,10 +2,11 @@ import * as React from "react";
 import { useTranslation } from "next-i18next";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import TextField from "@mui/material/TextField";
 import InputMask from "react-input-mask";
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
@@ -21,6 +22,7 @@ const Salary = () => {
     React.useState("");
   const [totalSalaryInOriginalCurrency, setTotalSalaryInOriginalCurrency] =
     React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const validationSchema = yup.object({
     totalTime: yup
@@ -51,7 +53,7 @@ const Salary = () => {
         ...values,
         valuePerHour: values.valuePerHour.replace(",", "."),
       };
-
+      setLoading(true);
       axios.post("/api/salary/currencies", newValues).then((res) => {
         const totalFinalCurrency =
           i18n.language === "pt"
@@ -61,6 +63,7 @@ const Salary = () => {
             : Intl.NumberFormat("en-US").format(
                 res.data.totalValueInFinalCurrency
               );
+        setLoading(false);
         setTotalSalaryInFinalCurrency(totalFinalCurrency);
 
         const totalOriginalCurrency =
@@ -175,7 +178,7 @@ const Salary = () => {
         </Button>
       </form>
       <div className={style.result}>
-        {totalSalaryInFinalCurrency && (
+        {totalSalaryInFinalCurrency ? (
           <div className={style.totalSalary}>
             {formik.values.finalCurrency === "BRL" ? "$ " : "R$ "}
             {totalSalaryInOriginalCurrency}
@@ -183,6 +186,12 @@ const Salary = () => {
             {formik.values.finalCurrency === "BRL" ? "R$ " : "$ "}
             {totalSalaryInFinalCurrency}
           </div>
+        ) : (
+          loading && (
+            <Skeleton sx={{ bgcolor: "grey.800" }}>
+              <div className={style.totalSalary}>$ 1.000,00 = R$ 10,000.00</div>
+            </Skeleton>
+          )
         )}
       </div>
     </div>
