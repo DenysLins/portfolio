@@ -95,7 +95,13 @@ const Navigation = () => {
               <Link key={page.link} href={page.link} passHref>
                 <Button
                   onClick={() => handleCloseNavMenu()}
-                  sx={{ my: 2, mx: "auto", color: "white", display: "block" }}
+                  sx={{
+                    my: 2,
+                    mx: "auto",
+                    color: "white",
+                    display: "block",
+                    fontWeight: "normal",
+                  }}
                 >
                   {page.label}
                 </Button>

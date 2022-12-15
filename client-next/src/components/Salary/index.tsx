@@ -23,6 +23,8 @@ const Salary = () => {
   const [totalSalaryInOriginalCurrency, setTotalSalaryInOriginalCurrency] =
     React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [previousValue, setPreviousValue] = React.useState(-1);
+  const [mask, setMask] = React.useState("99:99:99");
 
   const validationSchema = yup.object({
     totalTime: yup
@@ -79,12 +81,27 @@ const Salary = () => {
     },
   });
 
+  const handleOnChange = (e) => {
+    const regex = /[_]/g;
+    const value = e.target.value;
+    let numberOfUnderline = value.match(regex) ? value.match(regex)?.length : 0;
+
+    if (numberOfUnderline === 0 && previousValue === numberOfUnderline) {
+      setMask("999:99:99");
+    }
+    if (numberOfUnderline === 1 && value.length === 9) {
+      setMask("99:99:99");
+    }
+
+    setPreviousValue(numberOfUnderline);
+  };
+
   return (
     <div className={style.form}>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} onChange={handleOnChange}>
         <div>
           <InputMask
-            mask="999:99:99"
+            mask={mask}
             value={formik.values.totalTime}
             onChange={formik.handleChange}
           >
