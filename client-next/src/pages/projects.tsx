@@ -10,9 +10,14 @@ const Projects = () => {
   return (
     <div className={style.projects}>
       <div className={style.project}>
-        <h2>
-          <Link href={"/projects/salary"}>1. {t("1")}</Link>
-        </h2>
+        <ul>
+          <li>
+            <Link href={"/projects/salary"}>1. {t("1")}</Link>
+          </li>
+          <li>
+            <Link href={"/projects/sweepstakes"}>2. {t("2")}</Link>
+          </li>
+        </ul>
       </div>
     </div>
   );
