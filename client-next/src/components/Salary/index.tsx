@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useTranslation } from "next-i18next";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import InputMask from "react-input-mask";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,6 +9,7 @@ import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
+import { salaryFrontValidationSchema } from "src/utils/validations";
 
 const currencies = [
   { value: "USD", id: 1 },
@@ -24,23 +24,8 @@ const Salary = () => {
     React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [previousValue, setPreviousValue] = React.useState(-1);
-  const [mask, setMask] = React.useState("99:99:99");
-
-  const validationSchema = yup.object({
-    totalTime: yup
-      .string()
-      .required(t("total_time"))
-      .matches(/^(([0-9]{1,3}:[0-9]{2}:[0-9]{2}$))/, t("time_validation")),
-    valuePerHour: yup
-      .string()
-      .required(t("value_per_hour"))
-      .matches(new RegExp(t("regex")), t("value_validation")),
-    originalCurrency: yup.string().required(t("original_currency")),
-    finalCurrency: yup
-      .string()
-      .notOneOf([yup.ref("originalCurrency"), null], t("diff_currency"))
-      .required(t("final_currency")),
-  });
+  const [timeMask, setTimeMask] = React.useState("99:99:99");
+  const valueMask = i18n.language === "en" ? "99.99" : "99,99";
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +34,7 @@ const Salary = () => {
       originalCurrency: "USD",
       finalCurrency: "BRL",
     },
-    validationSchema: validationSchema,
+    validationSchema: salaryFrontValidationSchema(t),
     onSubmit: (values) => {
       const newValues = {
         ...values,
@@ -92,10 +77,14 @@ const Salary = () => {
       numberOfUnderline === 0 &&
       previousValue === numberOfUnderline
     ) {
-      setMask("999:99:99");
+      setTimeMask("999:99:99");
     }
-    if (numberOfUnderline === 1 && value.length === 9) {
-      setMask("99:99:99");
+    if (
+      target.id === "totalTime" &&
+      numberOfUnderline === 1 &&
+      value.length === 9
+    ) {
+      setTimeMask("99:99:99");
     }
 
     setPreviousValue(numberOfUnderline);
@@ -106,7 +95,7 @@ const Salary = () => {
       <form onSubmit={formik.handleSubmit} onChange={handleOnChange}>
         <div>
           <InputMask
-            mask={mask}
+            mask={timeMask}
             value={formik.values.totalTime}
             onChange={formik.handleChange}
           >
@@ -117,7 +106,7 @@ const Salary = () => {
                 id="totalTime"
                 name="totalTime"
                 label={t("time")}
-                placeholder="hh:mm:ss"
+                placeholder="hh:mm:ss - hhh:mm:ss"
                 error={
                   formik.touched.totalTime && Boolean(formik.errors.totalTime)
                 }
@@ -125,22 +114,29 @@ const Salary = () => {
               />
             )}
           </InputMask>
-          <TextField
-            className={style.TextField}
-            margin="dense"
-            id="valuePerHour"
-            name="valuePerHour"
-            label={t("value")}
-            placeholder={t("value_placeholder")}
+          <InputMask
+            mask={valueMask}
             value={formik.values.valuePerHour}
             onChange={formik.handleChange}
-            error={
-              formik.touched.valuePerHour && Boolean(formik.errors.valuePerHour)
-            }
-            helperText={
-              formik.touched.valuePerHour && formik.errors.valuePerHour
-            }
-          />
+          >
+            {() => (
+              <TextField
+                className={style.TextField}
+                margin="dense"
+                id="valuePerHour"
+                name="valuePerHour"
+                label={t("value")}
+                placeholder={t("value_placeholder")}
+                error={
+                  formik.touched.valuePerHour &&
+                  Boolean(formik.errors.valuePerHour)
+                }
+                helperText={
+                  formik.touched.valuePerHour && formik.errors.valuePerHour
+                }
+              />
+            )}
+          </InputMask>
         </div>
         <div>
           <TextField

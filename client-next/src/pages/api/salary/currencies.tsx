@@ -1,4 +1,5 @@
 import axios from "axios";
+import { validate } from "src/utils/middlewares";
 
 const FREE_CURRENCY_API_URL = process.env.FREE_CURRENCY_API_URL;
 
@@ -40,4 +41,4 @@ const handler = async (req, res) => {
   }
 };
 
-export default handler;
+export default validate(handler);
