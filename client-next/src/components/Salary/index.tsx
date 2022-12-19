@@ -83,10 +83,15 @@ const Salary = () => {
 
   const handleOnChange = (e) => {
     const regex = /[_]/g;
-    const value = e.target.value;
+    const target = e.target;
+    const value = target.value;
     let numberOfUnderline = value.match(regex) ? value.match(regex)?.length : 0;
 
-    if (numberOfUnderline === 0 && previousValue === numberOfUnderline) {
+    if (
+      target.id === "totalTime" &&
+      numberOfUnderline === 0 &&
+      previousValue === numberOfUnderline
+    ) {
       setMask("999:99:99");
     }
     if (numberOfUnderline === 1 && value.length === 9) {
