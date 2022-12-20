@@ -2,11 +2,11 @@ import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import style from "@/styles/pages/projects/sweepstakes.module.scss";
-import Sweepstakes from "@/components/Sweepstakes";
-const ProjectSweepstakes = () => {
+import SweepstakesSignUp from "@/components/Sweepstakes/Signup";
+const ProjectSweepstakesSignUp = () => {
   return (
     <div className={style.container}>
-      <Sweepstakes />
+      <SweepstakesSignUp />
     </div>
   );
 };
@@ -23,4 +23,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default ProjectSweepstakes;
+export default ProjectSweepstakesSignUp;

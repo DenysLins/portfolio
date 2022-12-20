@@ -1,3 +1,15 @@
 {
-  "sweepstakes": "Sweepstakes"
+  "sweepstakes": "Sweepstakes",
+  "email_required": "Email is required",
+  "email_placeholder": "Email",
+  "email_validation": "Invalid email",
+  "password_required": "Password is required",
+  "password_placeholder": "Password",
+  "password_validation": "Password must have 8 or more characters, uppercases, lowercases and numbers",
+  "login": "Login",
+  "forgot_password": "Forgot your password?",
+  "register": "Sign Up",
+  "already_registered": "Already registered?",
+  "not_registered": "Not registered?",
+  "send_password": "Send a new password"
 }

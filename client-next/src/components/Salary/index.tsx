@@ -10,11 +10,7 @@ import axios from "axios";
 
 import style from "@/styles/components/salary.module.scss";
 import { salaryFrontValidationSchema } from "src/utils/validations";
-
-const currencies = [
-  { value: "USD", id: 1 },
-  { value: "BRL", id: 2 },
-];
+import { currencies } from "src/utils/constants";
 
 const Salary = () => {
   const { t, i18n } = useTranslation("salary");

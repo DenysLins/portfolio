@@ -1,6 +1,7 @@
 import * as yup from "yup";
+import { currencies } from "./constants";
 
-const currencies = ["USD", "BRL"];
+const currenciesList = currencies.map((c) => c.value);
 
 export const salaryFrontValidationSchema = (t) => {
   return yup.object({
@@ -33,13 +34,13 @@ export const salaryBackValidationSchema = () => {
       .string()
       .required("Value per hour is required")
       .matches(
-        new RegExp("^(([0-9]{1,3}$)|([0-9]{1,3}[.][0-9]{1,2}$))"),
+        /^(([0-9]{1,3}$)|([0-9]{1,3}[.][0-9]{1,2}$))/,
         "Value must be in the format 99.99 or 999.00"
       ),
     originalCurrency: yup
       .string()
       .required("Original currency is required")
-      .oneOf(currencies),
+      .oneOf(currenciesList),
     finalCurrency: yup
       .string()
       .notOneOf(
@@ -47,6 +48,40 @@ export const salaryBackValidationSchema = () => {
         "Original and final currency must be different"
       )
       .required("Final currency is required")
-      .oneOf(currencies),
+      .oneOf(currenciesList),
+  });
+};
+
+const emailRegex =
+  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+export const loginSweepstakesFrontValidationSchema = (t) => {
+  return yup.object({
+    email: yup
+      .string()
+      .required(t("email_required"))
+      .matches(emailRegex, t("email_validation")),
+    password: yup
+      .string()
+      .required(t("password_required"))
+      .matches(passwordRegex, t("password_validation")),
+  });
+};
+
+export const loginSweepstakesValidationSchema = () => {
+  return yup.object({
+    email: yup
+      .string()
+      .required("Email is required")
+      .matches(emailRegex, "Invalid email"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .matches(
+        passwordRegex,
+        "Password must have 8 or more characters, uppercases, lowercases and numbers"
+      ),
   });
 };
