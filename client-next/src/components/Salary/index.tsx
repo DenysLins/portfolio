@@ -37,7 +37,7 @@ const Salary = () => {
         valuePerHour: values.valuePerHour.replace(",", "."),
       };
       setLoading(true);
-      axios.post("/api/salary/currencies", newValues).then((res) => {
+      axios.post("/api/salary", newValues).then((res) => {
         const totalFinalCurrency =
           i18n.language === "pt"
             ? Intl.NumberFormat("pt-BR").format(
