@@ -2,6 +2,8 @@ import * as React from "react";
 import { useTranslation } from "next-i18next";
 import { useFormik } from "formik";
 import axios from "axios";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 import style from "@/styles/components/sweepstakes.signup.module.scss";
 import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
@@ -14,6 +16,7 @@ import { DEFAULT_TIMEOUT } from "@/utils/constants";
 
 const SweepstakesSignUp = () => {
   const { t } = useTranslation("sweepstakes");
+  const router = useRouter();
   const [userRegistered, setUserRegistered] = React.useState(false);
   const [error, setError] = React.useState(false);
   const formik = useFormik({
@@ -25,8 +28,18 @@ const SweepstakesSignUp = () => {
     onSubmit: (values) => {
       axios
         .post("/api/sweepstakes/signup", values)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          signIn("credentials", {
+            redirect: false,
+            email: values.email,
+            password: values.password,
+          }).then((res) => {
+            if (res.error) {
+              handleErrorAlert();
+            } else {
+              router.push("/projects/sweepstakes");
+            }
+          });
         })
         .catch((e) => {
           if (e.response.status === 409) {
