@@ -13,7 +13,7 @@ const handler = async (req, res) => {
     if (user) {
       const isPasswordValid = await bcrypt.compare(password, user.hashed);
       if (isPasswordValid) {
-        res.status(204).send();
+        res.json(user);
       } else {
         res.status(401).send();
       }

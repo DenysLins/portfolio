@@ -16,6 +16,7 @@ const SweepstakesForgot = () => {
   const { t } = useTranslation("sweepstakes");
   const [emailNotFound, setEmailNotFound] = React.useState(false);
   const [emailSent, setEmailSent] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -24,13 +25,14 @@ const SweepstakesForgot = () => {
     onSubmit: (values) => {
       axios
         .post("/api/sweepstakes/forgot", values)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           handleEmailSentAlert();
         })
         .catch((e) => {
           if (e.response.status === 404) {
             handleEmailNotFoundAlert();
+          } else {
+            handleErrorAlert();
           }
         });
     },
@@ -38,6 +40,7 @@ const SweepstakesForgot = () => {
 
   const handleEmailNotFoundAlert = () => {
     setEmailSent(false);
+    setError(false);
     setEmailNotFound(true);
     setTimeout(() => {
       setEmailNotFound(false);
@@ -46,15 +49,34 @@ const SweepstakesForgot = () => {
 
   const handleEmailSentAlert = () => {
     setEmailNotFound(false);
+    setError(false);
     setEmailSent(true);
     setTimeout(() => {
       setEmailSent(false);
     }, DEFAULT_TIMEOUT);
   };
 
+  const handleErrorAlert = () => {
+    setEmailSent(false);
+    setEmailNotFound(false);
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, DEFAULT_TIMEOUT);
+  };
+
   return (
     <div className={style.form}>
       <form onSubmit={formik.handleSubmit}>
+        <Collapse in={error}>
+          <Alert
+            className={style.alert}
+            severity="error"
+            onClose={() => setError(false)}
+          >
+            {t("generic_error")}
+          </Alert>
+        </Collapse>
         <Collapse in={emailNotFound}>
           <Alert
             className={style.alert}
@@ -98,7 +120,7 @@ const SweepstakesForgot = () => {
         </Button>
       </form>
       <div className={style.login}>
-        <Link href={"/projects/sweepstakes/signup"}>
+        <Link href={"/projects/sweepstakes/auth/signup"}>
           <span className={style.register}>{t("not_registered")}</span>
         </Link>
       </div>

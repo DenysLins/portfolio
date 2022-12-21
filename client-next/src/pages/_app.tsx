@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { appWithTranslation } from "next-i18next";
 import { Roboto } from "@next/font/google";
+import { SessionProvider } from "next-auth/react";
 
 import "@/styles/pages/globals.scss";
 import Navigation from "@/components/Navigation";
@@ -18,7 +19,7 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
       <style jsx global>{`
@@ -29,11 +30,13 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Denys Lins - Software Engineer | Developer </title>
       </Head>
-      <ThemeProvider theme={theme}>
-        <Navigation />
-        <Component {...pageProps} />
-        <Footer />
-      </ThemeProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider theme={theme}>
+          <Navigation />
+          <Component {...pageProps} />
+          <Footer />
+        </ThemeProvider>
+      </SessionProvider>
     </>
   );
 }

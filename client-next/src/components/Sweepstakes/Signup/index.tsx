@@ -15,6 +15,7 @@ import { DEFAULT_TIMEOUT } from "@/utils/constants";
 const SweepstakesSignUp = () => {
   const { t } = useTranslation("sweepstakes");
   const [userRegistered, setUserRegistered] = React.useState(false);
+  const [error, setError] = React.useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -30,6 +31,8 @@ const SweepstakesSignUp = () => {
         .catch((e) => {
           if (e.response.status === 409) {
             handleUserRegistered();
+          } else {
+            handleErrorAlert();
           }
         });
     },
@@ -42,10 +45,27 @@ const SweepstakesSignUp = () => {
     }, DEFAULT_TIMEOUT);
   };
 
+  const handleErrorAlert = () => {
+    setUserRegistered(false);
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, DEFAULT_TIMEOUT);
+  };
+
   return (
     <>
       <div className={style.form}>
         <form onSubmit={formik.handleSubmit}>
+          <Collapse in={error}>
+            <Alert
+              className={style.alert}
+              severity="error"
+              onClose={() => setError(false)}
+            >
+              {t("generic_error")}
+            </Alert>
+          </Collapse>
           <Collapse in={userRegistered}>
             <Alert
               className={style.alert}
@@ -96,10 +116,10 @@ const SweepstakesSignUp = () => {
           </Button>
         </form>
         <div className={style.login}>
-          <Link href={"/projects/sweepstakes/login"}>
+          <Link href={"/projects/sweepstakes/auth/login"}>
             <span className={style.register}>{t("already_registered")}</span>
           </Link>
-          <Link href={"/projects/sweepstakes/forgot"}>
+          <Link href={"/projects/sweepstakes/auth/forgot"}>
             <span className={style.forgot}>{t("forgot_password")}</span>
           </Link>
         </div>

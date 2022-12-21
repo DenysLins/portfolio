@@ -16,5 +16,6 @@
   "email_already_registered": "Email already registered!",
   "email_not_found": "Email not found",
   "email_sent": "Email sent",
-  "wrong_password": "Wrong password"
+  "wrong_password": "Wrong password",
+  "generic_error": "An error occurred, please try again"
 }

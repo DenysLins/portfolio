@@ -1,14 +1,28 @@
 import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useSession } from "next-auth/react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import style from "@/styles/pages/projects/sweepstakes.module.scss";
 import SweepstakesMain from "@/components/Sweepstakes/Main";
+import { useRouter } from "next/router";
+
 const ProjectSweepstakesMain = () => {
-  return (
-    <div className={style.container}>
-      <SweepstakesMain />
-    </div>
-  );
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  if (status === "loading") {
+    return <CircularProgress color="inherit" />;
+  } else {
+    if (session) {
+      return (
+        <div className={style.container}>
+          <SweepstakesMain />
+        </div>
+      );
+    } else {
+      router.push("/projects/sweepstakes/auth/login");
+    }
+  }
 };
 
 export async function getStaticProps({ locale }) {
