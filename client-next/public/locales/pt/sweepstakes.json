@@ -6,10 +6,15 @@
   "password_required": "Senha é obrigatória",
   "password_placeholder": "Senha",
   "password_validation": "Senha deve ter 8 ou mais caracteres, maiúsculas, minúsculas e números",
+  "max_length": "Máximo de caracteres permitido é 255",
   "login": "Entrar",
   "forgot_password": "Esqueceu sua senha?",
   "register": "Cadastrar",
   "already_registered": "Já é cadastrado?",
   "not_registered": "Não é cadastrado?",
-  "send_password": "Enviar nova senha"
+  "send_password": "Enviar nova senha",
+  "email_already_registered": "Email já cadastrado!",
+  "email_not_found": "Email não encontrado",
+  "email_sent": "Email enviado",
+  "wrong_password": "Senha errada"
 }

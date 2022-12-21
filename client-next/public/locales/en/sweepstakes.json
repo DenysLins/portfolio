@@ -6,10 +6,15 @@
   "password_required": "Password is required",
   "password_placeholder": "Password",
   "password_validation": "Password must have 8 or more characters, uppercases, lowercases and numbers",
+  "max_length": "Maximum character allowed is 255",
   "login": "Login",
   "forgot_password": "Forgot your password?",
   "register": "Sign Up",
   "already_registered": "Already registered?",
   "not_registered": "Not registered?",
-  "send_password": "Send a new password"
+  "send_password": "Send a new password",
+  "email_already_registered": "Email already registered!",
+  "email_not_found": "Email not found",
+  "email_sent": "Email sent",
+  "wrong_password": "Wrong password"
 }

@@ -2,33 +2,77 @@ import * as React from "react";
 import { useTranslation } from "next-i18next";
 import { useFormik } from "formik";
 import axios from "axios";
-
-import style from "@/styles/components/sweepstakes.forgot.module.scss";
-import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
+import Alert from "@mui/material/Alert";
 import Link from "next/link";
+
+import style from "@/styles/components/sweepstakes.forgot.module.scss";
+import { forgotSweepstakesFrontValidationSchema } from "src/utils/validations";
+import { DEFAULT_TIMEOUT } from "@/utils/constants";
 
 const SweepstakesForgot = () => {
   const { t } = useTranslation("sweepstakes");
-  const [loading, setLoading] = React.useState(false);
+  const [emailNotFound, setEmailNotFound] = React.useState(false);
+  const [emailSent, setEmailSent] = React.useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: "",
     },
-    validationSchema: loginSweepstakesFrontValidationSchema(t),
+    validationSchema: forgotSweepstakesFrontValidationSchema(t),
     onSubmit: (values) => {
-      setLoading(true);
-      axios.post("/api/sweepstakes/login", values).then((res) => {
-        setLoading(false);
-      });
+      axios
+        .post("/api/sweepstakes/forgot", values)
+        .then((res) => {
+          console.log(res);
+          handleEmailSentAlert();
+        })
+        .catch((e) => {
+          if (e.response.status === 404) {
+            handleEmailNotFoundAlert();
+          }
+        });
     },
   });
+
+  const handleEmailNotFoundAlert = () => {
+    setEmailSent(false);
+    setEmailNotFound(true);
+    setTimeout(() => {
+      setEmailNotFound(false);
+    }, DEFAULT_TIMEOUT);
+  };
+
+  const handleEmailSentAlert = () => {
+    setEmailNotFound(false);
+    setEmailSent(true);
+    setTimeout(() => {
+      setEmailSent(false);
+    }, DEFAULT_TIMEOUT);
+  };
 
   return (
     <div className={style.form}>
       <form onSubmit={formik.handleSubmit}>
+        <Collapse in={emailNotFound}>
+          <Alert
+            className={style.alert}
+            severity="warning"
+            onClose={() => setEmailNotFound(false)}
+          >
+            {t("email_not_found")}
+          </Alert>
+        </Collapse>
+        <Collapse in={emailSent}>
+          <Alert
+            className={style.alert}
+            severity="success"
+            onClose={() => setEmailSent(false)}
+          >
+            {t("email_sent")}
+          </Alert>
+        </Collapse>
         <div>
           <TextField
             className={style.TextField}
@@ -48,6 +92,7 @@ const SweepstakesForgot = () => {
           variant="contained"
           fullWidth
           type="submit"
+          color="warning"
         >
           {t("send_password")}
         </Button>

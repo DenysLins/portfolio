@@ -62,10 +62,12 @@ export const loginSweepstakesFrontValidationSchema = (t) => {
     email: yup
       .string()
       .required(t("email_required"))
+      .max(255, t("max_length"))
       .matches(emailRegex, t("email_validation")),
     password: yup
       .string()
       .required(t("password_required"))
+      .max(255, t("max_length"))
       .matches(passwordRegex, t("password_validation")),
   });
 };
@@ -75,13 +77,35 @@ export const loginSweepstakesValidationSchema = () => {
     email: yup
       .string()
       .required("Email is required")
+      .max(255, "Maximum character allowed is 255")
       .matches(emailRegex, "Invalid email"),
     password: yup
       .string()
       .required("Password is required")
+      .max(255, "Maximum character allowed is 255")
       .matches(
         passwordRegex,
         "Password must have 8 or more characters, uppercases, lowercases and numbers"
       ),
+  });
+};
+
+export const forgotSweepstakesFrontValidationSchema = (t) => {
+  return yup.object({
+    email: yup
+      .string()
+      .required(t("email_required"))
+      .max(255, t("max_length"))
+      .matches(emailRegex, t("email_validation")),
+  });
+};
+
+export const forgotSweepstakesValidationSchema = () => {
+  return yup.object({
+    email: yup
+      .string()
+      .required("Email is required")
+      .max(255, "Maximum character allowed is 255")
+      .matches(emailRegex, "Invalid email"),
   });
 };
