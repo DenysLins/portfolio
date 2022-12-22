@@ -11,7 +11,11 @@ const ProjectSweepstakesMain = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   if (status === "loading") {
-    return <CircularProgress color="inherit" />;
+    return (
+      <div className={style.container}>
+        <CircularProgress color="inherit" />
+      </div>
+    );
   } else {
     if (session) {
       return (

@@ -21,26 +21,24 @@ export const authOptions = {
           email: credentials.email,
           password: credentials.password,
         };
-        const res = await fetch(`${req.headers.origin}/api/sweepstakes/login`, {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: { "Content-Type": "application/json" },
-        });
-        const user = await res.json();
-
-        // If no error and we have user data, return it
-        if (res.ok && user) {
+        const res = await axios.post(
+          `${req.headers.origin}/api/sweepstakes/login`,
+          payload
+        );
+        const user = await res.data;
+        if (res.status === 200 && user) {
           return user;
         }
-        // Return null if user data could not be retrieved
         return null;
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt(res) {
-      res.token.userRole = "admin";
-      return res.token;
+    async jwt({ token }) {
+      token.userRole =
+        token.email === process.env.ADMIN_EMAIL ? "admin" : "user";
+      return token;
     },
   },
 };
