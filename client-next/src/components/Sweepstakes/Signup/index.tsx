@@ -1,18 +1,18 @@
-import * as React from "react";
-import { useTranslation } from "next-i18next";
-import { useFormik } from "formik";
 import axios from "axios";
+import { useFormik } from "formik";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import * as React from "react";
 
-import style from "@/styles/components/sweepstakes.signup.module.scss";
-import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
-import TextField from "@mui/material/TextField";
+import styles from "@/styles/components/sweepstakes.module.scss";
+import { DEFAULT_TIMEOUT } from "@/utils/constants";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
-import Alert from "@mui/material/Alert";
+import TextField from "@mui/material/TextField";
 import Link from "next/link";
-import { DEFAULT_TIMEOUT } from "@/utils/constants";
+import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
 
 const SweepstakesSignUp = () => {
   const { t } = useTranslation("sweepstakes");
@@ -68,11 +68,11 @@ const SweepstakesSignUp = () => {
 
   return (
     <>
-      <div className={style.form}>
+      <div className={styles.form}>
         <form onSubmit={formik.handleSubmit}>
           <Collapse in={error}>
             <Alert
-              className={style.alert}
+              className={styles.alert}
               severity="error"
               onClose={() => setError(false)}
             >
@@ -81,7 +81,7 @@ const SweepstakesSignUp = () => {
           </Collapse>
           <Collapse in={userRegistered}>
             <Alert
-              className={style.alert}
+              className={styles.alert}
               severity="warning"
               onClose={() => {
                 setUserRegistered(false);
@@ -92,7 +92,7 @@ const SweepstakesSignUp = () => {
           </Collapse>
           <div>
             <TextField
-              className={style.TextField}
+              className={styles.textfield}
               margin="dense"
               id="email"
               name="email"
@@ -105,7 +105,7 @@ const SweepstakesSignUp = () => {
             />
 
             <TextField
-              className={style.TextField}
+              className={styles.textfield}
               margin="dense"
               id="password"
               name="password"
@@ -119,7 +119,7 @@ const SweepstakesSignUp = () => {
             />
           </div>
           <Button
-            className={style.Button}
+            className={styles.button}
             variant="contained"
             fullWidth
             type="submit"
@@ -128,12 +128,12 @@ const SweepstakesSignUp = () => {
             {t("register")}
           </Button>
         </form>
-        <div className={style.login}>
+        <div className={styles.login}>
           <Link href={"/projects/sweepstakes/auth/login"}>
-            <span className={style.register}>{t("already_registered")}</span>
+            <span className={styles.register}>{t("already_registered")}</span>
           </Link>
           <Link href={"/projects/sweepstakes/auth/forgot"}>
-            <span className={style.forgot}>{t("forgot_password")}</span>
+            <span className={styles.forgot}>{t("forgot_password")}</span>
           </Link>
         </div>
       </div>

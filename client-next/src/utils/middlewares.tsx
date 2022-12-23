@@ -1,7 +1,6 @@
 import {
-  loginSweepstakesValidationSchema,
-  salaryBackValidationSchema,
-  forgotSweepstakesValidationSchema,
+  forgotSweepstakesValidationSchema, loginSweepstakesValidationSchema,
+  salaryBackValidationSchema
 } from "./validations";
 
 export const validate = (handler) => {

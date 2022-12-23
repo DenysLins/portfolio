@@ -1,6 +1,5 @@
-import React from "react";
-import { useTranslation } from "next-i18next";
 import { styled } from "@mui/system";
+import { useTranslation } from "next-i18next";
 
 const FooterContainer = styled("footer")({
   position: "absolute",

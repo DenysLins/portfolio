@@ -1,8 +1,7 @@
-import React from "react";
-import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import { styled } from "@mui/system";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const BlogContainer = styled("div")({
   display: "flex",
@@ -13,6 +12,7 @@ const BlogContainer = styled("div")({
   width: "100vw",
   "& > h2": {
     marginLeft: "1.5rem",
+    fontWeight: "normal",
   },
 });
 

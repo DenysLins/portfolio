@@ -1,16 +1,17 @@
-import * as React from "react";
-import { useTranslation } from "next-i18next";
-import { useFormik } from "formik";
-import axios from "axios";
-import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
-import Alert from "@mui/material/Alert";
+import TextField from "@mui/material/TextField";
+import axios from "axios";
+import { useFormik } from "formik";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import * as React from "react";
 
-import style from "@/styles/components/sweepstakes.forgot.module.scss";
-import { forgotSweepstakesFrontValidationSchema } from "src/utils/validations";
+import styles from "@/styles/components/sweepstakes.module.scss";
 import { DEFAULT_TIMEOUT } from "@/utils/constants";
+import styled from "@emotion/styled";
+import { forgotSweepstakesFrontValidationSchema } from "src/utils/validations";
 
 const SweepstakesForgot = () => {
   const { t } = useTranslation("sweepstakes");
@@ -65,12 +66,16 @@ const SweepstakesForgot = () => {
     }, DEFAULT_TIMEOUT);
   };
 
+  const EmailTextField = styled(TextField)({
+    width: "100%",
+  });
+
   return (
-    <div className={style.form}>
+    <div className={styles.form}>
       <form onSubmit={formik.handleSubmit}>
         <Collapse in={error}>
           <Alert
-            className={style.alert}
+            className={styles.alert}
             severity="error"
             onClose={() => setError(false)}
           >
@@ -79,7 +84,7 @@ const SweepstakesForgot = () => {
         </Collapse>
         <Collapse in={emailNotFound}>
           <Alert
-            className={style.alert}
+            className={styles.alert}
             severity="warning"
             onClose={() => setEmailNotFound(false)}
           >
@@ -88,29 +93,27 @@ const SweepstakesForgot = () => {
         </Collapse>
         <Collapse in={emailSent}>
           <Alert
-            className={style.alert}
+            className={styles.alert}
             severity="success"
             onClose={() => setEmailSent(false)}
           >
             {t("email_sent")}
           </Alert>
         </Collapse>
-        <div>
-          <TextField
-            className={style.TextField}
-            margin="dense"
-            id="email"
-            name="email"
-            label={t("email_placeholder")}
-            placeholder="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-          />
-        </div>
+        <EmailTextField
+          className={styles.email}
+          margin="dense"
+          id="email"
+          name="email"
+          label={t("email_placeholder")}
+          placeholder="Email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+        />
         <Button
-          className={style.Button}
+          className={styles.button}
           variant="contained"
           fullWidth
           type="submit"
@@ -119,9 +122,9 @@ const SweepstakesForgot = () => {
           {t("send_password")}
         </Button>
       </form>
-      <div className={style.login}>
+      <div className={styles.login}>
         <Link href={"/projects/sweepstakes/auth/signup"}>
-          <span className={style.register}>{t("not_registered")}</span>
+          <span className={styles.register}>{t("not_registered")}</span>
         </Link>
       </div>
     </div>

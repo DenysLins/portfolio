@@ -1,7 +1,6 @@
-import React from "react";
+import { styled } from "@mui/system";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { styled } from "@mui/system";
 
 const FourOhFourContainer = styled("div")({
   display: "flex",

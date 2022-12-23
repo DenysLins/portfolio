@@ -1,6 +1,6 @@
-import React from "react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Salary from "@/components/Salary";
 import { styled } from "@mui/system";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const SalaryContainer = styled("div")({
   display: "flex",
@@ -10,7 +10,7 @@ const SalaryContainer = styled("div")({
   height: "100vh",
   width: "100vw",
 });
-import Salary from "@/components/Salary";
+
 const ProjectSalary = () => {
   return (
     <SalaryContainer>

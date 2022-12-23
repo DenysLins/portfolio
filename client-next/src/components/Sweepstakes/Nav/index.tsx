@@ -1,6 +1,5 @@
-import * as React from "react";
-import { useSession, signOut } from "next-auth/react";
 import { styled } from "@mui/system";
+import { signOut, useSession } from "next-auth/react";
 
 const NavStyled = styled("div")({
   padding: 8,

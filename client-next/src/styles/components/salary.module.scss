@@ -1,4 +1,4 @@
-.TextField {
+.text-field {
   width: 100%;
 }
 
@@ -6,12 +6,12 @@
   margin: 1rem;
 }
 
-.Button {
-  margin-top: 1rem;
+.button {
+  margin-top: 0.5rem;
 }
 
 @media only screen and (min-width: 900px) {
-  .TextField {
+  .text-field {
     width: 49%;
     &:first-child {
       margin-right: 2%;
@@ -22,7 +22,7 @@
     width: 60%;
   }
 
-  .totalSalary {
+  .total-salary {
     font-size: 3rem;
   }
 }

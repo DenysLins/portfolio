@@ -1,5 +1,3 @@
-import React from "react";
-
 import { signOut } from "next-auth/react";
 
 function SweepstakesAdmin() {

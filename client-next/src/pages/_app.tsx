@@ -1,12 +1,12 @@
-import Head from "next/head";
-import { appWithTranslation } from "next-i18next";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Roboto } from "@next/font/google";
 import { SessionProvider } from "next-auth/react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { appWithTranslation } from "next-i18next";
+import Head from "next/head";
 
-import "@/styles/globals.scss";
-import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
+import "@/styles/globals.scss";
 
 const theme = createTheme({
   palette: {

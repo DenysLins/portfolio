@@ -1,12 +1,11 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useSession } from "next-auth/react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { styled } from "@mui/system";
+import { useSession } from "next-auth/react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
 
-import { SweepstakesContainer } from "@/styles/components/sweepstakes.styles";
 import SweepstakesMain from "@/components/Sweepstakes/Main";
+import styles from "@/styles/components/sweepstakes.module.scss";
 import SweepstakesNav from "../../../components/Sweepstakes/Nav/index";
 
 const SweepstakesContainerSession = styled("div")({
@@ -25,9 +24,9 @@ const ProjectSweepstakesMain = () => {
   const router = useRouter();
   if (status === "loading") {
     return (
-      <SweepstakesContainer>
+      <div className={styles.container}>
         <CircularProgress color="inherit" />
-      </SweepstakesContainer>
+      </div>
     );
   } else {
     if (session) {

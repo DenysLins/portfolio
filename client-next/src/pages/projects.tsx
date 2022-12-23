@@ -1,8 +1,7 @@
-import React from "react";
+import { styled } from "@mui/system";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
-import { styled } from "@mui/system";
 
 const ProjectsContainer = styled("div")({
   display: "flex",
@@ -18,7 +17,7 @@ const ProjectsContainer = styled("div")({
     padding: 0,
   },
   "& > ul > li": {
-    margin: "1.5rem 0",
+    margin: "1rem 0",
     fontSize: "1.5rem",
   },
 });

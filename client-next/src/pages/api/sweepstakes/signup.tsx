@@ -1,6 +1,6 @@
-import { validate } from "src/utils/middlewares";
 import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcrypt";
+import { validate } from "src/utils/middlewares";
 
 const handler = async (req, res) => {
   try {

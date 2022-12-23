@@ -1,5 +1,5 @@
-import { validate } from "src/utils/middlewares";
 import clientPromise from "@/lib/mongodb";
+import { validate } from "src/utils/middlewares";
 
 const handler = async (req, res) => {
   try {

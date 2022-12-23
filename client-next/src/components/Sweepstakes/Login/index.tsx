@@ -1,17 +1,17 @@
-import * as React from "react";
-import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import * as React from "react";
 
-import style from "@/styles/components/sweepstakes.login.module.scss";
-import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Link from "next/link";
+import styles from "@/styles/components/sweepstakes.module.scss";
 import { DEFAULT_TIMEOUT } from "@/utils/constants";
-import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
+import TextField from "@mui/material/TextField";
+import Link from "next/link";
+import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
 
 const SweepstakesLogin = () => {
   const { t } = useTranslation("sweepstakes");
@@ -79,11 +79,11 @@ const SweepstakesLogin = () => {
 
   return (
     <>
-      <div className={style.form}>
+      <div className={styles.form}>
         <form onSubmit={formik.handleSubmit}>
           <Collapse in={error}>
             <Alert
-              className={style.alert}
+              className={styles.alert}
               severity="error"
               onClose={() => setError(false)}
             >
@@ -92,7 +92,7 @@ const SweepstakesLogin = () => {
           </Collapse>
           <Collapse in={userUnauthorized}>
             <Alert
-              className={style.alert}
+              className={styles.alert}
               severity="warning"
               onClose={() => setUserUnauthorized(false)}
             >
@@ -101,7 +101,7 @@ const SweepstakesLogin = () => {
           </Collapse>
           <Collapse in={userNotFound}>
             <Alert
-              className={style.alert}
+              className={styles.alert}
               severity="warning"
               onClose={() => setUserNotFound(false)}
             >
@@ -110,7 +110,7 @@ const SweepstakesLogin = () => {
           </Collapse>
           <div>
             <TextField
-              className={style.TextField}
+              className={styles.textfield}
               margin="dense"
               id="email"
               name="email"
@@ -123,7 +123,7 @@ const SweepstakesLogin = () => {
             />
 
             <TextField
-              className={style.TextField}
+              className={styles.textfield}
               margin="dense"
               id="password"
               name="password"
@@ -137,7 +137,7 @@ const SweepstakesLogin = () => {
             />
           </div>
           <Button
-            className={style.Button}
+            className={styles.button}
             variant="contained"
             fullWidth
             type="submit"
@@ -148,7 +148,7 @@ const SweepstakesLogin = () => {
         </form>
 
         <Button
-          className={style.Button}
+          className={styles.button}
           variant="outlined"
           fullWidth
           type="submit"
@@ -158,12 +158,12 @@ const SweepstakesLogin = () => {
           Google
         </Button>
 
-        <div className={style.login}>
+        <div className={styles.login}>
           <Link href={"/projects/sweepstakes/auth/signup"}>
-            <span className={style.register}>{t("not_registered")}</span>
+            <span className={styles.register}>{t("not_registered")}</span>
           </Link>
           <Link href={"/projects/sweepstakes/auth/forgot"}>
-            <span className={style.forgot}>{t("forgot_password")}</span>
+            <span className={styles.forgot}>{t("forgot_password")}</span>
           </Link>
         </div>
       </div>

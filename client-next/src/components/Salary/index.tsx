@@ -1,16 +1,16 @@
-import * as React from "react";
-import { useTranslation } from "next-i18next";
-import { useFormik } from "formik";
-import InputMask from "react-input-mask";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Skeleton from "@mui/material/Skeleton";
+import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { useFormik } from "formik";
+import { useTranslation } from "next-i18next";
+import * as React from "react";
+import InputMask from "react-input-mask";
 
-import style from "@/styles/components/salary.module.scss";
-import { salaryFrontValidationSchema } from "src/utils/validations";
+import styles from "@/styles/components/salary.module.scss";
 import { currencies } from "src/utils/constants";
+import { salaryFrontValidationSchema } from "src/utils/validations";
 
 const Salary = () => {
   const { t, i18n } = useTranslation("salary");
@@ -87,7 +87,7 @@ const Salary = () => {
   };
 
   return (
-    <div className={style.form}>
+    <div className={styles.form}>
       <form onSubmit={formik.handleSubmit} onChange={handleOnChange}>
         <div>
           <InputMask
@@ -97,7 +97,7 @@ const Salary = () => {
           >
             {() => (
               <TextField
-                className={style.TextField}
+                className={styles["text-field"]}
                 margin="dense"
                 id="totalTime"
                 name="totalTime"
@@ -117,7 +117,7 @@ const Salary = () => {
           >
             {() => (
               <TextField
-                className={style.TextField}
+                className={styles["text-field"]}
                 margin="dense"
                 id="valuePerHour"
                 name="valuePerHour"
@@ -136,7 +136,7 @@ const Salary = () => {
         </div>
         <div>
           <TextField
-            className={style.TextField}
+            className={styles["text-field"]}
             select
             margin="dense"
             id="originalCurrency"
@@ -159,7 +159,7 @@ const Salary = () => {
             ))}
           </TextField>
           <TextField
-            className={style.TextField}
+            className={styles["text-field"]}
             select
             margin="dense"
             id="finalCurrency"
@@ -183,7 +183,7 @@ const Salary = () => {
           </TextField>
         </div>
         <Button
-          className={style.Button}
+          className={styles.button}
           variant="contained"
           fullWidth
           type="submit"
@@ -191,9 +191,9 @@ const Salary = () => {
           {t("submit")}
         </Button>
       </form>
-      <div className={style.result}>
+      <div className={styles.result}>
         {totalSalaryInFinalCurrency ? (
-          <div className={style.totalSalary}>
+          <div className={styles["total-salary"]}>
             {formik.values.finalCurrency === "BRL" ? "$ " : "R$ "}
             {totalSalaryInOriginalCurrency}
             {" = "}
@@ -203,7 +203,9 @@ const Salary = () => {
         ) : (
           loading && (
             <Skeleton sx={{ bgcolor: "grey.800" }}>
-              <div className={style.totalSalary}>$ 1.000,00 = R$ 10,000.00</div>
+              <div className={styles["total-salary"]}>
+                $ 1.000,00 = R$ 10,000.00
+              </div>
             </Skeleton>
           )
         )}
