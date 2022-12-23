@@ -9,28 +9,27 @@ const BoxContainer = styled("div")({
   justifyContent: "center",
   height: "100vh",
   width: "100vw",
-  "& span:first-child": {
-    fontSize: "3rem",
-  },
-  "& span:nth-child(2)": {
-    fontSize: "1.5rem",
-  },
+});
+
+const NameContainer = styled("span")({
+  fontSize: "3rem",
   "@media (min-width: 900px)": {
-    "& span:first-child": {
-      fontSize: "9rem",
-    },
-    "& span:nth-child(2)": {
-      fontSize: "3rem",
-    },
+    fontSize: "9rem",
   },
 });
 
+const TitleContainer = styled("span")({
+  fontSize: "1.5rem",
+  "@media (min-width: 900px)": {
+    fontSize: "3rem",
+  },
+});
 const Home = () => {
   const { t } = useTranslation("common");
   return (
     <BoxContainer>
-      <span>{t("name")}</span>
-      <span>{t("title")}</span>
+      <NameContainer>{t("name")}</NameContainer>
+      <TitleContainer>{t("title")}</TitleContainer>
     </BoxContainer>
   );
 };

@@ -57,17 +57,60 @@ const emailRegex =
 
 const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
+export const logonSweepstakesFrontValidationSchema = (t) => {
+  return yup.object({
+    first: yup.string().required(t("first_required")).max(127, t("max_length")),
+    last: yup.string().required(t("last_required")).max(127, t("max_length")),
+    email: yup
+      .string()
+      .required(t("email_required"))
+      .max(127, t("max_length"))
+      .matches(emailRegex, t("email_validation")),
+    password: yup
+      .string()
+      .required(t("password_required"))
+      .max(127, t("max_length"))
+      .matches(passwordRegex, t("password_validation")),
+  });
+};
+
+export const logonSweepstakesValidationSchema = () => {
+  return yup.object({
+    first: yup
+      .string()
+      .required("First name is required")
+      .max(127, "Maximum characters allowed are 127"),
+    last: yup
+      .string()
+      .required("First name is required")
+      .max(127, "Maximum characters allowed are 127"),
+    email: yup
+      .string()
+      .required("Email is required")
+      .max(127, "Maximum characters allowed are 127")
+      .matches(emailRegex, "Invalid email"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .max(127, "Maximum characters allowed are 127")
+      .matches(
+        passwordRegex,
+        "Password must have 8 or more characters, uppercases, lowercases and numbers"
+      ),
+  });
+};
+
 export const loginSweepstakesFrontValidationSchema = (t) => {
   return yup.object({
     email: yup
       .string()
       .required(t("email_required"))
-      .max(255, t("max_length"))
+      .max(127, t("max_length"))
       .matches(emailRegex, t("email_validation")),
     password: yup
       .string()
       .required(t("password_required"))
-      .max(255, t("max_length"))
+      .max(127, t("max_length"))
       .matches(passwordRegex, t("password_validation")),
   });
 };
@@ -77,12 +120,12 @@ export const loginSweepstakesValidationSchema = () => {
     email: yup
       .string()
       .required("Email is required")
-      .max(255, "Maximum character allowed is 255")
+      .max(127, "Maximum characters allowed are 127")
       .matches(emailRegex, "Invalid email"),
     password: yup
       .string()
       .required("Password is required")
-      .max(255, "Maximum character allowed is 255")
+      .max(127, "Maximum characters allowed are 127")
       .matches(
         passwordRegex,
         "Password must have 8 or more characters, uppercases, lowercases and numbers"
@@ -95,7 +138,7 @@ export const forgotSweepstakesFrontValidationSchema = (t) => {
     email: yup
       .string()
       .required(t("email_required"))
-      .max(255, t("max_length"))
+      .max(127, t("max_length"))
       .matches(emailRegex, t("email_validation")),
   });
 };
@@ -105,7 +148,7 @@ export const forgotSweepstakesValidationSchema = () => {
     email: yup
       .string()
       .required("Email is required")
-      .max(255, "Maximum character allowed is 255")
+      .max(127, "Maximum characters allowed are 127")
       .matches(emailRegex, "Invalid email"),
   });
 };

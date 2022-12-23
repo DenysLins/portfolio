@@ -107,6 +107,7 @@ const SweepstakesForgot = () => {
           name="email"
           label={t("email_placeholder")}
           placeholder="Email"
+          type="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           error={formik.touched.email && Boolean(formik.errors.email)}
@@ -123,7 +124,7 @@ const SweepstakesForgot = () => {
         </Button>
       </form>
       <div className={styles.login}>
-        <Link href={"/projects/sweepstakes/auth/signup"}>
+        <Link href={"/projects/sweepstakes/auth/logon"}>
           <span className={styles.register}>{t("not_registered")}</span>
         </Link>
       </div>

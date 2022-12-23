@@ -6,8 +6,9 @@
   "password_required": "Password is required",
   "password_placeholder": "Password",
   "password_validation": "Password must have 8 or more characters, uppercases, lowercases and numbers",
-  "max_length": "Maximum character allowed is 255",
+  "max_length": "Maximum characters allowed are 127",
   "login": "Login",
+  "logout": "Logout",
   "forgot_password": "Forgot your password?",
   "register": "Sign Up",
   "already_registered": "Already registered?",
@@ -17,5 +18,9 @@
   "email_not_found": "Email not found",
   "email_sent": "Email sent",
   "wrong_password": "Wrong password",
-  "generic_error": "An error occurred, please try again"
+  "generic_error": "An error occurred, please try again",
+  "first_name": "First name",
+  "last_name": "Last name",
+  "first_required": "First name is required",
+  "last_required": "Last name is required"
 }

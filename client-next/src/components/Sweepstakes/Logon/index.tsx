@@ -12,23 +12,25 @@ import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
 import TextField from "@mui/material/TextField";
 import Link from "next/link";
-import { loginSweepstakesFrontValidationSchema } from "src/utils/validations";
+import { logonSweepstakesFrontValidationSchema } from "src/utils/validations";
 
-const SweepstakesSignUp = () => {
+const SweepstakesLogon = () => {
   const { t } = useTranslation("sweepstakes");
   const router = useRouter();
   const [userRegistered, setUserRegistered] = React.useState(false);
   const [error, setError] = React.useState(false);
   const formik = useFormik({
     initialValues: {
+      first: "",
+      last: "",
       email: "",
       password: "",
     },
-    validationSchema: loginSweepstakesFrontValidationSchema(t),
+    validationSchema: logonSweepstakesFrontValidationSchema(t),
     onSubmit: (values) => {
       axios
-        .post("/api/sweepstakes/signup", values)
-        .then(() => {
+        .post("/api/sweepstakes/logon", values)
+        .then((res) => {
           signIn("credentials", {
             redirect: false,
             email: values.email,
@@ -94,10 +96,40 @@ const SweepstakesSignUp = () => {
             <TextField
               className={styles.textfield}
               margin="dense"
+              id="first"
+              name="first"
+              label={t("first_name")}
+              placeholder={t("first_name")}
+              type="text"
+              value={formik.values.first}
+              onChange={formik.handleChange}
+              error={formik.touched.first && Boolean(formik.errors.first)}
+              helperText={formik.touched.first && formik.errors.first}
+            />
+
+            <TextField
+              className={styles.textfield}
+              margin="dense"
+              id="last"
+              name="last"
+              label={t("last_name")}
+              placeholder={t("last_name")}
+              type="text"
+              value={formik.values.last}
+              onChange={formik.handleChange}
+              error={formik.touched.last && Boolean(formik.errors.last)}
+              helperText={formik.touched.last && formik.errors.last}
+            />
+          </div>
+          <div>
+            <TextField
+              className={styles.textfield}
+              margin="dense"
               id="email"
               name="email"
               label={t("email_placeholder")}
               placeholder="Email"
+              type="email"
               value={formik.values.email}
               onChange={formik.handleChange}
               error={formik.touched.email && Boolean(formik.errors.email)}
@@ -141,4 +173,4 @@ const SweepstakesSignUp = () => {
   );
 };
 
-export default SweepstakesSignUp;
+export default SweepstakesLogon;

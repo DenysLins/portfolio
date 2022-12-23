@@ -1,16 +1,23 @@
 import clientPromise from "@/lib/mongodb";
 import bcrypt from "bcrypt";
 import { validate } from "src/utils/middlewares";
+import { v1 as uuidV1 } from "uuid";
 
 const handler = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { first, last, email, password } = req.body;
+    const name = `${first} ${last}`;
+    const uuid = uuidV1();
     const hashed = await bcrypt.hash(password, 10);
     const client = await clientPromise;
     const db = client.db("sweepstakes");
     await db.collection("users").insertOne({
+      name,
       email,
-      hashed,
+      password: hashed,
+      emailVerified: null,
+      role: "user",
+      image: `https://robohash.org/${uuid}.png`,
     });
     res.status(204).send();
   } catch (e) {

@@ -35,10 +35,11 @@ export const authOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token }) {
-      token.userRole =
-        token.email === process.env.ADMIN_EMAIL ? "admin" : "user";
-      return token;
+    async jwt(r) {
+      console.log(r);
+      r.token.userRole =
+        r.token.email === process.env.ADMIN_EMAIL ? "admin" : "user";
+      return r.token;
     },
   },
 };

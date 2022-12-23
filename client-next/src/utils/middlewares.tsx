@@ -1,6 +1,8 @@
 import {
-  forgotSweepstakesValidationSchema, loginSweepstakesValidationSchema,
-  salaryBackValidationSchema
+  forgotSweepstakesValidationSchema,
+  loginSweepstakesValidationSchema,
+  logonSweepstakesValidationSchema,
+  salaryBackValidationSchema,
 } from "./validations";
 
 export const validate = (handler) => {
@@ -26,10 +28,10 @@ export const validate = (handler) => {
 
     if (
       ["POST", "PUT"].includes(req.method) &&
-      req.url.includes("sweepstakes/signup")
+      req.url.includes("sweepstakes/logon")
     ) {
       try {
-        await loginSweepstakesValidationSchema().validate(req.body);
+        await logonSweepstakesValidationSchema().validate(req.body);
       } catch (error) {
         return res.status(400).json(error);
       }

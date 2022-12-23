@@ -1,22 +1,43 @@
+import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslation } from "next-i18next";
+import Image from "next/image";
 
 const NavStyled = styled("div")({
-  padding: 8,
-  position: "absolute",
-  right: "30px",
-  "& span": {
-    marginRight: "20px",
-  },
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "end",
+  width: "100%",
+});
+
+const SpanStyled = styled("span")({
+  margin: "0 1rem",
 });
 
 const SweepstakesNav = () => {
   const { data: session } = useSession();
-
+  const { t } = useTranslation("salary");
+  console.log(session);
   return (
     <NavStyled>
-      <span>{session.user.email}</span>
-      <button onClick={() => signOut()}>Sign out</button>
+      <Image
+        alt="Vercel logo"
+        src={session.user.image}
+        width={32}
+        height={32}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+          borderRadius: "50%",
+          border: "1px solid white",
+        }}
+      />
+      <SpanStyled>{session.user.name}</SpanStyled>
+      <Button variant="contained" color="error" onClick={() => signOut()}>
+        {t("logout")}
+      </Button>
     </NavStyled>
   );
 };

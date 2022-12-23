@@ -11,7 +11,7 @@ const handler = async (req, res) => {
       email,
     });
     if (user) {
-      const isPasswordValid = await bcrypt.compare(password, user.hashed);
+      const isPasswordValid = await bcrypt.compare(password, user.password);
       if (isPasswordValid) {
         res.json(user);
       } else {
