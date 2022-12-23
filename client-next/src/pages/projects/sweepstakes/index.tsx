@@ -1,27 +1,41 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useSession } from "next-auth/react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { styled } from "@mui/system";
 
-import style from "@/styles/pages/projects/sweepstakes.module.scss";
+import { SweepstakesContainer } from "@/styles/components/sweepstakes.styles";
 import SweepstakesMain from "@/components/Sweepstakes/Main";
-import { useRouter } from "next/router";
+import SweepstakesNav from "../../../components/Sweepstakes/Nav/index";
+
+const SweepstakesContainerSession = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  justifyContent: "flex-start",
+  height: "100vh",
+  width: "100vw",
+  padding: "6rem 3rem",
+  position: "relative",
+});
 
 const ProjectSweepstakesMain = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   if (status === "loading") {
     return (
-      <div className={style.container}>
+      <SweepstakesContainer>
         <CircularProgress color="inherit" />
-      </div>
+      </SweepstakesContainer>
     );
   } else {
     if (session) {
       return (
-        <div className={style.container}>
+        <SweepstakesContainerSession>
+          <SweepstakesNav />
           <SweepstakesMain />
-        </div>
+        </SweepstakesContainerSession>
       );
     } else {
       router.push("/projects/sweepstakes/auth/login");

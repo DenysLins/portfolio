@@ -1,27 +1,38 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Box, Container } from "@mui/material";
+import { styled } from "@mui/system";
 
-import style from "@/styles/pages/index.module.scss";
+const BoxContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  width: "100vw",
+  "& span:first-child": {
+    fontSize: "3rem",
+  },
+  "& span:nth-child(2)": {
+    fontSize: "1.5rem",
+  },
+  "@media (min-width: 900px)": {
+    "& span:first-child": {
+      fontSize: "9rem",
+    },
+    "& span:nth-child(2)": {
+      fontSize: "3rem",
+    },
+  },
+});
 
 const Home = () => {
   const { t } = useTranslation("common");
-
   return (
-    <Container maxWidth="xl" disableGutters>
-      <Box className={style.box} sx={{ display: { xs: "flex", md: "none" } }}>
-        <span className={style.name}>{t("name")}</span>
-        <span className={style.title}>{t("title")}</span>
-      </Box>
-      <Box
-        className={style.box}
-        sx={{ display: { xs: "none", md: "flex" }, fontSize: "8px" }}
-      >
-        <span className={style.name__xl}>{t("name")}</span>
-        <span className={style.title__xl}>{t("title")}</span>
-      </Box>
-    </Container>
+    <BoxContainer>
+      <span>{t("name")}</span>
+      <span>{t("title")}</span>
+    </BoxContainer>
   );
 };
 

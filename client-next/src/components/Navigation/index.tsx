@@ -13,8 +13,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { styled } from "@mui/system";
 
-import style from "@/styles/components/navigation.module.scss";
+const ImageContainer = styled(Image)({
+  transition: "all 0.3s",
+  width: "3rem",
+  height: "auto",
+  cursor: "pointer",
+  zIndex: 2000,
+  marginRight: "1rem",
+
+  "&:active": {
+    transform: "translateY(-0.5rem)",
+  },
+});
 
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -88,7 +100,6 @@ const Navigation = () => {
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
-              mr: "5rem",
             }}
           >
             {pages.map((page) => (
@@ -114,10 +125,9 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <Image
+              <ImageContainer
                 src="/img/br-flag.png"
                 alt="Brazil flag"
-                className={style.flag}
                 width={48}
                 height={32}
               />
@@ -127,10 +137,9 @@ const Navigation = () => {
               locale={(router.locale = "en")}
               passHref
             >
-              <Image
+              <ImageContainer
                 src="/img/usa-flag.png"
                 alt="USA flag"
-                className={style.flag}
                 width={48}
                 height={32}
               />
@@ -142,10 +151,9 @@ const Navigation = () => {
               locale={(router.locale = "pt")}
               passHref
             >
-              <Image
+              <ImageContainer
                 src="/img/br-flag.png"
                 alt="Brazil flag"
-                className={style.flag__xl}
                 width={48}
                 height={32}
               />
@@ -155,10 +163,9 @@ const Navigation = () => {
               locale={(router.locale = "en")}
               passHref
             >
-              <Image
+              <ImageContainer
                 src="/img/usa-flag.png"
                 alt="USA flag"
-                className={style.flag__xl}
                 width={48}
                 height={32}
               />

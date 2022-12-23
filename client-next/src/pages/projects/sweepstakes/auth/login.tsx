@@ -1,13 +1,13 @@
 import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import style from "@/styles/pages/projects/sweepstakes.module.scss";
+import { SweepstakesContainer } from "@/styles/components/sweepstakes.styles";
 import SweepstakesLogin from "@/components/Sweepstakes/Login";
 const ProjectSweepstakesLogin = () => {
   return (
-    <div className={style.container}>
+    <SweepstakesContainer>
       <SweepstakesLogin />
-    </div>
+    </SweepstakesContainer>
   );
 };
 

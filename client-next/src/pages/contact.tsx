@@ -4,15 +4,32 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import EmailIcon from "@mui/icons-material/Email";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { styled } from "@mui/system";
 
-import style from "@/styles/pages/contact.module.scss";
+const ContactContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  width: "100vw",
+  "& > div": {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    "& > a": {
+      margin: "1rem 1rem",
+      fontSize: "1.5rem",
+    },
+  },
+});
 
 const Contact = () => {
   const { t } = useTranslation("contact");
 
   return (
-    <div className={style.container}>
-      <div className={style.contact}>
+    <ContactContainer>
+      <div>
         <EmailIcon />
         <a
           target="_blank"
@@ -22,7 +39,7 @@ const Contact = () => {
           {t("email")}
         </a>
       </div>
-      <div className={style.contact}>
+      <div>
         <TwitterIcon />
         <a
           target="_blank"
@@ -32,7 +49,7 @@ const Contact = () => {
           {t("twitter")}
         </a>
       </div>
-      <div className={style.contact}>
+      <div>
         <LinkedInIcon />
         <a
           target="_blank"
@@ -42,7 +59,7 @@ const Contact = () => {
           {t("linkedin")}
         </a>
       </div>
-    </div>
+    </ContactContainer>
   );
 };
 

@@ -1,13 +1,14 @@
 import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import style from "@/styles/pages/projects/sweepstakes.module.scss";
+import { SweepstakesContainer } from "@/styles/components/sweepstakes.styles";
 import SweepstakesForgot from "@/components/Sweepstakes/Forgot";
+
 const ProjectSweepstakesForgot = () => {
   return (
-    <div className={style.container}>
+    <SweepstakesContainer>
       <SweepstakesForgot />
-    </div>
+    </SweepstakesContainer>
   );
 };
 

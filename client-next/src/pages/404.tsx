@@ -1,25 +1,31 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { Box, Container } from "@mui/material";
+import { styled } from "@mui/system";
 
-import style from "@/styles/pages/404.module.scss";
+const FourOhFourContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  width: "100vw",
+  "& span": {
+    fontSize: "1.5rem",
+  },
+  "@media (min-width: 900px)": {
+    "& span": {
+      fontSize: "3rem",
+    },
+  },
+});
 
 const FourOhFour = () => {
   const { t } = useTranslation("common");
-
   return (
-    <Container maxWidth="xl" disableGutters>
-      <Box className={style.box} sx={{ display: { xs: "flex", md: "none" } }}>
-        <span className={style.info}>{t("not_found")}</span>
-      </Box>
-      <Box
-        className={style.box}
-        sx={{ display: { xs: "none", md: "flex" }, fontSize: "8px" }}
-      >
-        <span className={style.info__xl}>{t("not_found")}</span>
-      </Box>
-    </Container>
+    <FourOhFourContainer>
+      <span>{t("not_found")}</span>
+    </FourOhFourContainer>
   );
 };
 

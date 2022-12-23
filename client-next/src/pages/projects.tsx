@@ -2,24 +2,40 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
+import { styled } from "@mui/system";
 
-import style from "@/styles/pages/projects.module.scss";
+const ProjectsContainer = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  justifyContent: "flex-start",
+  height: "100vh",
+  width: "100vw",
+  padding: "6rem 1.5rem 3rem 1.5rem",
+  "& > ul": {
+    listStyleType: "none",
+    margin: 0,
+    padding: 0,
+  },
+  "& > ul > li": {
+    margin: "1.5rem 0",
+    fontSize: "1.5rem",
+  },
+});
+
 const Projects = () => {
   const { t } = useTranslation("projects");
-
   return (
-    <div className={style.projects}>
-      <div className={style.project}>
-        <ul>
-          <li>
-            <Link href={"/projects/salary"}>1. {t("1")}</Link>
-          </li>
-          <li>
-            <Link href={"/projects/sweepstakes"}>2. {t("2")}</Link>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <ProjectsContainer>
+      <ul>
+        <li>
+          <Link href={"/projects/salary"}>1. {t("1")}</Link>
+        </li>
+        <li>
+          <Link href={"/projects/sweepstakes"}>2. {t("2")}</Link>
+        </li>
+      </ul>
+    </ProjectsContainer>
   );
 };
 

@@ -1,34 +1,26 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
+import { styled } from "@mui/system";
 
-import style from "@/styles/components/footer.module.scss";
+const FooterContainer = styled("footer")({
+  position: "absolute",
+  bottom: "1.5rem",
+  left: "1.5rem",
+  zIndex: 2,
+  fontSize: "1rem",
+});
 
 const Footer = () => {
   const { t } = useTranslation("footer");
-
   return (
-    <>
-      <footer>
-        <div className={style.footer}>
-          <a
-            className={style.a}
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t("next")}
-          </a>
-          <a
-            className={style.a}
-            href="https://vercel.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t("vercel")}
-          </a>
-        </div>
-      </footer>
-    </>
+    <FooterContainer>
+      <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
+        {t("next")}
+      </a>
+      <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">
+        {t("vercel")}
+      </a>
+    </FooterContainer>
   );
 };
 
