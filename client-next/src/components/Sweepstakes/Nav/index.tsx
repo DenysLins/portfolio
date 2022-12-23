@@ -28,7 +28,6 @@ const SweepstakesNav = () => {
         width={32}
         height={32}
         style={{
-          maxWidth: "100%",
           height: "auto",
           borderRadius: "50%",
           border: "1px solid white",
