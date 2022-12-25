@@ -12,7 +12,6 @@ function SweepstakesAdmin() {
         </a>
         .
       </p>
-      <button onClick={() => signOut()}>Sign out</button>
     </>
   );
 }

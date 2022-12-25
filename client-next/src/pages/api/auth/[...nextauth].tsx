@@ -36,10 +36,13 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt(r) {
-      console.log(r);
       r.token.userRole =
-        r.token.email === process.env.ADMIN_EMAIL ? "admin" : "user";
+        r.token.email === process.env.ADMIN_EMAIL ? "admin" : null;
       return r.token;
+    },
+    async session({ session, token }) {
+      session.user.userRole = token.userRole;
+      return session;
     },
   },
 };

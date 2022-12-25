@@ -8,7 +8,7 @@ import styles from "@/styles/components/sweepstakes.module.scss";
 import SweepstakesAdminNav from "../../../components/Sweepstakes/Nav/Admin";
 import SweepstakesNav from "../../../components/Sweepstakes/Nav/index";
 
-const SweepstakesContainerSession = styled("div")({
+const SweepstakesContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
@@ -29,11 +29,18 @@ const ProjectSweepstakesMain = () => {
     );
   } else {
     if (session) {
+      if (session.user.userRole === "admin") {
+        return (
+          <SweepstakesContainer>
+            <SweepstakesNav />
+            <SweepstakesAdminNav />
+          </SweepstakesContainer>
+        );
+      }
       return (
-        <SweepstakesContainerSession>
+        <SweepstakesContainer>
           <SweepstakesNav />
-          <SweepstakesAdminNav />
-        </SweepstakesContainerSession>
+        </SweepstakesContainer>
       );
     } else {
       router.push("/projects/sweepstakes/auth/login");

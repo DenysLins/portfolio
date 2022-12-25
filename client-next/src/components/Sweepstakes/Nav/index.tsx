@@ -18,8 +18,7 @@ const SpanStyled = styled("span")({
 
 const SweepstakesNav = () => {
   const { data: session } = useSession();
-  const { t } = useTranslation("salary");
-  console.log(session);
+  const { t } = useTranslation("sweepstakes");
   return (
     <NavStyled>
       <Image

@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const NavStyled = styled("div")({
@@ -13,7 +12,6 @@ const NavStyled = styled("div")({
 });
 
 const SweepstakesAdminNav = () => {
-  const { data: session } = useSession();
   const router = useRouter();
 
   return (

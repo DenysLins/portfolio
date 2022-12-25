@@ -16,7 +16,6 @@ const handler = async (req, res) => {
       email,
       password: hashed,
       emailVerified: null,
-      role: "user",
       image: `https://robohash.org/${uuid}.png`,
     });
     res.status(204).send();
