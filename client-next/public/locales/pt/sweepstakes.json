@@ -22,5 +22,11 @@
   "first_name": "Primeiro nome",
   "last_name": "Último nome",
   "first_required": "Primeiro nome é obrigatório",
-  "last_required": "Ultimo nome é obrigatório"
+  "last_required": "Ultimo nome é obrigatório",
+  "sweepstakes_add": "Adicionar bolão",
+  "sweepstake_create": "Criar bolão",
+  "sweepstake_name": "Nome",
+  "sweepstake_championship": "Campeonato",
+  "championship_required": "Campeonato é obrigatório",
+  "name_required": "Nome é obrigatório"
 }

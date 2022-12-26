@@ -152,3 +152,26 @@ export const forgotSweepstakesValidationSchema = () => {
       .matches(emailRegex, "Invalid email"),
   });
 };
+
+export const createSweepstakesFrontValidationSchema = (t) => {
+  return yup.object({
+    name: yup.string().required(t("name_required")).max(127, t("max_length")),
+    championship: yup
+      .string()
+      .required(t("championship_required"))
+      .max(127, t("max_length")),
+  });
+};
+
+export const createSweepstakesValidationSchema = () => {
+  return yup.object({
+    name: yup
+      .string()
+      .required("Name is required")
+      .max(127, "Maximum characters allowed are 127"),
+    championship: yup
+      .string()
+      .required("Championship is required")
+      .max(127, "Maximum characters allowed are 127"),
+  });
+};

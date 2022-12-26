@@ -8,8 +8,13 @@ const NavStyled = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "end",
+  justifyContent: "space-between",
   width: "100%",
+});
+
+const UserInfo = styled("div")({
+  display: "flex",
+  alignItems: "center",
 });
 
 const SpanStyled = styled("span")({
@@ -21,18 +26,20 @@ const SweepstakesNav = () => {
   const { t } = useTranslation("sweepstakes");
   return (
     <NavStyled>
-      <Image
-        alt="Vercel logo"
-        src={session.user.image}
-        width={32}
-        height={32}
-        style={{
-          height: "auto",
-          borderRadius: "50%",
-          border: "1px solid white",
-        }}
-      />
-      <SpanStyled>{session.user.name}</SpanStyled>
+      <UserInfo>
+        <Image
+          alt="Vercel logo"
+          src={session.user.image}
+          width={32}
+          height={32}
+          style={{
+            height: "auto",
+            borderRadius: "50%",
+            border: "1px solid white",
+          }}
+        />
+        <SpanStyled>{session.user.name}</SpanStyled>
+      </UserInfo>
       <Button variant="contained" color="error" onClick={() => signOut()}>
         {t("logout")}
       </Button>

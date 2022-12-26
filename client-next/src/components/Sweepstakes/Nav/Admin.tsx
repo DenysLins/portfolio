@@ -6,7 +6,7 @@ const NavStyled = styled("div")({
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  justifyContent: "start",
+  justifyContent: "end",
   width: "100%",
   margin: "1rem 0",
 });

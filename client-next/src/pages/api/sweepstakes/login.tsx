@@ -1,13 +1,13 @@
-import clientPromise from "@/lib/mongodb";
+import dbConnect from "@/lib/mongodb";
+import User from "@/models/sweepstakes/User";
 import bcrypt from "bcrypt";
 import { validate } from "src/utils/middlewares";
 
 const handler = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const client = await clientPromise;
-    const db = client.db("sweepstakes");
-    const user = await db.collection("users").findOne({
+    await dbConnect();
+    const user = await User.findOne({
       email,
     });
     if (user) {

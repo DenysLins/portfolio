@@ -1,4 +1,5 @@
 import {
+  createSweepstakesValidationSchema,
   forgotSweepstakesValidationSchema,
   loginSweepstakesValidationSchema,
   logonSweepstakesValidationSchema,
@@ -7,7 +8,10 @@ import {
 
 export const validate = (handler) => {
   return async (req, res) => {
-    if (["POST", "PUT"].includes(req.method) && req.url.includes("salary")) {
+    if (
+      ["POST", "PUT"].includes(req.method) &&
+      req.url.includes("/api/salary")
+    ) {
       try {
         await salaryBackValidationSchema().validate(req.body);
       } catch (error) {
@@ -17,7 +21,7 @@ export const validate = (handler) => {
 
     if (
       ["POST", "PUT"].includes(req.method) &&
-      req.url.includes("sweepstakes/login")
+      req.url.includes("/api/sweepstakes/login")
     ) {
       try {
         await loginSweepstakesValidationSchema().validate(req.body);
@@ -28,7 +32,7 @@ export const validate = (handler) => {
 
     if (
       ["POST", "PUT"].includes(req.method) &&
-      req.url.includes("sweepstakes/logon")
+      req.url.includes("/api/sweepstakes/logon")
     ) {
       try {
         await logonSweepstakesValidationSchema().validate(req.body);
@@ -39,7 +43,7 @@ export const validate = (handler) => {
 
     if (
       ["POST", "PUT"].includes(req.method) &&
-      req.url.includes("sweepstakes/forgot")
+      req.url.includes("/api/sweepstakes/forgot")
     ) {
       try {
         await forgotSweepstakesValidationSchema().validate(req.body);
@@ -47,6 +51,18 @@ export const validate = (handler) => {
         return res.status(400).json(error);
       }
     }
+
+    if (
+      ["POST", "PUT"].includes(req.method) &&
+      req.url === "/api/sweepstakes"
+    ) {
+      try {
+        await createSweepstakesValidationSchema().validate(req.body);
+      } catch (error) {
+        return res.status(400).json(error);
+      }
+    }
+
     await handler(req, res);
   };
 };
