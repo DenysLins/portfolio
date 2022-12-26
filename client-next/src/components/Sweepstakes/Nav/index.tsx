@@ -40,7 +40,12 @@ const SweepstakesNav = () => {
         />
         <SpanStyled>{session.user.name}</SpanStyled>
       </UserInfo>
-      <Button variant="contained" color="error" onClick={() => signOut()}>
+      <Button
+        sx={{ width: 100 }}
+        variant="contained"
+        color="error"
+        onClick={() => signOut()}
+      >
         {t("logout")}
       </Button>
     </NavStyled>

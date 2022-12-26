@@ -17,6 +17,7 @@ const SweepstakesAdminNav = () => {
   return (
     <NavStyled>
       <Button
+        sx={{ width: 100 }}
         variant="contained"
         color="error"
         onClick={() => {

@@ -4,9 +4,12 @@ import { useTranslation } from "next-i18next";
 const FooterContainer = styled("footer")({
   position: "absolute",
   bottom: "1.5rem",
-  left: "1.5rem",
+  left: "1rem",
   zIndex: 2,
-  fontSize: "1rem",
+  fontSize: "0.7rem",
+  "@media only screen and (min-width: 900px)": {
+    fontSize: "1rem",
+  },
 });
 
 const Footer = () => {
