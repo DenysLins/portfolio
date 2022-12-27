@@ -19,14 +19,18 @@ const handler = async (req, res) => {
 
     if (req.method === "POST") {
       try {
-        const { name, championship } = req.body;
+        const { name, championship, championshipId, logo } = req.body;
         await dbConnect();
-        await Sweepstake.create({
+        const c = await Sweepstake.create({
           name,
           championship,
+          championshipId,
+          logo,
+          users: [],
         });
         res.status(201).send();
       } catch (e) {
+        console.log(e);
         res.status(500).json(e);
       }
     }

@@ -1,9 +1,9 @@
 module.exports = {
   async up(db) {
-    await db.collection("User").createIndex({ email: 1 }, { unique: true });
+    await db.collection("users").createIndex({ email: 1 }, { unique: true });
   },
 
   async down(db) {
-    await db.collection("User").dropIndex({ email: 1 });
+    await db.collection("users").dropIndex({ email: 1 });
   },
 };

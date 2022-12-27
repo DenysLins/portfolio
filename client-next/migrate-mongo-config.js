@@ -1,7 +1,7 @@
 const config = {
   mongodb: {
     url: "mongodb://root:example@localhost:27017",
-    databaseName: "sweepstakes",
+    databaseName: "sweepstakesDb",
     options: {
       useNewUrlParser: true, // removes a deprecation warning when connecting
       useUnifiedTopology: true, // removes a deprecating warning when connecting

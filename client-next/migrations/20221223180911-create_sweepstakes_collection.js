@@ -1,9 +1,9 @@
 module.exports = {
   async up(db) {
-    await db.createCollection("Sweepstake", {});
+    await db.createCollection("sweepstakes", {});
   },
 
   async down(db) {
-    await db.collection("Sweepstake").drop();
+    await db.collection("sweepstakes").drop();
   },
 };

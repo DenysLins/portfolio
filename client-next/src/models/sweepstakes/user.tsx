@@ -8,27 +8,30 @@ export interface User {
   role: string;
 }
 
-const UserSchema = new Schema<User>({
-  name: {
-    type: String,
-    required: true,
+const UserSchema = new Schema<User>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  role: {
-    type: String,
-  },
-});
+  { versionKey: false }
+);
 
 export default (models.User as Model<User>) || model("User", UserSchema);

@@ -121,7 +121,10 @@ const Navigation = () => {
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <Link
-              href={router.pathname}
+              href={{
+                pathname: router.pathname,
+                query: router.query,
+              }}
               locale={(router.locale = "pt")}
               passHref
             >
@@ -133,7 +136,10 @@ const Navigation = () => {
               />
             </Link>
             <Link
-              href={router.pathname}
+              href={{
+                pathname: router.pathname,
+                query: router.query,
+              }}
               locale={(router.locale = "en")}
               passHref
             >
@@ -147,7 +153,10 @@ const Navigation = () => {
           </Box>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <Link
-              href={router.pathname}
+              href={{
+                pathname: router.pathname,
+                query: router.query,
+              }}
               locale={(router.locale = "pt")}
               passHref
             >
@@ -159,7 +168,10 @@ const Navigation = () => {
               />
             </Link>
             <Link
-              href={router.pathname}
+              href={{
+                pathname: router.pathname,
+                query: router.query,
+              }}
               locale={(router.locale = "en")}
               passHref
             >

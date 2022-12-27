@@ -167,11 +167,16 @@ export const createSweepstakesValidationSchema = () => {
   return yup.object({
     name: yup
       .string()
-      .required("Name is required")
+      .required("name is required")
       .max(127, "Maximum characters allowed are 127"),
     championship: yup
       .string()
-      .required("Championship is required")
+      .required("championship is required")
       .max(127, "Maximum characters allowed are 127"),
+    championshipId: yup.number().required("championshipId is required"),
+    logo: yup
+      .string()
+      .required("logo is required")
+      .max(255, "Maximum characters allowed are 255"),
   });
 };

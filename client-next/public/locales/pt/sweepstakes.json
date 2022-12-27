@@ -28,5 +28,7 @@
   "sweepstake_name": "Nome",
   "sweepstake_championship": "Campeonato",
   "championship_required": "Campeonato é obrigatório",
-  "name_required": "Nome é obrigatório"
+  "name_required": "Nome é obrigatório",
+  "sweepstake_selection": "Nenhum",
+  "create": "Criar bolão"
 }

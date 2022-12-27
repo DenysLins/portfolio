@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import styles from "@/styles/components/sweepstakes.module.scss";
 import SweepstakesForgot from "@/components/Sweepstakes/Forgot";
 
-const ProjectSweepstakesForgot = () => {
+const SweepstakesForgotPage = () => {
   return (
     <div className={styles.container}>
       <SweepstakesForgot />
@@ -24,4 +24,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default ProjectSweepstakesForgot;
+export default SweepstakesForgotPage;

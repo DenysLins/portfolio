@@ -29,5 +29,6 @@
   "sweepstake_championship": "Championship",
   "create": "Create sweepstake",
   "name_required": "Name is required",
-  "championship_required": "Championship is required"
+  "championship_required": "Championship is required",
+  "sweepstake_selection": "None"
 }

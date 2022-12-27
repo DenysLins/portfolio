@@ -6,7 +6,6 @@ import styles from "@/styles/components/sweepstakes.module.scss";
 import { CircularProgress } from "@mui/material";
 import { styled } from "@mui/system";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 const SweepstakesContainer = styled("div")({
   display: "flex",
@@ -18,9 +17,8 @@ const SweepstakesContainer = styled("div")({
   padding: "5rem 1rem",
 });
 
-const ProjectSweepstakesAdmin = () => {
+const SweepstakesAdminPage = () => {
   const { data: session, status } = useSession();
-  const router = useRouter();
   if (status === "loading") {
     return (
       <div className={styles.container}>
@@ -51,4 +49,4 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-export default ProjectSweepstakesAdmin;
+export default SweepstakesAdminPage;

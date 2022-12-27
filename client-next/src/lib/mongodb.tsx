@@ -21,7 +21,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
     cached.promise = mongoose
-      .connect(MONGODB_URI, opts)
+      .connect(`${MONGODB_URI}/sweepstakesDb?authSource=admin`, opts)
       .then((mongoose) => mongoose);
   }
 
