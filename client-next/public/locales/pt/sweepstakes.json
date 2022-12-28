@@ -30,5 +30,7 @@
   "championship_required": "Campeonato é obrigatório",
   "name_required": "Nome é obrigatório",
   "sweepstake_selection": "Nenhum",
-  "create": "Criar bolão"
+  "create": "Criar bolão",
+  "sweepstake_user_list": "Lista de usuários",
+  "sweepstake_user_allowed": "Permitido?"
 }

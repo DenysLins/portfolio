@@ -1,8 +1,10 @@
 import { Model, model, models, Schema } from "mongoose";
 
 interface User {
+  name: string;
   email: string;
   status: string;
+  image: string;
 }
 export interface Sweepstake {
   name: string;
@@ -14,15 +16,23 @@ export interface Sweepstake {
 
 const UserSchema = new Schema<User>(
   {
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
-      unique: true,
     },
+
     status: {
       type: String,
       enum: ["ALLOWED", "NOT_ALLOWED"],
       default: "NOT_ALLOWED",
+    },
+    image: {
+      type: String,
+      required: true,
     },
   },
   { versionKey: false }
@@ -33,7 +43,6 @@ const SweepstakeSchema = new Schema<Sweepstake>(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
     championship: {
       type: String,

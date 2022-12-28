@@ -1,20 +1,27 @@
+import { mockCampeonatos } from "@/pages/api/sweepstakes/temp";
 import styles from "@/styles/components/sweepstakes.module.scss";
 import { createSweepstakesFrontValidationSchema } from "@/utils/validations";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import DehazeIcon from "@mui/icons-material/Dehaze";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Dialog from "@mui/material/Dialog";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
+import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/system";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useTranslation } from "next-i18next";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -64,11 +71,31 @@ const SweepstakesCard = styled(Card)({
   cursor: "pointer",
 });
 
+const UserListContainer = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "row",
+  margin: "0 1rem 1rem 1rem",
+});
+
+const User = styled("div")({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  flexDirection: "row",
+  width: "100vw",
+  maxWidth: "500px",
+});
+
 function SweepstakesAdmin() {
   const { t } = useTranslation("sweepstakes");
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [isNewSweepstakesOpened, setIsNewSweepstakesOpened] = useState(false);
+  const [isUserListOpened, setIsUserListOpened] = useState(false);
   const [sweepstakesList, setSweepstakesList] = useState([]);
+  const [sweepstake, setSweepstake] = useState(null);
+
   const [championships, setChampionships] = useState([]);
 
   const formik = useFormik({
@@ -90,7 +117,7 @@ function SweepstakesAdmin() {
       axios
         .post("/api/sweepstakes", payload)
         .then(() => {
-          setOpen(false);
+          setIsNewSweepstakesOpened(false);
           formik.setValues({ name: "", championship: "" });
           formik.setTouched({ name: false, championship: false });
         })
@@ -109,23 +136,41 @@ function SweepstakesAdmin() {
       .catch((e) => {
         console.log(e);
       });
-  }, [open]);
+  }, [isNewSweepstakesOpened]);
 
   useEffect(() => {
-    axios
+    /*     axios
       .get("/api/sweepstakes/championships")
       .then((res) => {
         setChampionships(res.data);
       })
       .catch((e) => {
         console.log(e);
-      });
+      }); */
+    setChampionships(mockCampeonatos);
   }, []);
 
   const handleClose = () => {
-    setOpen(false);
+    setIsNewSweepstakesOpened(false);
     formik.setValues({ name: "", championship: "" });
     formik.setTouched({ name: false, championship: false });
+  };
+
+  const handleCloseUserList = () => {
+    setIsUserListOpened(false);
+  };
+
+  const handleUserList = (event, card) => {
+    event.stopPropagation();
+    axios
+      .get(`/api/sweepstakes/${card._id}/users`)
+      .then((res) => {
+        setSweepstake(res.data);
+        setIsUserListOpened(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const handleCardClick = (event, card) => {
@@ -152,14 +197,37 @@ function SweepstakesAdmin() {
       });
   };
 
+  const handleUserListChange = (user) => {
+    axios
+      .put(`/api/sweepstakes/${sweepstake._id}/users`, {
+        email: user.email,
+        status: user.status === "NOT_ALLOWED" ? "ALLOWED" : "NOT_ALLOWED",
+      })
+      .then((res) => {
+        setSweepstake(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const checked = (user) => {
+    return (
+      sweepstake.users.find((u) => u.email === user.email).status === "ALLOWED"
+    );
+  };
+
   return (
     <>
       <SweepstakesListHeader>
-        <SweepstakesListTitle>{t("sweepstakes")}</SweepstakesListTitle>
+        <Link href="/projects/sweepstakes">
+          <SweepstakesListTitle>{t("sweepstakes")}</SweepstakesListTitle>
+        </Link>
+
         <IconButton
           aria-label="add"
           color="primary"
-          onClick={() => setOpen(true)}
+          onClick={() => setIsNewSweepstakesOpened(true)}
           size="large"
         >
           <AddBoxIcon fontSize="large" />
@@ -168,7 +236,24 @@ function SweepstakesAdmin() {
       <SweepstakesListCardContainer>
         {sweepstakesList.map((s) => {
           return (
-            <SweepstakesCard key={s._id} onClick={(e) => handleCardClick(e, s)}>
+            <SweepstakesCard
+              key={s._id}
+              onClick={(event) => handleCardClick(event, s)}
+            >
+              <IconButton
+                aria-label="delete"
+                color="primary"
+                size="large"
+                sx={{
+                  position: "absolute",
+                  top: "0.3rem",
+                  right: "0.3rem",
+                  zIndex: "1000",
+                }}
+                onClick={(event) => handleUserList(event, s)}
+              >
+                <DehazeIcon />
+              </IconButton>
               <IconButton
                 aria-label="delete"
                 color="error"
@@ -179,7 +264,7 @@ function SweepstakesAdmin() {
                   right: "0.3rem",
                   zIndex: "1000",
                 }}
-                onClick={(e) => handleDelete(e, s)}
+                onClick={(event) => handleDelete(event, s)}
               >
                 <DeleteIcon />
               </IconButton>
@@ -205,7 +290,11 @@ function SweepstakesAdmin() {
           );
         })}
       </SweepstakesListCardContainer>
-      <Dialog onClose={handleClose} open={open} maxWidth={"xl"}>
+      <Dialog
+        onClose={handleClose}
+        open={isNewSweepstakesOpened}
+        maxWidth={"xl"}
+      >
         <SweepstakesListForm>
           <form onSubmit={formik.handleSubmit}>
             <TextField
@@ -268,6 +357,56 @@ function SweepstakesAdmin() {
             </Button>
           </form>
         </SweepstakesListForm>
+      </Dialog>
+      <Dialog
+        onClose={handleCloseUserList}
+        open={isUserListOpened}
+        maxWidth={"xl"}
+      >
+        <h1 style={{ margin: "1rem" }}>{t("sweepstake_user_list")}</h1>
+        <UserListContainer>
+          {sweepstake &&
+            sweepstake.users.map((u) => {
+              return (
+                <User key={u._id}>
+                  <Image
+                    alt={u.name}
+                    src={u.image}
+                    width={32}
+                    height={32}
+                    style={{
+                      height: "auto",
+                      borderRadius: "50%",
+                      border: "1px solid white",
+                    }}
+                  />
+                  {u.status === "ALLOWED" ? (
+                    <Typography variant="inherit" noWrap>
+                      <span>{u.name}</span>
+                    </Typography>
+                  ) : (
+                    <Typography variant="inherit" noWrap>
+                      <span>
+                        <s>{u.name}</s>
+                      </span>
+                    </Typography>
+                  )}
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={checked(u)}
+                          onChange={() => handleUserListChange(u)}
+                          inputProps={{ "aria-label": "controlled" }}
+                        />
+                      }
+                      label={t("sweepstake_user_allowed")}
+                    />
+                  </FormGroup>
+                </User>
+              );
+            })}
+        </UserListContainer>
       </Dialog>
     </>
   );

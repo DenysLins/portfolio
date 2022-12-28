@@ -8,6 +8,7 @@ import { styled } from "@mui/system";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -53,9 +54,10 @@ const SweepstakesCard = styled(Card)({
 function SweepstakesMain() {
   const { t } = useTranslation("sweepstakes");
   const { data: session } = useSession();
-  const sessionEmail = session.user.email;
   const router = useRouter();
   const [sweepstakesList, setSweepstakesList] = useState([]);
+
+  console.log(session);
 
   useEffect(() => {
     axios
@@ -71,7 +73,8 @@ function SweepstakesMain() {
   const handleCardClick = (event, card) => {
     event.stopPropagation();
     if (
-      card.users.find((u) => u.email === sessionEmail)?.status === "ALLOWED"
+      card.users.find((u) => u.email === session.user.email)?.status ===
+      "ALLOWED"
     ) {
       router.push(`/projects/sweepstakes/${card._id}`);
     }
@@ -80,7 +83,9 @@ function SweepstakesMain() {
   const handleAdd = (event, card) => {
     event.stopPropagation();
     const payload = {
-      email: sessionEmail,
+      name: session.user.name,
+      email: session.user.email,
+      image: session.user.image,
     };
     axios
       .post(`/api/sweepstakes/${card._id}/users`, payload)
@@ -100,7 +105,7 @@ function SweepstakesMain() {
   };
 
   const checkButtonDisabled = (card) => {
-    if (card.users.flatMap((u) => u.email).includes(sessionEmail)) {
+    if (card.users.flatMap((u) => u.email).includes(session.user.email)) {
       return true;
     } else {
       return false;
@@ -110,7 +115,9 @@ function SweepstakesMain() {
   return (
     <>
       <SweepstakesListHeader>
-        <SweepstakesListTitle>{t("sweepstakes")}</SweepstakesListTitle>
+        <Link href="/projects/sweepstakes">
+          <SweepstakesListTitle>{t("sweepstakes")}</SweepstakesListTitle>
+        </Link>
       </SweepstakesListHeader>
       <SweepstakesListCardContainer>
         {sweepstakesList.map((s) => {

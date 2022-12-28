@@ -6,9 +6,10 @@ import { authOptions } from "../auth/[...nextauth]";
 const handler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
   if (session) {
+    console.log;
     const { method } = req;
     const { slug } = req.query;
-    const { email } = req.body;
+    const { name, email, image, status } = req.body;
 
     switch (method) {
       case "POST":
@@ -20,8 +21,10 @@ const handler = async (req, res) => {
             await Sweepstake.findByIdAndUpdate(slug[0], {
               $push: {
                 users: {
+                  name: name,
                   email: email,
                   status: "NOT_ALLOWED",
+                  image: image,
                 },
               },
             });
@@ -31,8 +34,30 @@ const handler = async (req, res) => {
           res.status(500).json(e);
         }
         break;
+      case "GET":
+        try {
+          const s = await Sweepstake.findById(slug[0]);
+          res.json(s);
+        } catch (e) {
+          res.status(500).json(e);
+        }
+        break;
+      case "PUT":
+        try {
+          await Sweepstake.findOneAndUpdate(
+            { _id: slug[0], "users.email": email },
+            {
+              $set: { "users.$.status": status },
+            }
+          );
+          const s = await Sweepstake.findById(slug[0]);
+          res.status(200).json(s);
+        } catch (e) {
+          res.status(500).json(e);
+        }
+        break;
       default:
-        res.setHeader("Allow", ["POST"]);
+        res.setHeader("Allow", ["GET", "POST", "PUT"]);
         res.status(405).end(`Method ${method} Not Allowed`);
     }
   } else {

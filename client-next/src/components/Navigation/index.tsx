@@ -82,14 +82,14 @@ const Navigation = () => {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={() => handleCloseNavMenu()}
+              onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
                 <Link key={page.link} href={page.link} passHref>
-                  <MenuItem onClick={() => handleCloseNavMenu()}>
+                  <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page.label}</Typography>
                   </MenuItem>
                 </Link>
@@ -105,7 +105,7 @@ const Navigation = () => {
             {pages.map((page) => (
               <Link key={page.link} href={page.link} passHref>
                 <Button
-                  onClick={() => handleCloseNavMenu()}
+                  onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
                     mx: "auto",

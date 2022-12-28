@@ -8,7 +8,7 @@ const NavStyled = styled("div")({
   alignItems: "center",
   justifyContent: "end",
   width: "100%",
-  margin: "1rem 0",
+  margin: "0.5rem 0",
 });
 
 const SweepstakesAdminNav = () => {

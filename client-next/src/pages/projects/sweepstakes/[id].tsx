@@ -20,17 +20,18 @@ const SweepstakesContainer = styled("div")({
   justifyContent: "flex-start",
   height: "100vh",
   width: "100vw",
-  padding: "5rem 1rem",
+  padding: "5rem 1rem 3rem",
 });
 
 const SweepstakesDetailPage = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { id } = router.query;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [sweepstake, setSweepstake] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`/api/sweepstakes/${id}`)
       .then((res) => {
@@ -38,6 +39,7 @@ const SweepstakesDetailPage = () => {
         setLoading(false);
       })
       .catch((e) => {
+        setLoading(false);
         console.log(e);
       });
   }, [id]);

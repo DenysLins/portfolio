@@ -16,6 +16,12 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.api-futebol.com.br",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };
