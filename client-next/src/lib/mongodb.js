@@ -1,9 +1,19 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI =
-  process.env.NODE_ENV === 'development'
-    ? 'mongodb://root:example@localhost:27017'
-    : process.env.MONGODB_URI;
+let MONGODB_URI = '';
+let opts = {};
+
+if (process.env.NODE_ENV === 'development') {
+  MONGODB_URI =
+    'mongodb://root:example@localhost:27017/sweepstakes?authSource=admin';
+  opts = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    bufferCommands: false,
+  };
+} else {
+  MONGODB_URI = process.env.MONGODB_URI;
+}
 
 let cached = global.mongoose;
 
@@ -15,13 +25,8 @@ async function dbConnect() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-    };
     cached.promise = mongoose
-      .connect(`${MONGODB_URI}/sweepstakesDb?authSource=admin`, opts)
+      .connect(`${MONGODB_URI}`, opts)
       .then((mongoose) => mongoose);
   }
 
