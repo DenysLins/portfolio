@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 db.createUser({
-  user: "root",
-  pwd: "example",
+  user: 'root',
+  pwd: 'example',
   roles: [
     {
-      role: "readWrite",
-      db: "admin",
+      role: 'readWrite',
+      db: 'admin',
     },
   ],
 });
