@@ -25,7 +25,7 @@ const SpanStyled = styled('span')({
 
 const SweepstakesNav = () => {
   const { data: session } = useSession();
-  const admin = isUserAdmin();
+  const admin = isUserAdmin(session);
   const { t } = useTranslation('sweepstakes');
   const router = useRouter();
 
