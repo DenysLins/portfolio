@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 import SweepstakesMain from '@/components/Sweepstakes/Main';
 import styles from '@/styles/components/sweepstakes.module.scss';
-import SweepstakesAdminNav from '../../../components/Sweepstakes/Nav/Admin';
 import SweepstakesNav from '../../../components/Sweepstakes/Nav/index';
 
 const SweepstakesContainer = styled('div')({
@@ -30,15 +29,6 @@ const SweepstakesMainPage = () => {
     );
   } else {
     if (session) {
-      if (session.user.userRole === 'admin') {
-        return (
-          <SweepstakesContainer>
-            <SweepstakesNav />
-            <SweepstakesAdminNav />
-            <SweepstakesMain />
-          </SweepstakesContainer>
-        );
-      }
       return (
         <SweepstakesContainer>
           <SweepstakesNav />

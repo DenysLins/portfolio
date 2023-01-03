@@ -1,3 +1,4 @@
+import { grey, red } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Roboto } from '@next/font/google';
 import { SessionProvider } from 'next-auth/react';
@@ -11,6 +12,8 @@ import '@/styles/globals.scss';
 const theme = createTheme({
   palette: {
     mode: 'dark',
+    primary: { main: grey[300] },
+    error: { main: red[600] },
   },
 });
 

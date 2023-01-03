@@ -79,7 +79,7 @@ const UserListContainer = styled('div')({
   margin: '0 1rem 1rem 1rem',
 });
 
-const User = styled('div')({
+const UserContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -139,6 +139,7 @@ function SweepstakesAdmin() {
   }, [isNewSweepstakesOpened]);
 
   useEffect(() => {
+    //TODO remove comment
     /*     axios
       .get("/api/sweepstakes/championships")
       .then((res) => {
@@ -256,7 +257,7 @@ function SweepstakesAdmin() {
               </IconButton>
               <IconButton
                 aria-label="delete"
-                color="error"
+                color="primary"
                 size="large"
                 sx={{
                   position: 'absolute',
@@ -270,7 +271,7 @@ function SweepstakesAdmin() {
               </IconButton>
               <CardMedia
                 component="img"
-                sx={{ height: 140 }}
+                sx={{ height: 140, opacity: '0.5' }}
                 image={s.logo}
                 title={s.championship}
               />
@@ -368,7 +369,7 @@ function SweepstakesAdmin() {
           {sweepstake &&
             sweepstake.users.map((u) => {
               return (
-                <User key={u._id}>
+                <UserContainer key={u._id}>
                   <Image
                     alt={u.name}
                     src={u.image}
@@ -403,7 +404,7 @@ function SweepstakesAdmin() {
                       label={t('sweepstake_user_allowed')}
                     />
                   </FormGroup>
-                </User>
+                </UserContainer>
               );
             })}
         </UserListContainer>

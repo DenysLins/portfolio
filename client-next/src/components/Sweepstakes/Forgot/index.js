@@ -118,7 +118,7 @@ const SweepstakesForgot = () => {
           variant="contained"
           fullWidth
           type="submit"
-          color="warning"
+          color="primary"
         >
           {t('send_password')}
         </Button>

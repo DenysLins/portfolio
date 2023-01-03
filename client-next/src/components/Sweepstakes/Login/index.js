@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { signIn } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import * as React from 'react';
+import { useState } from 'react';
 
 import styles from '@/styles/components/sweepstakes.module.scss';
 import { DEFAULT_TIMEOUT } from '@/utils/constants';
@@ -16,9 +16,10 @@ import { loginSweepstakesFrontValidationSchema } from 'src/utils/validations';
 const SweepstakesLogin = () => {
   const { t } = useTranslation('sweepstakes');
   const router = useRouter();
-  const [userUnauthorized, setUserUnauthorized] = React.useState(false);
-  const [userNotFound, setUserNotFound] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [userUnauthorized, setUserUnauthorized] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
+  const [error, setError] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -32,9 +33,9 @@ const SweepstakesLogin = () => {
         password: values.password,
       }).then((res) => {
         if (res.error) {
-          if (res.error.toString().includes('401')) {
+          if (res.error.toString().includes('Invalid password')) {
             handleUserUnauthorized();
-          } else if (res.error.toString().includes('404')) {
+          } else if (res.error.toString().includes('User not found')) {
             handleUserNotFound();
           } else {
             handleErrorAlert();
@@ -147,7 +148,6 @@ const SweepstakesLogin = () => {
             {t('login')}
           </Button>
         </form>
-
         <Button
           className={styles.button}
           variant="outlined"
@@ -158,7 +158,6 @@ const SweepstakesLogin = () => {
         >
           Google
         </Button>
-
         <div className={styles.login}>
           <Link href={'/projects/sweepstakes/auth/logon'}>
             <span className={styles.register}>{t('not_registered')}</span>

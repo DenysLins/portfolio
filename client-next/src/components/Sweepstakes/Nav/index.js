@@ -3,6 +3,8 @@ import { styled } from '@mui/system';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { isUserAdmin } from '../../../utils/auth';
 
 const NavStyled = styled('div')({
   display: 'flex',
@@ -23,7 +25,10 @@ const SpanStyled = styled('span')({
 
 const SweepstakesNav = () => {
   const { data: session } = useSession();
+  const admin = isUserAdmin();
   const { t } = useTranslation('sweepstakes');
+  const router = useRouter();
+
   return (
     <NavStyled>
       <UserInfo>
@@ -40,14 +45,28 @@ const SweepstakesNav = () => {
         />
         <SpanStyled>{session.user.name}</SpanStyled>
       </UserInfo>
-      <Button
-        sx={{ width: 100 }}
-        variant="contained"
-        color="error"
-        onClick={() => signOut()}
-      >
-        {t('logout')}
-      </Button>
+      <div>
+        {admin && (
+          <Button
+            sx={{ width: 100, marginRight: '1rem' }}
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              router.push('/projects/sweepstakes/admin');
+            }}
+          >
+            Admin
+          </Button>
+        )}
+        <Button
+          sx={{ width: 100 }}
+          variant="contained"
+          color="primary"
+          onClick={() => signOut()}
+        >
+          {t('logout')}
+        </Button>
+      </div>
     </NavStyled>
   );
 };

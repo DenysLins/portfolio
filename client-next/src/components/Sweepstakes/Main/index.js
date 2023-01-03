@@ -57,8 +57,6 @@ function SweepstakesMain() {
   const router = useRouter();
   const [sweepstakesList, setSweepstakesList] = useState([]);
 
-  console.log(session);
-
   useEffect(() => {
     axios
       .get('/api/sweepstakes')

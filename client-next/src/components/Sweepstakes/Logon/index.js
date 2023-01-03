@@ -155,7 +155,7 @@ const SweepstakesLogon = () => {
             variant="contained"
             fullWidth
             type="submit"
-            color="success"
+            color="primary"
           >
             {t('register')}
           </Button>

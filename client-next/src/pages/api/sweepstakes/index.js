@@ -1,4 +1,4 @@
-import { default as dbConnect } from '@/lib/mongodb';
+import dbConnect from '@/lib/mongodb';
 import { validate } from '@/utils/middlewares';
 import { unstable_getServerSession } from 'next-auth/next';
 import Sweepstake from '../../../models/sweepstakes/Sweepstake';

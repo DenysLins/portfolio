@@ -1,4 +1,6 @@
-import axios from 'axios';
+import dbConnect from '@/lib/mongodb';
+import User from '@/models/sweepstakes/User';
+import bcrypt from 'bcrypt';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
@@ -11,38 +13,34 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_SECRET,
     }),
     CredentialsProvider({
-      name: 'Credentials',
-      credentials: {
-        email: { label: 'email', type: 'text' },
-        password: { label: 'password', type: 'password' },
-      },
-      async authorize(credentials, req) {
-        const payload = {
-          email: credentials.email,
-          password: credentials.password,
-        };
-        const res = await axios.post(
-          `${req.headers.origin}/api/sweepstakes/login`,
-          payload
-        );
-        const user = await res.data;
-        if (res.status === 200 && user) {
-          console.log(user);
-          return user;
+      async authorize(credentials) {
+        const { email, password } = credentials;
+        await dbConnect();
+        const user = await User.findOne({
+          email,
+        }).exec();
+        if (user) {
+          const isPasswordValid = await bcrypt.compare(password, user.password);
+          if (isPasswordValid) {
+            return user;
+          } else {
+            throw new Error('Invalid password');
+          }
+        } else {
+          throw new Error('User not found');
         }
-        return null;
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt(r) {
-      r.token.userRole = JSON.parse(process.env.ADMIN_EMAILS).includes(
-        r.token.email
+    async jwt({ token }) {
+      token.userRole = JSON.parse(process.env.ADMIN_EMAILS).includes(
+        token.email
       )
         ? 'admin'
         : 'user';
-      return r.token;
+      return token;
     },
     async session({ session, token }) {
       session.user.userRole = token.userRole;

@@ -10,7 +10,6 @@ import Sweepstake from '@/models/sweepstakes/Sweepstake';
 import styles from '@/styles/components/sweepstakes.module.scss';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import SweepstakesAdminNav from '../../../components/Sweepstakes/Nav/Admin';
 import SweepstakesNav from '../../../components/Sweepstakes/Nav/index';
 
 const SweepstakesContainer = styled('div')({
@@ -52,15 +51,6 @@ const SweepstakesDetailPage = () => {
     );
   } else {
     if (session) {
-      if (session.user.userRole === 'admin') {
-        return (
-          <SweepstakesContainer>
-            <SweepstakesNav />
-            <SweepstakesAdminNav />
-            <SweepstakesDetail sweepstake={sweepstake} />
-          </SweepstakesContainer>
-        );
-      }
       return (
         <SweepstakesContainer>
           <SweepstakesNav />

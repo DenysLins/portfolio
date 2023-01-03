@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new Schema(
+const UserInSweepstakeSchema = new Schema(
   {
     name: {
       type: String,
@@ -43,7 +43,7 @@ const SweepstakeSchema = new Schema(
       required: true,
     },
     users: {
-      type: [UserSchema],
+      type: [UserInSweepstakeSchema],
       required: false,
       default: [],
     },
@@ -51,7 +51,5 @@ const SweepstakeSchema = new Schema(
   { versionKey: false }
 );
 
-const model = mongoose.model('Sweepstake', SweepstakeSchema);
-
-export const schema = model.schema;
-export default model;
+export default mongoose.models.Sweepstake ||
+  mongoose.model('Sweepstake', SweepstakeSchema);
