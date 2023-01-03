@@ -29,6 +29,11 @@ const SweepstakesNav = () => {
   const { t } = useTranslation('sweepstakes');
   const router = useRouter();
 
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : '';
+
   return (
     <NavStyled>
       <UserInfo>
@@ -62,7 +67,11 @@ const SweepstakesNav = () => {
           sx={{ width: 100 }}
           variant="contained"
           color="primary"
-          onClick={() => signOut()}
+          onClick={() =>
+            signOut({
+              callbackUrl: `${origin}/projects/sweepstakes/auth/login`,
+            })
+          }
         >
           {t('logout')}
         </Button>

@@ -20,6 +20,11 @@ const SweepstakesLogin = () => {
   const [userNotFound, setUserNotFound] = useState(false);
   const [error, setError] = useState(false);
 
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : '';
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -74,7 +79,7 @@ const SweepstakesLogin = () => {
 
   const handleGoogleSignIn = () => {
     signIn('google', {
-      callbackUrl: 'http://localhost:3000/projects/sweepstakes',
+      callbackUrl: `${origin}/projects/sweepstakes`,
     });
   };
 
