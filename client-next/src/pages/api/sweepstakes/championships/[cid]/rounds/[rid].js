@@ -2,28 +2,53 @@ import { validate } from '@/utils/middlewares';
 import axios from 'axios';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../../auth/[...nextauth]';
+import {
+  mockRodada1,
+  mockRodada2,
+  mockRodada3,
+  mockRodada4,
+} from '../../../temp';
 
 const handler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
+  const MOCKED_DATA = process.env.MOCKED_DATA;
+
   if (session) {
     const { method } = req;
     const { cid, rid } = req.query;
 
     switch (method) {
       case 'GET':
-        try {
-          const response = await axios.get(
-            `${process.env.API_FUTEBOL_URL}/campeonatos/${cid}/rodadas/${rid}`,
-            {
-              headers: {
-                Authorization: `Bearer ${process.env.API_FUTEBOL_TOKEN}`,
-              },
-            }
-          );
-          const round = await response.data;
-          res.json(round);
-        } catch (e) {
-          res.status(500).json(e);
+        if (!MOCKED_DATA) {
+          try {
+            const response = await axios.get(
+              `${process.env.API_FUTEBOL_URL}/campeonatos/${cid}/rodadas/${rid}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${process.env.API_FUTEBOL_TOKEN}`,
+                },
+              }
+            );
+            const round = await response.data;
+            res.json(round);
+          } catch (e) {
+            res.status(500).json(e);
+          }
+        } else {
+          switch (rid) {
+            case '1':
+              res.json(mockRodada1);
+              break;
+            case '2':
+              res.json(mockRodada2);
+              break;
+            case '3':
+              res.json(mockRodada3);
+              break;
+            default:
+              res.json(mockRodada4);
+              break;
+          }
         }
         break;
 

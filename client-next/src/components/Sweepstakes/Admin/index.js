@@ -94,7 +94,6 @@ function SweepstakesAdmin() {
   const [isUserListOpened, setIsUserListOpened] = useState(false);
   const [sweepstakesList, setSweepstakesList] = useState([]);
   const [sweepstake, setSweepstake] = useState(null);
-
   const [championships, setChampionships] = useState([]);
 
   const formik = useFormik({
@@ -138,7 +137,6 @@ function SweepstakesAdmin() {
   }, [isNewSweepstakesOpened]);
 
   useEffect(() => {
-    //TODO remove comment
     axios
       .get('/api/sweepstakes/championships')
       .then((res) => {
@@ -147,7 +145,6 @@ function SweepstakesAdmin() {
       .catch((e) => {
         console.log(e);
       });
-    // setChampionships(mockCampeonatos);
   }, []);
 
   const handleClose = () => {

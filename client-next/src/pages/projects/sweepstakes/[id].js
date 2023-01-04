@@ -43,7 +43,7 @@ const SweepstakesDetailPage = () => {
       });
   }, [id]);
 
-  if (status === 'loading' || loading) {
+  if (status === 'loading' || loading || !sweepstake) {
     return (
       <div className={styles.container}>
         <CircularProgress color="inherit" />

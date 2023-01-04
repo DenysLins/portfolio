@@ -2,25 +2,33 @@ import { validate } from '@/utils/middlewares';
 import axios from 'axios';
 import { unstable_getServerSession } from 'next-auth/next';
 import { authOptions } from '../../auth/[...nextauth]';
+import { mockCampeonatos } from '../temp';
 
 const handler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
+  const MOCKED_DATA = process.env.MOCKED_DATA;
   if (session) {
     const { method } = req;
 
     switch (method) {
       case 'GET':
         try {
-          const response = await axios.get(
-            `${process.env.API_FUTEBOL_URL}/campeonatos`,
-            {
-              headers: {
-                Authorization: `Bearer ${process.env.API_FUTEBOL_TOKEN}`,
-              },
-            }
-          );
-          const championships = await response.data;
-          res.json(championships);
+          if (!MOCKED_DATA) {
+            const response = await axios.get(
+              `${process.env.API_FUTEBOL_URL}/campeonatos`,
+              {
+                headers: {
+                  Authorization: `Bearer ${process.env.API_FUTEBOL_TOKEN}`,
+                },
+              }
+            );
+            const championships = await response.data.filter(
+              (c) => c.status !== 'finalizado'
+            );
+            res.json(championships);
+          } else {
+            res.json(mockCampeonatos.filter((c) => c.status !== 'finalizado'));
+          }
         } catch (e) {
           res.status(500).json(e);
         }

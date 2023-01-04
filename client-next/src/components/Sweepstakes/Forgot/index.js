@@ -25,7 +25,7 @@ const SweepstakesForgot = () => {
     validationSchema: forgotSweepstakesFrontValidationSchema(t),
     onSubmit: (values) => {
       axios
-        .post('/api/sweepstakes/forgot', values)
+        .post('/api/sweepstakes/auth/forgot', values)
         .then(() => {
           handleEmailSentAlert();
         })

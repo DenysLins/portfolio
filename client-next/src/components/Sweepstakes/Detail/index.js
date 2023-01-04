@@ -1,9 +1,3 @@
-import {
-  mockCampeonato,
-  mockRodada1,
-  mockRodada2,
-  mockRodadas,
-} from '@/pages/api/sweepstakes/temp';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -22,6 +16,14 @@ const SweepstakesListHeader = styled('div')({
 
 const SweepstakesListTitle = styled('span')({
   fontSize: '1.5rem',
+});
+
+const SweepstakesTitle = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  '& > h1': {
+    fontSize: '1rem',
+  },
 });
 
 const SweepstakesMatchesContainer = styled('div')({
@@ -60,97 +62,67 @@ const SweepstakesMatchContainer = styled('div')({
 
 function SweepstakesDetail({ sweepstake }) {
   const { t } = useTranslation('sweepstakes');
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(null);
   const [rounds, setRounds] = useState([]);
   const [round, setRound] = useState(null);
   const [championship, setChampionship] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const useMock = false;
-
-  console.log(sweepstake);
-
   useEffect(() => {
     setLoading(true);
-    //TODO remove comment
-    if (!useMock) {
-      axios
-        .get(`/api/sweepstakes/championships/${sweepstake.championshipId}`)
-        .then((res) => {
-          setChampionship(res.data);
-          setValue(res.data.rodada_atual ? res.data.rodada_atual.rodada : 1);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      setChampionship(mockCampeonato);
-      setValue(
-        mockCampeonato.rodada_atual ? mockCampeonato.rodada_atual.rodada : 1
-      );
-    }
+    axios
+      .get(`/api/sweepstakes/championships/${sweepstake.championshipId}`)
+      .then((res) => {
+        setChampionship(res.data);
+        setValue(res.data.rodada_atual ? res.data.rodada_atual.rodada : 1);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    //TODO remove comment
-    if (!useMock) {
-      axios
-        .get(
-          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds`
-        )
-        .then((res) => {
-          setRounds(res.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      setRounds(mockRodadas);
-      //setRound(mockRodada1);
-    }
+    axios
+      .get(`/api/sweepstakes/championships/${sweepstake.championshipId}/rounds`)
+      .then((res) => {
+        setRounds(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    //TODO remove comment
-    if (!useMock) {
-      axios
-        .get(
-          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${value}`
-        )
-        .then((res) => {
-          setRound(res.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      value % 2 == 0 ? setRound(mockRodada1) : setRound(mockRodada2);
-    }
+    axios
+      .get(
+        `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${value}`
+      )
+      .then((res) => {
+        setRound(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setLoading(false);
   }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setLoading(true);
-    //TODO remove comment
-    if (!useMock) {
-      axios
-        .get(
-          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${newValue}`
-        )
-        .then((res) => {
-          setRound(res.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      newValue % 2 == 0 ? setRound(mockRodada1) : setRound(mockRodada2);
-    }
+    axios
+      .get(
+        `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${newValue}`
+      )
+      .then((res) => {
+        setRound(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setLoading(false);
   };
 
@@ -161,7 +133,13 @@ function SweepstakesDetail({ sweepstake }) {
           <SweepstakesListTitle>{t('sweepstakes')}</SweepstakesListTitle>
         </Link>
       </SweepstakesListHeader>
-      <h1 style={{ margin: '0 0 0.5rem 0' }}>{sweepstake?.name}</h1>
+      <SweepstakesTitle>
+        <h1 style={{ margin: '0 0 0.5rem 0' }}>{sweepstake?.name}</h1>
+        <h1 style={{ margin: '0 0.5rem 0 0.5rem' }}> - </h1>
+        <h1 style={{ margin: '0 0 0.5rem 0' }}>
+          {championship?.edicao_atual?.nome_popular}
+        </h1>
+      </SweepstakesTitle>
       <Box sx={{ maxWidth: '100%', bgcolor: 'background.paper' }}>
         <Tabs
           value={value}
@@ -176,8 +154,7 @@ function SweepstakesDetail({ sweepstake }) {
                 key={r.rodada}
                 label={r.nome}
                 value={r.rodada}
-                // TODO remove comment
-                // disabled={r.status === 'encerrada'}
+                disabled={r.status === 'encerrada'}
               />
             );
           })}

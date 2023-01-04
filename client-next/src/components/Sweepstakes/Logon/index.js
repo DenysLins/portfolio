@@ -29,7 +29,7 @@ const SweepstakesLogon = () => {
     validationSchema: logonSweepstakesFrontValidationSchema(t),
     onSubmit: (values) => {
       axios
-        .post('/api/sweepstakes/logon', values)
+        .post('/api/sweepstakes/auth/logon', values)
         .then(() => {
           signIn('credentials', {
             redirect: false,

@@ -21,7 +21,7 @@ export const validate = (handler) => {
 
     if (
       ['POST', 'PUT'].includes(req.method) &&
-      req.url.includes('/api/sweepstakes/login')
+      req.url.includes('/api/sweepstakes/auth/login')
     ) {
       try {
         await loginSweepstakesValidationSchema().validate(req.body);
@@ -32,7 +32,7 @@ export const validate = (handler) => {
 
     if (
       ['POST', 'PUT'].includes(req.method) &&
-      req.url.includes('/api/sweepstakes/logon')
+      req.url.includes('/api/sweepstakes/auth/logon')
     ) {
       try {
         await logonSweepstakesValidationSchema().validate(req.body);
@@ -43,7 +43,7 @@ export const validate = (handler) => {
 
     if (
       ['POST', 'PUT'].includes(req.method) &&
-      req.url.includes('/api/sweepstakes/forgot')
+      req.url.includes('/api/sweepstakes/auth/forgot')
     ) {
       try {
         await forgotSweepstakesValidationSchema().validate(req.body);
