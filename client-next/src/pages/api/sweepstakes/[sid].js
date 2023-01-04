@@ -1,19 +1,20 @@
 import dbConnect from '@/lib/mongodb';
 import Sweepstake from '@/models/sweepstakes/Sweepstake';
+import { validate } from '@/utils/middlewares';
 import { unstable_getServerSession } from 'next-auth/next';
-import { validate } from 'src/utils/middlewares';
 import { authOptions } from '../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const session = await unstable_getServerSession(req, res, authOptions);
   if (session) {
     const { method } = req;
+    const { sid } = req.query;
+
     switch (method) {
       case 'GET':
         try {
-          const { id } = req.query;
           await dbConnect();
-          const s = await Sweepstake.findById(id);
+          const s = await Sweepstake.findById(sid);
           res.json(s);
         } catch (e) {
           res.status(500).json(e);
@@ -21,9 +22,8 @@ const handler = async (req, res) => {
         break;
       case 'DELETE':
         try {
-          const { id } = req.query;
           await dbConnect();
-          await Sweepstake.findByIdAndDelete(id);
+          await Sweepstake.findByIdAndDelete(sid);
           res.status(204).send();
         } catch (e) {
           res.status(500).json(e);

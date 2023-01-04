@@ -1,10 +1,10 @@
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/sweepstakes/User';
+import { validate } from '@/utils/middlewares';
 import bcrypt from 'bcrypt';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { validate } from 'src/utils/middlewares';
 
 export const authOptions = {
   providers: [

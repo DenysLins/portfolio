@@ -1240,7 +1240,7 @@ const mockRodadas = [
     nome: '37ª Rodada',
     slug: '37a-rodada',
     rodada: 37,
-    status: 'encerrada',
+    status: 'agendada',
     proxima_rodada: {
       nome: '38ª Rodada',
       slug: '38a-rodada',
@@ -1259,7 +1259,7 @@ const mockRodadas = [
     nome: '38ª Rodada',
     slug: '38a-rodada',
     rodada: 38,
-    status: 'encerrada',
+    status: 'agendada',
     proxima_rodada: null,
     rodada_anterior: {
       nome: '37ª Rodada',

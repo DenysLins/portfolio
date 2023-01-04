@@ -138,7 +138,7 @@ function SweepstakesMain() {
               </IconButton>
               <CardMedia
                 component="img"
-                sx={{ height: 140 }}
+                sx={{ height: 140, opacity: '0.5' }}
                 image={s.logo}
                 title={s.championship}
               />

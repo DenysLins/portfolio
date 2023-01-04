@@ -1,4 +1,3 @@
-import { mockCampeonatos } from '@/pages/api/sweepstakes/temp';
 import styles from '@/styles/components/sweepstakes.module.scss';
 import { createSweepstakesFrontValidationSchema } from '@/utils/validations';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -140,15 +139,15 @@ function SweepstakesAdmin() {
 
   useEffect(() => {
     //TODO remove comment
-    /*     axios
-      .get("/api/sweepstakes/championships")
+    axios
+      .get('/api/sweepstakes/championships')
       .then((res) => {
         setChampionships(res.data);
       })
       .catch((e) => {
         console.log(e);
-      }); */
-    setChampionships(mockCampeonatos);
+      });
+    // setChampionships(mockCampeonatos);
   }, []);
 
   const handleClose = () => {
@@ -164,7 +163,7 @@ function SweepstakesAdmin() {
   const handleUserList = (event, card) => {
     event.stopPropagation();
     axios
-      .get(`/api/sweepstakes/${card._id}/users`)
+      .get(`/api/sweepstakes/${card._id}`)
       .then((res) => {
         setSweepstake(res.data);
         setIsUserListOpened(true);

@@ -1,6 +1,6 @@
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/sweepstakes/User';
-import { validate } from 'src/utils/middlewares';
+import { validate } from '@/utils/middlewares';
 
 const handler = async (req, res) => {
   try {

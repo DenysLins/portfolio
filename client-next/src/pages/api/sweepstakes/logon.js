@@ -1,7 +1,7 @@
 import dbConnect from '@/lib/mongodb';
 import User from '@/models/sweepstakes/User';
+import { validate } from '@/utils/middlewares';
 import bcrypt from 'bcrypt';
-import { validate } from 'src/utils/middlewares';
 import { v1 as uuidV1 } from 'uuid';
 
 const handler = async (req, res) => {

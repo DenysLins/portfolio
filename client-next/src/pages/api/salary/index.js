@@ -1,5 +1,5 @@
+import { validate } from '@/utils/middlewares';
 import axios from 'axios';
-import { validate } from 'src/utils/middlewares';
 
 const FREE_CURRENCY_API_URL = process.env.FREE_CURRENCY_API_URL;
 

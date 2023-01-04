@@ -1,12 +1,14 @@
 import {
   mockCampeonato,
   mockRodada1,
+  mockRodada2,
   mockRodadas,
 } from '@/pages/api/sweepstakes/temp';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { styled } from '@mui/system';
+import axios from 'axios';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -64,50 +66,91 @@ function SweepstakesDetail({ sweepstake }) {
   const [championship, setChampionship] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const useMock = false;
+
+  console.log(sweepstake);
+
   useEffect(() => {
     setLoading(true);
-    /*     axios
-      .get(`/api/sweepstakes/championships/${sweepstake.championshipId}`)
-      .then((res) => {
-        setRounds(rounds);
-      })
-      .catch((e) => {
-        console.log(e);
-      }); */
-    setChampionship(mockCampeonato);
-    setValue(
-      mockCampeonato.rodada_atual ? mockCampeonato.rodada_atual.rodada : 1
-    );
+    //TODO remove comment
+    if (!useMock) {
+      axios
+        .get(`/api/sweepstakes/championships/${sweepstake.championshipId}`)
+        .then((res) => {
+          setChampionship(res.data);
+          setValue(res.data.rodada_atual ? res.data.rodada_atual.rodada : 1);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      setChampionship(mockCampeonato);
+      setValue(
+        mockCampeonato.rodada_atual ? mockCampeonato.rodada_atual.rodada : 1
+      );
+    }
     setLoading(false);
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    /*     axios
-      .get("/api/sweepstakes/championships/rounds")
-      .then((res) => {
-        setRounds(rounds);
-      })
-      .catch((e) => {
-        console.log(e);
-      }); */
-    setRounds(mockRodadas);
-    setRound(mockRodada1);
+    //TODO remove comment
+    if (!useMock) {
+      axios
+        .get(
+          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds`
+        )
+        .then((res) => {
+          setRounds(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      setRounds(mockRodadas);
+      //setRound(mockRodada1);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    //TODO remove comment
+    if (!useMock) {
+      axios
+        .get(
+          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${value}`
+        )
+        .then((res) => {
+          setRound(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      value % 2 == 0 ? setRound(mockRodada1) : setRound(mockRodada2);
+    }
     setLoading(false);
   }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setLoading(true);
-    /*     axios
-      .get("/api/sweepstakes/championships/rounds/newValue")
-      .then((res) => {
-        setRounds(rounds);
-      })
-      .catch((e) => {
-        console.log(e);
-      }); */
-    setRound(mockRodada1);
+    //TODO remove comment
+    if (!useMock) {
+      axios
+        .get(
+          `/api/sweepstakes/championships/${sweepstake.championshipId}/rounds/${newValue}`
+        )
+        .then((res) => {
+          setRound(res.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      newValue % 2 == 0 ? setRound(mockRodada1) : setRound(mockRodada2);
+    }
     setLoading(false);
   };
 
@@ -128,7 +171,15 @@ function SweepstakesDetail({ sweepstake }) {
           aria-label="scrollable rounds"
         >
           {rounds.map((r) => {
-            return <Tab key={r.rodada} label={r.nome} value={r.rodada} />;
+            return (
+              <Tab
+                key={r.rodada}
+                label={r.nome}
+                value={r.rodada}
+                // TODO remove comment
+                // disabled={r.status === 'encerrada'}
+              />
+            );
           })}
         </Tabs>
       </Box>
@@ -140,10 +191,16 @@ function SweepstakesDetail({ sweepstake }) {
                 <Image
                   src={p.time_mandante.escudo}
                   alt={p.time_mandante.nome_popular}
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                 />
-                <span style={{ justifySelf: 'start', marginLeft: '0.75rem' }}>
+                <span
+                  style={{
+                    justifySelf: 'start',
+                    marginLeft: '0.75rem',
+                    fontSize: '0.75rem',
+                  }}
+                >
                   {p.time_mandante.nome_popular}
                 </span>
                 <div>
@@ -155,14 +212,20 @@ function SweepstakesDetail({ sweepstake }) {
                   <div style={{ color: 'gray' }}>{p.placar_mandante}</div>
                   <div>{p.placar_mandante}</div>
                 </div>
-                <span style={{ justifySelf: 'end', marginRight: '0.75rem' }}>
+                <span
+                  style={{
+                    justifySelf: 'end',
+                    marginRight: '0.75rem',
+                    fontSize: '0.75rem',
+                  }}
+                >
                   {p.time_visitante.nome_popular}
                 </span>
                 <Image
                   src={p.time_visitante.escudo}
                   alt={p.time_visitante.nome_popular}
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                 />
               </SweepstakesMatchContainer>
             );
