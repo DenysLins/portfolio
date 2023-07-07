@@ -1,11 +1,11 @@
 import { validate } from '@/utils/middlewares';
 import axios from 'axios';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../../auth/[...nextauth]';
 import { mockRodadas } from '../../../temp';
 
 const handler = async (req, res) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   const MOCKED_DATA = process.env.MOCKED_DATA;
 
   if (session) {

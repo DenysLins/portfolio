@@ -1,11 +1,11 @@
 import dbConnect from '@/lib/mongodb';
 import Sweepstake from '@/models/sweepstakes/Sweepstake';
 import { validate } from '@/utils/middlewares';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]';
 
 const handler = async (req, res) => {
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
   if (session) {
     const { method } = req;
     const { sid } = req.query;
