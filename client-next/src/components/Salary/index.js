@@ -208,7 +208,10 @@ const Salary = () => {
           {t('submit')}
         </Button>
         <div className={styles.captcha}>
-          <Turnstile siteKey="0x4AAAAAAAHmcY6PvL0E4fuM" onSuccess={setToken} />
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={setToken}
+          />
         </div>
       </form>
       <div className={styles.result}>
