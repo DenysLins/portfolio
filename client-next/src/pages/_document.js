@@ -7,6 +7,11 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="shortcut icon" href="favicon.png" type="image/png" />
+          <script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+            async
+            defer
+          ></script>
         </Head>
         <body>
           <Main />

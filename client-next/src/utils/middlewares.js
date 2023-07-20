@@ -1,4 +1,5 @@
 import {
+  captchaValidationSchema,
   createSweepstakesValidationSchema,
   forgotSweepstakesValidationSchema,
   loginSweepstakesValidationSchema,
@@ -8,6 +9,17 @@ import {
 
 export const validate = (handler) => {
   return async (req, res) => {
+    if (
+      ['POST'].includes(req.method) &&
+      req.url.includes('/api/salary/captcha')
+    ) {
+      try {
+        await captchaValidationSchema().validate(req.body);
+      } catch (error) {
+        return res.status(400).json(error);
+      }
+    }
+
     if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url.includes('/api/salary')

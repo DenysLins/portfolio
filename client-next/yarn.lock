@@ -856,6 +856,11 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
+"@marsidev/react-turnstile@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@marsidev/react-turnstile/-/react-turnstile-0.2.2.tgz#d8d4b6e3bd2492a9f41652752d061f9a95c8966a"
+  integrity sha512-+cxunPa8a61Uv68k2buLtoIZ2WoZYlpcg7WVLIAetlAAptDbP8DdZduXKr12KluCuKB8ulJMxloxmrqHezyHnA==
+
 "@mui/base@5.0.0-beta.6":
   version "5.0.0-beta.6"
   resolved "https://registry.yarnpkg.com/@mui/base/-/base-5.0.0-beta.6.tgz#c4537231619f4642ebda714c2cfd0e598aa9f511"

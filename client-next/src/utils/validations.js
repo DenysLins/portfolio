@@ -3,6 +3,12 @@ import { currencies } from './constants';
 
 const currenciesList = currencies.map((c) => c.value);
 
+export const captchaValidationSchema = (t) => {
+  return yup.object({
+    token: yup.string().required(t('turnstile_token')),
+  });
+};
+
 export const salaryFrontValidationSchema = (t) => {
   return yup.object({
     totalTime: yup

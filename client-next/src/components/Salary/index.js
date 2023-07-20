@@ -1,3 +1,4 @@
+import { Turnstile } from '@marsidev/react-turnstile';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Skeleton from '@mui/material/Skeleton';
@@ -19,9 +20,24 @@ const Salary = () => {
   const [totalSalaryInOriginalCurrency, setTotalSalaryInOriginalCurrency] =
     React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [isValidCaptcha, setIsValidCaptcha] = React.useState(false);
+  const [token, setToken] = React.useState('');
   const [previousValue, setPreviousValue] = React.useState(-1);
   const [timeMask, setTimeMask] = React.useState('99:99:99');
   const valueMask = i18n.language === 'en' ? '99.99' : '99,99';
+
+  React.useEffect(() => {
+    axios
+      .post('/api/salary/captcha', { token })
+      .then((res) => {
+        console.log(res);
+        setIsValidCaptcha(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsValidCaptcha(false);
+      });
+  }, [token]);
 
   const formik = useFormik({
     initialValues: {
@@ -187,9 +203,13 @@ const Salary = () => {
           variant="contained"
           fullWidth
           type="submit"
+          disabled={!isValidCaptcha}
         >
           {t('submit')}
         </Button>
+        <div className={styles.captcha}>
+          <Turnstile siteKey="0x4AAAAAAAHmcY6PvL0E4fuM" onSuccess={setToken} />
+        </div>
       </form>
       <div className={styles.result}>
         {totalSalaryInFinalCurrency ? (

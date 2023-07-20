@@ -12,5 +12,6 @@
   "submit": "Enviar",
   "time_validation": "Tempo total deve ser no formato hh:mm:ss ou hhh:mm:ss",
   "value_validation": "Valor por hora deve ser no formato 99,99 ou 999,99",
-  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[,][0-9]{1,2}$))"
+  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[,][0-9]{1,2}$))",
+  "turnstile_token": "Turnstile token é necessário"
 }
