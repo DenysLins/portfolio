@@ -25,6 +25,8 @@ const Salary = () => {
   const [previousValue, setPreviousValue] = React.useState(-1);
   const [timeMask, setTimeMask] = React.useState('99:99:99');
   const valueMask = i18n.language === 'en' ? '99.99' : '99,99';
+  const NEXT_PUBLIC_TURNSTILE_SITE_KEY =
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   React.useEffect(() => {
     axios
@@ -208,7 +210,10 @@ const Salary = () => {
           {t('submit')}
         </Button>
         <div className={styles.captcha}>
-          <Turnstile siteKey="0x4AAAAAAAHmcY6PvL0E4fuM" onSuccess={setToken} />
+          <Turnstile
+            siteKey={NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={setToken}
+          />
         </div>
       </form>
       <div className={styles.result}>
