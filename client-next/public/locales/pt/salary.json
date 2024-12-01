@@ -28,5 +28,6 @@
   "diff_currency": "Moeda original e final devem ser diferentes",
   "submit": "Enviar",
   "value_validation": "Valor por hora deve ser no formato 99,99 ou 999,99",
-  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[,][0-9]{1,2}$))"
+  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[,][0-9]{1,2}$))",
+  "too_many_requests": "Muitas requisições. Tente novamente mais tarde."
 }

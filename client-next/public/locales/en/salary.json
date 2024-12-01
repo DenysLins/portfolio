@@ -28,5 +28,6 @@
   "diff_currency": "Original and final currency must be different",
   "submit": "Submit",
   "value_validation": "Value must be in the format 99.99 or 999.99",
-  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[.][0-9]{1,2}$))"
+  "regex": "^(([0-9]{1,3}$)|([0-9]{1,3}[.][0-9]{1,2}$))",
+  "too_many_requests": "Too many requests. Try again later."
 }
