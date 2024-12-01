@@ -30,9 +30,6 @@ const Projects = () => {
         <li>
           <Link href={'/projects/salary'}>1. {t('1')}</Link>
         </li>
-        <li>
-          <Link href={'/projects/sweepstakes'}>2. {t('2')}</Link>
-        </li>
       </ul>
     </ProjectsContainer>
   );

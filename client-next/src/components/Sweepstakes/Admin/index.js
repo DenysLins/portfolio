@@ -120,7 +120,7 @@ function SweepstakesAdmin() {
           formik.setTouched({ name: false, championship: false });
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
         });
     },
   });
@@ -132,7 +132,7 @@ function SweepstakesAdmin() {
         setSweepstakesList(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   }, [isNewSweepstakesOpened]);
 
@@ -143,7 +143,7 @@ function SweepstakesAdmin() {
         setChampionships(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   }, []);
 
@@ -166,7 +166,7 @@ function SweepstakesAdmin() {
         setIsUserListOpened(true);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -186,11 +186,11 @@ function SweepstakesAdmin() {
             setSweepstakesList(res.data);
           })
           .catch((e) => {
-            console.log(e);
+            console.error(e);
           });
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
@@ -204,7 +204,7 @@ function SweepstakesAdmin() {
         setSweepstake(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 

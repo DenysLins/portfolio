@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     await User.create(user);
     res.status(201).send();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     if (e?.code === 11000) {
       res.status(409).send();
     } else {

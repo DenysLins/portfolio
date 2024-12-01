@@ -11,11 +11,19 @@
 }
 
 @media only screen and (min-width: 900px) {
-  .text-field {
+  .values,
+  .currencies {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .values > .text-field {
+    width: 24%;
+  }
+
+  .currencies > .text-field {
     width: 49%;
-    &:first-child {
-      margin-right: 2%;
-    }
   }
 
   .form {

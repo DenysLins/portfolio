@@ -77,7 +77,7 @@ function SweepstakesDetail({ sweepstake }) {
         setValue(res.data.rodada_atual ? res.data.rodada_atual.rodada : 1);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
     setLoading(false);
   }, []);
@@ -90,7 +90,7 @@ function SweepstakesDetail({ sweepstake }) {
         setRounds(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
     setLoading(false);
   }, []);
@@ -105,7 +105,7 @@ function SweepstakesDetail({ sweepstake }) {
         setRound(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
     setLoading(false);
   }, []);
@@ -121,7 +121,7 @@ function SweepstakesDetail({ sweepstake }) {
         setRound(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
     setLoading(false);
   };

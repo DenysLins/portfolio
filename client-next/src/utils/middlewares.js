@@ -18,9 +18,7 @@ export const validate = (handler) => {
       } catch (error) {
         return res.status(400).json(error);
       }
-    }
-
-    if (
+    } else if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url.includes('/api/salary')
     ) {
@@ -29,9 +27,7 @@ export const validate = (handler) => {
       } catch (error) {
         return res.status(400).json(error);
       }
-    }
-
-    if (
+    } else if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url.includes('/api/sweepstakes/auth/login')
     ) {
@@ -40,9 +36,7 @@ export const validate = (handler) => {
       } catch (error) {
         return res.status(400).json(error);
       }
-    }
-
-    if (
+    } else if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url.includes('/api/sweepstakes/auth/logon')
     ) {
@@ -51,9 +45,7 @@ export const validate = (handler) => {
       } catch (error) {
         return res.status(400).json(error);
       }
-    }
-
-    if (
+    } else if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url.includes('/api/sweepstakes/auth/forgot')
     ) {
@@ -62,9 +54,7 @@ export const validate = (handler) => {
       } catch (error) {
         return res.status(400).json(error);
       }
-    }
-
-    if (
+    } else if (
       ['POST', 'PUT'].includes(req.method) &&
       req.url === '/api/sweepstakes'
     ) {

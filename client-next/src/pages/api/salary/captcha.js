@@ -4,7 +4,6 @@ import axios from 'axios';
 const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
 const handler = async (req, res) => {
-  console.log(req);
   if (req.method === 'POST') {
     const { token } = req.body;
     const captchaApiUrl =
@@ -19,12 +18,11 @@ const handler = async (req, res) => {
         headers: "content-type': 'application/x-www-form-currencyApiUrlencoded",
       })
       .then(({ data }) => {
-        console.log(data);
         res.status(200).json(data);
       })
       .catch(({ err }) => {
-        console.log(err);
-        res.status(400).json({ err });
+        console.error(err);
+        res.status(500).json({ err });
       });
   }
 };

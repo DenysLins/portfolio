@@ -39,7 +39,7 @@ const SweepstakesDetailPage = () => {
       })
       .catch((e) => {
         setLoading(false);
-        console.log(e);
+        console.error(e);
       });
   }, [id]);
 

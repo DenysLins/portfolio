@@ -3,18 +3,33 @@ import { currencies } from './constants';
 
 const currenciesList = currencies.map((c) => c.value);
 
-export const captchaValidationSchema = (t) => {
+export const captchaValidationSchema = () => {
   return yup.object({
-    token: yup.string().required(t('turnstile_token')),
+    token: yup.string().required('Token is required'),
   });
 };
 
 export const salaryFrontValidationSchema = (t) => {
   return yup.object({
-    totalTime: yup
-      .string()
-      .required(t('total_time'))
-      .matches(/^(([0-9]{1,3}:[0-9]{2}:[0-9]{2}$))/, t('time_validation')),
+    hours: yup
+      .number()
+      .integer(t('hours_integer'))
+      .required(t('hours_required'))
+      .positive(t('hours_positive'))
+      .min(1, t('hours_min'))
+      .max(999, t('hours_max')),
+    minutes: yup
+      .number()
+      .integer(t('minutes_integer'))
+      .positive(t('minutes_positive'))
+      .min(0, t('minutes_min'))
+      .max(59, t('minutes_max')),
+    seconds: yup
+      .number()
+      .integer(t('seconds_integer'))
+      .positive(t('seconds_positive'))
+      .min(0, t('seconds_min'))
+      .max(59, t('seconds_max')),
     valuePerHour: yup
       .string()
       .required(t('value_per_hour'))
@@ -29,13 +44,25 @@ export const salaryFrontValidationSchema = (t) => {
 
 export const salaryBackValidationSchema = () => {
   return yup.object({
-    totalTime: yup
-      .string()
-      .required('Total time is required')
-      .matches(
-        /^(([0-9]{1,3}:[0-9]{2}:[0-9]{2}$))/,
-        'Time must be in the format hh:mm:ss or hhh:mn:ss'
-      ),
+    hours: yup
+      .number()
+      .integer('Hours must be an integer')
+      .required('Hours is required')
+      .positive('Hours must be positive')
+      .min(1, 'Hours must be at least 1')
+      .max(999, 'Hours must be at most 999'),
+    minutes: yup
+      .number()
+      .integer('Minutes must be an integer')
+      .positive('Minutes must be positive')
+      .min(0, 'Minutes must be at least 0')
+      .max(59, 'Minutes must be at most 59'),
+    seconds: yup
+      .number()
+      .integer('Seconds must be an integer')
+      .positive('Seconds must be positive')
+      .min(0, 'Seconds must be at least 0')
+      .max(59, 'Seconds must be at most 59'),
     valuePerHour: yup
       .string()
       .required('Value per hour is required')

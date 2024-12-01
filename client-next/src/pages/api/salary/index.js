@@ -1,26 +1,25 @@
-import { validate } from '@/utils/middlewares';
+import { validate, rateLimitMiddleware } from '@/utils/middlewares';
 import axios from 'axios';
 
 const FREE_CURRENCY_API_URL = process.env.FREE_CURRENCY_API_URL;
 
 const handler = async (req, res) => {
   if (req.method === 'POST') {
-    const { totalTime, valuePerHour, originalCurrency, finalCurrency } =
-      req.body;
+    const {
+      hours,
+      minutes,
+      seconds,
+      valuePerHour,
+      originalCurrency,
+      finalCurrency,
+    } = req.body;
     const url = `${FREE_CURRENCY_API_URL}/latest?apikey=${process.env.FREE_CURRENCY_API_KEY}&currencies=${finalCurrency}&base_currency=${originalCurrency}`;
     await axios
       .get(url)
       .then(({ data }) => {
         const valueInFinalCurrency =
           valuePerHour * data.data[`${finalCurrency}`];
-        const totalTimeInSeconds =
-          totalTime.split(':').length === 3
-            ? totalTime.split(':').reduce((acc, item) => {
-                return acc * 60 + Number(item);
-              }, 0)
-            : totalTime.split(':').reduce((acc, item) => {
-                return acc * 3600 + Number(item);
-              }, 0);
+        const totalTimeInSeconds = hours * 3600 + minutes * 60 + seconds;
         let totalValueInFinalCurrency =
           (valueInFinalCurrency * totalTimeInSeconds) / 3600;
         totalValueInFinalCurrency = Number(
@@ -41,4 +40,4 @@ const handler = async (req, res) => {
   }
 };
 
-export default validate(handler);
+export default validate(rateLimitMiddleware(handler));

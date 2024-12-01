@@ -22,26 +22,27 @@ const Salary = () => {
   const [loading, setLoading] = React.useState(false);
   const [isValidCaptcha, setIsValidCaptcha] = React.useState(false);
   const [token, setToken] = React.useState('');
-  const [previousValue, setPreviousValue] = React.useState(-1);
-  const [timeMask, setTimeMask] = React.useState('99:99:99');
   const valueMask = i18n.language === 'en' ? '99.99' : '99,99';
 
   React.useEffect(() => {
-    axios
-      .post('/api/salary/captcha', { token })
-      .then((res) => {
-        console.log(res);
-        setIsValidCaptcha(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsValidCaptcha(false);
-      });
+    if (token) {
+      axios
+        .post('/api/salary/captcha', { token })
+        .then((res) => {
+          setIsValidCaptcha(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsValidCaptcha(false);
+        });
+    }
   }, [token]);
 
   const formik = useFormik({
     initialValues: {
-      totalTime: '',
+      hours: '',
+      minutes: '',
+      seconds: '',
       valuePerHour: '',
       originalCurrency: 'USD',
       finalCurrency: 'BRL',
@@ -50,82 +51,83 @@ const Salary = () => {
     onSubmit: (values) => {
       const newValues = {
         ...values,
-        valuePerHour: values.valuePerHour.replace(',', '.'),
+        hours: values.hours ? Number(values.hours) : 0,
+        minutes: values.minutes ? Number(values.minutes) : 0,
+        seconds: values.seconds ? Number(values.seconds) : 0,
+        valuePerHour: Number(values.valuePerHour.replace(',', '.')),
       };
       setLoading(true);
-      axios.post('/api/salary', newValues).then((res) => {
-        const totalFinalCurrency =
-          i18n.language === 'pt'
-            ? Intl.NumberFormat('pt-BR').format(
-                res.data.totalValueInFinalCurrency
-              )
-            : Intl.NumberFormat('en-US').format(
-                res.data.totalValueInFinalCurrency
-              );
-        setLoading(false);
-        setTotalSalaryInFinalCurrency(totalFinalCurrency);
+      axios
+        .post('/api/salary', newValues)
+        .then((res) => {
+          const totalFinalCurrency =
+            i18n.language === 'pt'
+              ? Intl.NumberFormat('pt-BR').format(
+                  res.data.totalValueInFinalCurrency
+                )
+              : Intl.NumberFormat('en-US').format(
+                  res.data.totalValueInFinalCurrency
+                );
+          setLoading(false);
+          setTotalSalaryInFinalCurrency(totalFinalCurrency);
 
-        const totalOriginalCurrency =
-          i18n.language === 'pt'
-            ? Intl.NumberFormat('en-US').format(
-                res.data.totalValueInOriginalCurrency
-              )
-            : Intl.NumberFormat('pt-BR').format(
-                res.data.totalValueInOriginalCurrency
-              );
-        setTotalSalaryInOriginalCurrency(totalOriginalCurrency);
-      });
+          const totalOriginalCurrency =
+            i18n.language === 'pt'
+              ? Intl.NumberFormat('en-US').format(
+                  res.data.totalValueInOriginalCurrency
+                )
+              : Intl.NumberFormat('pt-BR').format(
+                  res.data.totalValueInOriginalCurrency
+                );
+          setTotalSalaryInOriginalCurrency(totalOriginalCurrency);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     },
   });
 
-  const handleOnChange = (e) => {
-    const regex = /[_]/g;
-    const target = e.target;
-    const value = target.value;
-    let numberOfUnderline = value.match(regex) ? value.match(regex)?.length : 0;
-
-    if (
-      target.id === 'totalTime' &&
-      numberOfUnderline === 0 &&
-      previousValue === numberOfUnderline
-    ) {
-      setTimeMask('999:99:99');
-    }
-    if (
-      target.id === 'totalTime' &&
-      numberOfUnderline === 1 &&
-      value.length === 9
-    ) {
-      setTimeMask('99:99:99');
-    }
-
-    setPreviousValue(numberOfUnderline);
-  };
-
   return (
     <div className={styles.form}>
-      <form onSubmit={formik.handleSubmit} onChange={handleOnChange}>
-        <div>
-          <InputMask
-            mask={timeMask}
-            value={formik.values.totalTime}
+      <form onSubmit={formik.handleSubmit}>
+        <div className={styles.values}>
+          <TextField
+            className={styles['text-field']}
+            margin="dense"
+            id="hours"
+            name="hours"
+            label={t('hours')}
+            placeholder="1 - 999"
+            value={formik.values.hours}
             onChange={formik.handleChange}
-          >
-            {() => (
-              <TextField
-                className={styles['text-field']}
-                margin="dense"
-                id="totalTime"
-                name="totalTime"
-                label={t('time')}
-                placeholder="hh:mm:ss - hhh:mm:ss"
-                error={
-                  formik.touched.totalTime && Boolean(formik.errors.totalTime)
-                }
-                helperText={formik.touched.totalTime && formik.errors.totalTime}
-              />
-            )}
-          </InputMask>
+            error={formik.touched.hours && Boolean(formik.errors.hours)}
+            helperText={formik.touched.hours && formik.errors.hours}
+          />
+          <TextField
+            className={styles['text-field']}
+            margin="dense"
+            id="minutes"
+            name="minutes"
+            label={t('minutes')}
+            placeholder="0 - 59"
+            value={formik.values.minutes}
+            onChange={formik.handleChange}
+            error={formik.touched.minutes && Boolean(formik.errors.minutes)}
+            helperText={formik.touched.minutes && formik.errors.minutes}
+          />
+          <TextField
+            className={styles['text-field']}
+            margin="dense"
+            id="seconds"
+            name="seconds"
+            label={t('seconds')}
+            placeholder="0 - 59"
+            value={formik.values.seconds}
+            onChange={formik.handleChange}
+            error={formik.touched.seconds && Boolean(formik.errors.seconds)}
+            helperText={formik.touched.seconds && formik.errors.seconds}
+          />
           <InputMask
             mask={valueMask}
             value={formik.values.valuePerHour}
@@ -150,7 +152,7 @@ const Salary = () => {
             )}
           </InputMask>
         </div>
-        <div>
+        <div className={styles.currencies}>
           <TextField
             className={styles['text-field']}
             select
@@ -207,12 +209,6 @@ const Salary = () => {
         >
           {t('submit')}
         </Button>
-        <div className={styles.captcha}>
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
-            onSuccess={setToken}
-          />
-        </div>
       </form>
       <div className={styles.result}>
         {totalSalaryInFinalCurrency ? (
@@ -232,6 +228,12 @@ const Salary = () => {
             </Skeleton>
           )
         )}
+      </div>
+      <div className={styles.captcha}>
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+          onSuccess={setToken}
+        />
       </div>
     </div>
   );

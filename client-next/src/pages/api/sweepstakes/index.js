@@ -32,7 +32,7 @@ const handler = async (req, res) => {
           });
           res.status(201).json(c);
         } catch (e) {
-          console.log(e);
+          console.error(e);
           res.status(500).json(e);
         }
         break;

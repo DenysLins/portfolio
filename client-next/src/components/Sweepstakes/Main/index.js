@@ -64,7 +64,7 @@ function SweepstakesMain() {
         setSweepstakesList(res.data);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   }, []);
 
@@ -94,11 +94,11 @@ function SweepstakesMain() {
             setSweepstakesList(res.data);
           })
           .catch((e) => {
-            console.log(e);
+            console.error(e);
           });
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
   };
 
