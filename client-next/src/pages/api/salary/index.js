@@ -1,4 +1,4 @@
-import { validate, rateLimitMiddleware } from '@/utils/middlewares';
+import { validate } from '@/utils/middlewares';
 import axios from 'axios';
 
 const FREE_CURRENCY_API_URL = process.env.FREE_CURRENCY_API_URL;
@@ -40,4 +40,4 @@ const handler = async (req, res) => {
   }
 };
 
-export default validate(rateLimitMiddleware(handler));
+export default validate(handler);
