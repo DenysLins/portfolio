@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+.form {
+  margin: 1rem;
+}
+
+.alert {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.textfield {
+  width: 100%;
+}
+
+.button {
+  margin-top: 1rem;
+}
+
+.login {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.register,
+.forgot {
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 900px) {
+  .textfield {
+    width: 49%;
+    &:first-child {
+      margin-right: 2%;
+    }
+  }
+
+  .form {
+    width: 60%;
+  }
+}
