@@ -12,20 +12,23 @@ export const captchaValidationSchema = () => {
 export const salaryFrontValidationSchema = (t) => {
   return yup.object({
     hours: yup
-      .number()
+      .number(t('hours_number'))
+      .typeError(t('hours_number'))
       .integer(t('hours_integer'))
       .required(t('hours_required'))
       .positive(t('hours_positive'))
       .min(1, t('hours_min'))
       .max(999, t('hours_max')),
     minutes: yup
-      .number()
+      .number(t('minutes_number'))
+      .typeError(t('minutes_number'))
       .integer(t('minutes_integer'))
       .positive(t('minutes_positive'))
       .min(0, t('minutes_min'))
       .max(59, t('minutes_max')),
     seconds: yup
-      .number()
+      .number(t('seconds_number'))
+      .typeError(t('seconds_number'))
       .integer(t('seconds_integer'))
       .positive(t('seconds_positive'))
       .min(0, t('seconds_min'))

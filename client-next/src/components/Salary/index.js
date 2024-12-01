@@ -14,6 +14,7 @@ import { currencies } from 'src/utils/constants';
 import { salaryFrontValidationSchema } from 'src/utils/validations';
 
 const Salary = () => {
+  const ref = React.useRef()
   const { t, i18n } = useTranslation('salary');
   const [totalSalaryInFinalCurrency, setTotalSalaryInFinalCurrency] =
     React.useState('');
@@ -80,6 +81,7 @@ const Salary = () => {
                   res.data.totalValueInOriginalCurrency
                 );
           setTotalSalaryInOriginalCurrency(totalOriginalCurrency);
+          ref.current?.reset()
         })
         .catch((err) => {
           console.error(err);
@@ -231,6 +233,7 @@ const Salary = () => {
       </div>
       <div className={styles.captcha}>
         <Turnstile
+          ref={ref}
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           onSuccess={setToken}
         />
