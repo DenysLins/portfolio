@@ -14,7 +14,7 @@ import { currencies } from 'src/utils/constants';
 import { salaryFrontValidationSchema } from 'src/utils/validations';
 
 const Salary = () => {
-  const ref = React.useRef()
+  const ref = React.useRef();
   const { t, i18n } = useTranslation('salary');
   const [totalSalaryInFinalCurrency, setTotalSalaryInFinalCurrency] =
     React.useState('');
@@ -81,7 +81,7 @@ const Salary = () => {
                   res.data.totalValueInOriginalCurrency
                 );
           setTotalSalaryInOriginalCurrency(totalOriginalCurrency);
-          ref.current?.reset()
+          ref.current?.reset();
         })
         .catch((err) => {
           console.error(err);
