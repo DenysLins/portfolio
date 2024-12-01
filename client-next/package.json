@@ -17,6 +17,8 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.8",
     "@next-auth/mongodb-adapter": "^1.1.1",
+    "@upstash/ratelimit": "^2.0.4",
+    "@vercel/kv": "^3.0.0",
     "axios": "1.7.4",
     "bcrypt": "^5.1.0",
     "formik": "^2.2.9",

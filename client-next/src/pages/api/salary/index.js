@@ -1,10 +1,29 @@
-import { validate } from '@/utils/middlewares';
+import { Ratelimit } from '@upstash/ratelimit';
+import { kv } from '@vercel/kv';
 import axios from 'axios';
+
+import { validate } from '@/utils/middlewares';
 
 const FREE_CURRENCY_API_URL = process.env.FREE_CURRENCY_API_URL;
 
+const rateLimit = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(5, '1m'),
+});
+
 const handler = async (req, res) => {
-  if (req.method === 'POST') {
+  const ip = req.headers['x-forwarded-for'];
+  const { success } = await rateLimit.limit(`ratelimit_${ip}`);
+  if (!success) {
+    res.status(429).json(
+      {
+        message: 'Too many requests, please try again later.',
+      },
+      {
+        status: 429,
+      }
+    );
+  } else if (req.method === 'POST') {
     const {
       hours,
       minutes,
