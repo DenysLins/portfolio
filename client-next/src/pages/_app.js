@@ -32,6 +32,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       `}</style>
       <Head>
         <title>Denys Lins - Software Engineer | Developer </title>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3001826346569100"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <SessionProvider session={session}>
         <ThemeProvider theme={theme}>
